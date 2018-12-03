@@ -6,15 +6,16 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 15:35:31 by efischer         ###   ########.fr       */
+/*   Updated: 2018/12/03 18:39:09 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIBFT_H
-# define FT_LIBFT_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
 # include <stdlib.h>
 # include <unistd.h>
+
 # define BUFF_SIZE 32
 # define FILEL ((t_file *)(list->content))
 # define T_FILEL ((t_file *)(tmp->content))
@@ -25,12 +26,14 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
 typedef struct		s_file
 {
 	char			*rest;
 	char			*cur;
 	int				fd;
 }					t_file;
+
 int					ft_atoi(const char	*str);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
@@ -113,5 +116,6 @@ int					ft_strncasecmp(const char *s1, const char *s2, size_t n);
 char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
+void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
 
 #endif
