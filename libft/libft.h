@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 11:40:22 by efischer         ###   ########.fr       */
+/*   Updated: 2018/12/03 15:13:33 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ int					ft_strcasecmp(const char *s1, const char *s2);
 int					ft_strncasecmp(const char *s1, const char *s2, size_t n);
 char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
-int					get_next_line(const int fd, char **line);
+int					gnl(const int fd, char **line);
 
 #endif
