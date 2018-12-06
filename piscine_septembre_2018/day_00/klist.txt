@@ -1,0 +1,5 @@
+Credentials cache: API:9F632161-3E57-4908-BF2F-3ADE27C1D9F7
+        Principal: efischer@42.FR
+
+  Issued                Expires               Principal
+Aug 29 15:43:24 2018  Sep  5 15:43:24 2018  krbtgt/42.FR@42.FR

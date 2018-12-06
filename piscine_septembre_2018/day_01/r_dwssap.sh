@@ -1,0 +1,1 @@
+cat /etc/passwd | grep -vw \# | sed -n "n;p" | cut -d : -f 1 | rev | sort -r | sed -n "$FT_LINE1 , $FT_LINE2 p" | sed 's/_/_ /' | tr " " "," | tr "\n" " " | rev | sed 's/,/./' | sed 's/ //' | rev | tr -d "\n"
