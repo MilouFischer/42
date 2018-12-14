@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 13:23:48 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/04 16:49:50 by efischer         ###   ########.fr       */
+/*   Updated: 2018/12/14 16:44:46 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static int		ft_count_number(char *str)
 	return (i);
 }
 
-static int		**ft_init_matrix(char **tab, unsigned int *len)
+static int		**ft_init_matrix(char **tab, int *len)
 {
 	int				**matrix;
-	unsigned int	tmp;
+	int				tmp;
 	unsigned int	i;
 	unsigned int	j;
 
@@ -78,7 +78,7 @@ static int		**ft_init_matrix(char **tab, unsigned int *len)
 
 void		ft_matrix(char **tab, t_matrix *matrix)
 {
-	unsigned int	len;
+	int				len;
 	char			**tmp;
 
 	len = 0;

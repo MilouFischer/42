@@ -6,135 +6,81 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 19:06:33 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/05 16:01:32 by efischer         ###   ########.fr       */
+/*   Updated: 2018/12/14 18:51:45 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_color(int color, int stop)
+void	ft_print_matrix_line(t_matrix *mx, t_pixel pixel, t_var var, t_im *im)
 {
-	int		i;
+	int				j;
+	t_pixel			pixel_dest1;
+	t_pixel			pixel_dest2;
+	int				hill;
 
-	i = 0;
-	while (i < stop * 20)
+	j = 0;
+	while (j < mx->y)
 	{
-		if (color > 0x00FF00 && color % 0x000100 == 0)
-		{
-			color -= 0x010000;
-			color += 0x000100;
-		}
-		else if (color > 0x0000FF && color / 0x010000 == 0)
-		{
-			color -= 0x000100;
-			color += 0x000001;
-		}
-		else
-		{
-			color += 0x010000;
-			color -= 0x000001;
-		}
-		i++;
-	}
-	return (color);
-}
-
-void	ft_print_line(t_pixel pixel, unsigned int x_end, unsigned int y_end, int color)
-{
-	t_pixel	tmp;
-	int		count_x;
-	int		count_y;
-	int		i;
-	int		step;
-
-	tmp = pixel;
-	count_x = 0;
-	count_y = 0;
-	i = 0;
-	step = 0;
-	count_x = x_end - tmp.x;
-	count_y = y_end - tmp.y;
-	if (count_x >= count_y)
-	{
-		if (count_y)
-		{
-			step = count_x / count_y;
-			if (count_x % count_y)
-				step += 1;
-		}
-		while (i != count_x)
-		{
-			mlx_pixel_put(tmp.mlx_ptr, tmp.win_ptr, tmp.x + i, tmp.y, color);
-			if (step && i % step == 0)
-				tmp.y++;
-			if (count_x < 0)
-				i--;
-			else
-				i++;
-		}
-	}
-	else
-	{
-		if (count_x)
-		{
-			step = count_y / count_x;
-			if (count_y % count_x)
-				step += 1;
-		}
-		while (i != count_y)
-		{
-			mlx_pixel_put(tmp.mlx_ptr, tmp.win_ptr, tmp.x, tmp.y + i, color);
-			if (step && i % step == 0)
-				tmp.x++;
-			if (count_y < 0)
-				i--;
-			else
-				i++;
-		}
+		if (j + 1 < mx->y)
+			hill = mx->matrix[mx->i][j + 1];
+		pixel_dest1 = ft_pixel_dest(pixel, var.angle1, var.step, (mx->matrix[mx->i][j] - hill) * var.height);
+		if (j != mx->y - 1)
+			ft_create_window(pixel, pixel_dest1.x, pixel_dest1.y, ft_color_height(pixel.color,
+			(mx->matrix[mx->i][j] > hill ? mx->matrix[mx->i][j] : hill)), *im);
+		if (mx->i + 1 < mx->x)
+			hill = mx->matrix[mx->i + 1][j];
+		pixel_dest2 = ft_pixel_dest(pixel, var.angle2, var.step, (mx->matrix[mx->i][j] - hill) * var.height);
+		if (mx->i != mx->x - 1)
+			ft_create_window(pixel, pixel_dest2.x, pixel_dest2.y, ft_color_height(pixel.color,
+			(mx->matrix[mx->i][j] > hill ? mx->matrix[mx->i][j] : hill)), *im);
+		pixel = pixel_dest1;
+		j++;
 	}
 }
 
-void	ft_print_fdf(t_matrix *matrix, void *mlx_ptr, void *win_ptr)
+void	ft_print_fdf(t_matrix *matrix, t_pixel pixel)
 {
-	unsigned int	i;
-	unsigned int	j;
-	t_pixel			*pixel;
-	int				color;
+	t_var			var;
+	t_pixel			tmp;
+	int				hill;
+	t_im			im;
 
-	i = 0;
-	color = 0x00ff00;
-	if (!(pixel = (t_pixel*)malloc(sizeof(t_pixel))))
-		return ;
-	pixel->mlx_ptr = mlx_ptr;
-	pixel->win_ptr = win_ptr;
-	pixel->y = PIXEL_Y;
-	while (i < matrix->x)
+	(void)matrix;
+	matrix->i = 0;
+	var.angle1 = 30;
+	var.angle2 = 150;
+	var.x = 1000;
+	var.y = 50;
+	pixel.x = var.x;
+	pixel.y = var.y;
+	var.step = 20;
+	var.height = 5;
+	im.im_ptr = mlx_new_image(pixel.mlx_ptr, 2560, 1600);
+	im.str = (int *)mlx_get_data_addr(im.im_ptr, &im.bpp, &im.l_s, &im.endian);
+	im.l_s /= 4;
+	while (matrix->i < matrix->x)
 	{
-		j = 0;
-		pixel->x = PIXEL_X;
-		while (j < matrix->y)
-		{
-			if (j != matrix->y - 1)
-				ft_print_line(*pixel, pixel->x + PIXEL_STEP, pixel->y, ft_color(color, matrix->matrix[i][j]));
-			if (i != matrix->x - 1)
-				ft_print_line(*pixel, pixel->x, pixel->y + PIXEL_STEP, ft_color(color, matrix->matrix[i][j]));
-			pixel->x += PIXEL_STEP;
-			j++;
-		}
-		pixel->y += PIXEL_STEP;
-		i++;
+		if (matrix->i + 1 < matrix->x)
+			hill = matrix->matrix[matrix->i + 1][0];
+		tmp = ft_pixel_dest(pixel, var.angle2, var.step, (matrix->matrix[matrix->i][0] - hill) * var.height);
+		ft_print_matrix_line(matrix, pixel, var, &im);
+		pixel = tmp;
+		matrix->i++;
 	}
+	mlx_put_image_to_window(pixel.mlx_ptr, pixel.win_ptr, im.im_ptr, 0, 0);
 }
 
 void	ft_fdf(t_matrix *matrix)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	t_pixel		pixel;
 
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 1500, 1000, "fdf_42");
-	ft_print_fdf(matrix, mlx_ptr, win_ptr);
-	mlx_loop(mlx_ptr);
+	pixel.color = 0;
+	pixel.mlx_ptr = mlx_init();
+	pixel.win_ptr = mlx_new_window(pixel.mlx_ptr, 2560, 1314, "fdf_42");
+	pixel.color = 0x00ff00;
+	ft_print_fdf(matrix, pixel);
+	mlx_loop(pixel.mlx_ptr);
 }
 
 int		main(int ac, char **av)
