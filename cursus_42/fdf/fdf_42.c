@@ -6,93 +6,117 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 19:06:33 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/14 18:51:45 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/10 14:59:10 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_print_matrix_line(t_matrix *mx, t_pixel pixel, t_var var, t_im *im)
+int		ft_get_var(int key, t_pack *p)
 {
-	int				j;
-	t_pixel			pixel_dest1;
-	t_pixel			pixel_dest2;
-	int				hill;
-
-	j = 0;
-	while (j < mx->y)
+	if (key == ONE || key == TWO || key == THREE)
+		ft_pov(key, p);
+	if (key == R)
+		p->var.rot *= -1;
+	if (key == A || key == S || key == D || key == W)
 	{
-		if (j + 1 < mx->y)
-			hill = mx->matrix[mx->i][j + 1];
-		pixel_dest1 = ft_pixel_dest(pixel, var.angle1, var.step, (mx->matrix[mx->i][j] - hill) * var.height);
-		if (j != mx->y - 1)
-			ft_create_window(pixel, pixel_dest1.x, pixel_dest1.y, ft_color_height(pixel.color,
-			(mx->matrix[mx->i][j] > hill ? mx->matrix[mx->i][j] : hill)), *im);
-		if (mx->i + 1 < mx->x)
-			hill = mx->matrix[mx->i + 1][j];
-		pixel_dest2 = ft_pixel_dest(pixel, var.angle2, var.step, (mx->matrix[mx->i][j] - hill) * var.height);
-		if (mx->i != mx->x - 1)
-			ft_create_window(pixel, pixel_dest2.x, pixel_dest2.y, ft_color_height(pixel.color,
-			(mx->matrix[mx->i][j] > hill ? mx->matrix[mx->i][j] : hill)), *im);
-		pixel = pixel_dest1;
-		j++;
+		if (p->var.rot == -1)
+			ft_move(key, p);
+		else
+			ft_rot(key, p);
 	}
-}
-
-void	ft_print_fdf(t_matrix *matrix, t_pixel pixel)
-{
-	t_var			var;
-	t_pixel			tmp;
-	int				hill;
-	t_im			im;
-
-	(void)matrix;
-	matrix->i = 0;
-	var.angle1 = 30;
-	var.angle2 = 150;
-	var.x = 1000;
-	var.y = 50;
-	pixel.x = var.x;
-	pixel.y = var.y;
-	var.step = 20;
-	var.height = 5;
-	im.im_ptr = mlx_new_image(pixel.mlx_ptr, 2560, 1600);
-	im.str = (int *)mlx_get_data_addr(im.im_ptr, &im.bpp, &im.l_s, &im.endian);
-	im.l_s /= 4;
-	while (matrix->i < matrix->x)
-	{
-		if (matrix->i + 1 < matrix->x)
-			hill = matrix->matrix[matrix->i + 1][0];
-		tmp = ft_pixel_dest(pixel, var.angle2, var.step, (matrix->matrix[matrix->i][0] - hill) * var.height);
-		ft_print_matrix_line(matrix, pixel, var, &im);
-		pixel = tmp;
-		matrix->i++;
-	}
-	mlx_put_image_to_window(pixel.mlx_ptr, pixel.win_ptr, im.im_ptr, 0, 0);
+	if (key == PLUS || key == MINUS)
+		ft_zoom(key, p);
+	if (key == UP || key == DOWN)
+		ft_height(key, p);
+	if (key == C)
+		ft_center(p);
+	if (key == G || p->grid)
+		ft_grid(key, p);
+	if (key == ESC)
+		ft_exit(p);
+	return (0);
 }
 
 void	ft_fdf(t_matrix *matrix)
 {
+	t_pack		pack;
 	t_pixel		pixel;
 
-	pixel.color = 0;
 	pixel.mlx_ptr = mlx_init();
-	pixel.win_ptr = mlx_new_window(pixel.mlx_ptr, 2560, 1314, "fdf_42");
+	pixel.win_ptr = mlx_new_window(pixel.mlx_ptr, LENGTH, WIDTH, "fdf_42");
 	pixel.color = 0x00ff00;
-	ft_print_fdf(matrix, pixel);
+	pixel.x = 0;
+	pixel.y = 0;
+	pack.px = pixel;
+	pack.mx = *matrix;
+	pack.var = ft_init_var();
+	pack.grid = -1;
+	mlx_key_hook(pixel.win_ptr, ft_get_var, &pack);
 	mlx_loop(pixel.mlx_ptr);
+}
+
+int		ft_check_str(char *s)
+{
+	while (*s)
+	{
+		if (!ft_isdigit(*s) && *s != '-' && *s != ' ' && *s != '\n')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+char		*ft_get_map(char *src)
+{
+	char	buf[BUFF_SIZE + 1];
+	char	*str;
+	char	*tmp;
+	int		fd;
+	int		ret;
+
+	str = NULL;
+	fd = 0;
+	ret = 0;
+	if ((fd = open(src, O_RDONLY)) == -1)
+		return (NULL);
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	{
+		buf[ret] = '\0';
+		if (ft_check_str(buf))
+		{
+			ft_strdel(&str);
+			return (NULL);
+		}
+		tmp = str;
+		str = ft_strjoin(str, buf);
+		ft_strdel(&tmp);
+	}
+	close (fd);
+	return (str);
 }
 
 int		main(int ac, char **av)
 {
 	t_matrix		*matrix;
+	char			*map;
 
-	if (ac < 2)
+	if (ac != 2)
+	{
+		ft_putendl("usage: ./fdf file_name");
 		return (1);
+	}
 	if (!(matrix = (t_matrix*)malloc(sizeof(t_matrix))))
 		return (1);
 	matrix->matrix = NULL;
-	ft_matrix(ft_strsplit(ft_get_map(av[1]), '\n'), matrix);
+	if (!(map = ft_get_map(av[1])))
+	{
+		free(matrix->matrix);
+		ft_putendl("map error");
+		return (1);
+	}
+	ft_matrix(ft_strsplit(map, '\n'), matrix);
+	ft_strdel(&map);
 	ft_fdf(matrix);
 	return (0);
 }

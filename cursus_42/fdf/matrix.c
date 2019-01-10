@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 13:23:48 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/14 16:44:46 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/09 17:54:29 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,27 +98,4 @@ void		ft_matrix(char **tab, t_matrix *matrix)
 		}
 		matrix->x++;
 	}
-}
-
-char		*ft_get_map(char *src)
-{
-	char	buf[BUFF_SIZE + 1];
-	char	*str;
-	char	*tmp;
-	int		fd;
-	int		ret;
-
-	str = NULL;
-	fd = 0;
-	ret = 0;
-	fd = open(src, O_RDONLY);
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
-	{
-		buf[ret] = '\0';
-		tmp = str;
-		str = ft_strjoin(str, buf);
-		ft_strdel(&tmp);
-	}
-	close (fd);
-	return (str);
 }
