@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 10:43:22 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/09 15:29:31 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:14:29 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,12 @@ static void	ft_segment_neg(t_pixel px, t_bres bres, t_im im)
 	}
 }
 
-void		ft_create_window(t_pixel pixel, int x_end, int y_end, int color, t_im im)
+void		ft_create_window(t_pixel pixel, int x_end, int y_end, t_im im)
 {
 	t_bres	bres;
 
 	bres.x_inc = 1;
 	bres.y_inc = 1;
-	pixel.color = color;
 	bres.ex = abs(x_end - pixel.x);
 	bres.ey = abs(y_end - pixel.y);
 	bres.count_x = 2 * bres.ex;

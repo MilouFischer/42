@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 18:39:09 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/11 16:02:08 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
+void				ft_free_tab(char **tmp);
 
 #endif

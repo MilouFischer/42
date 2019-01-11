@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 19:06:33 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/10 14:59:10 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:43:05 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,17 @@ int		ft_get_var(int key, t_pack *p)
 	return (0);
 }
 
-void	ft_fdf(t_matrix *matrix)
+static void	ft_fdf(t_matrix matrix)
 {
 	t_pack		pack;
 	t_pixel		pixel;
 
 	pixel.mlx_ptr = mlx_init();
 	pixel.win_ptr = mlx_new_window(pixel.mlx_ptr, LENGTH, WIDTH, "fdf_42");
-	pixel.color = 0x00ff00;
 	pixel.x = 0;
 	pixel.y = 0;
 	pack.px = pixel;
-	pack.mx = *matrix;
+	pack.mx = matrix;
 	pack.var = ft_init_var();
 	pack.grid = -1;
 	mlx_key_hook(pixel.win_ptr, ft_get_var, &pack);
@@ -67,7 +66,7 @@ int		ft_check_str(char *s)
 	return (0);
 }
 
-char		*ft_get_map(char *src)
+char	*ft_get_map(char *src)
 {
 	char	buf[BUFF_SIZE + 1];
 	char	*str;
@@ -92,30 +91,29 @@ char		*ft_get_map(char *src)
 		str = ft_strjoin(str, buf);
 		ft_strdel(&tmp);
 	}
-	close (fd);
+	close(fd);
 	return (str);
 }
 
 int		main(int ac, char **av)
 {
-	t_matrix		*matrix;
+	t_matrix		matrix;
 	char			*map;
+	char			**tmp;
 
 	if (ac != 2)
 	{
 		ft_putendl("usage: ./fdf file_name");
 		return (1);
 	}
-	if (!(matrix = (t_matrix*)malloc(sizeof(t_matrix))))
-		return (1);
-	matrix->matrix = NULL;
+	matrix.matrix = NULL;
 	if (!(map = ft_get_map(av[1])))
 	{
-		free(matrix->matrix);
 		ft_putendl("map error");
 		return (1);
 	}
-	ft_matrix(ft_strsplit(map, '\n'), matrix);
+	ft_matrix(tmp = ft_strsplit(map, '\n'), &matrix);
+	ft_free_tab(tmp);
 	ft_strdel(&map);
 	ft_fdf(matrix);
 	return (0);

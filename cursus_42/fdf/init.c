@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 11:40:30 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/10 14:57:48 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:29:43 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,26 @@ t_var	ft_init_var(void)
 
 void	ft_flat(t_pack *p)
 {
-		p->var.angle1 = 0;
-		p->var.angle2 = 90;
-		p->var.height = 0;
-		p->var.step1 = 20;
-		p->var.step2 = 20;
+	p->var.angle1 = 0;
+	p->var.angle2 = 90;
+	p->var.height = 0;
+	p->var.step1 = 20;
+	p->var.step2 = 20;
 }
 
 void	ft_iso(t_pack *p)
 {
-		p->var.angle1 = 30;
-		p->var.angle2 = 150;
-		p->var.height = 4;
-		p->var.step1 = 20;
-		p->var.step2 = 20;
+	p->var.angle1 = 30;
+	p->var.angle2 = 150;
+	p->var.height = 4;
+	p->var.step1 = 20;
+	p->var.step2 = 20;
 }
 
 void	ft_cavalier(t_pack *p)
 {
-		p->var.angle1 = 0;
-		p->var.angle2 = 135;
-		p->var.height = 4;
-		p->var.step2 = 5;
+	p->var.angle1 = 0;
+	p->var.angle2 = 135;
+	p->var.height = 4;
+	p->var.step2 = 5;
 }

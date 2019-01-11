@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 14:46:15 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/10 14:58:33 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:37:03 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_center(t_pack *p)
 	y = px_dest.y;
 	p->px.x = LENGTH / 2 - (x - p->px.x) / 2;
 	p->px.y = WIDTH / 2 - (y - p->px.y) / 2;
-	p->im = ft_print_fdf(&p->mx, p->px, p->var);
+	ft_print_fdf(&p->mx, p->px, p->var);
 }
 
 void	ft_rot(int key, t_pack *p)
@@ -55,21 +55,28 @@ void	ft_rot(int key, t_pack *p)
 		p->var.step2 -= 1;
 	}
 	ft_center(p);
-	p->im = ft_print_fdf(&p->mx, p->px, p->var);
+	ft_print_fdf(&p->mx, p->px, p->var);
 }
 
-void	ft_exit(t_pack *p)
+void	ft_free_matrix(t_matrix *mx)
 {
 	int		i;
 
 	i = 0;
-	free(p->px.mlx_ptr);
-	free(p->px.win_ptr);
-	while (i < p->mx.x)
+	while (i < mx->x)
 	{
-		free(p->mx.matrix[i]);
+		free(mx->matrix[i]);
+		mx->matrix[i] = NULL;
 		i++;
 	}
-	free(p->mx.matrix);
+	free(mx->matrix);
+	mx->matrix = NULL;
+}
+
+void	ft_exit(t_pack *p)
+{
+	free(p->px.mlx_ptr);
+	free(p->px.win_ptr);
+	ft_free_matrix(&p->mx);
 	exit(0);
 }

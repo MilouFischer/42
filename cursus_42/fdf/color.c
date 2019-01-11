@@ -6,62 +6,47 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:35:35 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/13 19:10:01 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/11 15:17:59 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_color(int color, int stop)
+static int	ft_set_color(int color, int height)
 {
-	int		i;
-
-	i = 0;
-	while (i < stop)
+	if (height != 0)
 	{
-		if (color > 0x00FF00 && color % 0x000100 == 0)
+		if (height > 0)
 		{
-			color -= 0x010000;
-			color += 0x000100;
-		}
-		else if (color > 0x0000FF && color / 0x010000 == 0)
-		{
-			color -= 0x000100;
-			color += 0x000001;
+			if (height <= 225)
+				color += 0x010000 * height;
+			else if (height <= 450)
+				color = 0xffff00 - 0x000100 * (height - 225);
+			else
+				color = 0xff0000;
 		}
 		else
 		{
-			color += 0x010000;
-			color -= 0x000001;
+			if (height >= -225)
+				color -= 0x000001 * height;
+			else if (height >= -450)
+				color = 0x00ffff - (0x000100 * (height - 225));
+			else
+				color = 0x0000ff;
 		}
-		i++;
 	}
 	return (color);
 }
 
-int		ft_color_height(int color, int stop)
+int			ft_color_height(int color, int height, t_matrix *mx)
 {
-	int		i;
+	float		pad;
 
-	i = 0;
-	while (i < stop * 20)
-	{
-		if (color > 0x00FF00 && color % 0x000100 == 0)
-		{
-			color -= 0x010000;
-			color += 0x000100;
-		}
-		else if (color > 0x0000FF && color / 0x010000 == 0)
-		{
-			color -= 0x000100;
-			color += 0x000001;
-		}
-		else
-		{
-			color += 0x010000;
-			color -= 0x000001;
-		}
-		i++;
-	}
-	return (color);
+	pad = 1;
+	if (height > 0 && mx->max != 0)
+		pad = 256 / (float)mx->max;
+	else if (height < 0 && mx->min != 0)
+		pad = 256 / (float)mx->min * -1;
+	height *= pad;
+	return (ft_set_color(color, height));
 }

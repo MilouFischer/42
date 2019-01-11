@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/11 16:49:01 by efischer         ###   ########.fr       */
+/*   Created: 2019/01/11 15:52:45 by efischer          #+#    #+#             */
+/*   Updated: 2019/01/11 17:14:13 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+void	ft_free_tab(char **tmp)
 {
-	unsigned int	i;
-	int				nbr;
+	int		i;
 
 	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+	if (!tmp || !*tmp)
+		return ;
+	while (tmp[i])
+	{
+		free(tmp[i]);
+		tmp[i++] = NULL;
+	}
+	free(tmp);
+	tmp = NULL;
 }
