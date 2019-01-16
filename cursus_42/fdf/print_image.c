@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 13:34:44 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/11 15:36:06 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/15 14:02:10 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,19 @@ static void		ft_print_matrix_line(t_matrix *mx, t_pixel pixel, t_var var,
 
 void			ft_print_fdf(t_matrix *matrix, t_pixel pixel, t_var var)
 {
-	t_pixel			tmp;
-	int				hill;
-	t_im			im;
+	t_pixel		tmp;
+	int			hill;
+	t_im		im;
+	long		max;
 
 	matrix->i = 0;
+	hill = 0;
 	im.im_ptr = mlx_new_image(pixel.mlx_ptr, 2560, 1600);
 	im.str = (int *)mlx_get_data_addr(im.im_ptr, &im.bpp, &im.l_s, &im.endian);
 	im.l_s /= 4;
+	max = (long)pixel.x + (long)im.l_s * (long)pixel.y;
+	if (max > 2147483647 || max < -2147483648)
+		ft_exit(matrix, &pixel);
 	while (matrix->i < matrix->x)
 	{
 		if (matrix->i + 1 < matrix->x)

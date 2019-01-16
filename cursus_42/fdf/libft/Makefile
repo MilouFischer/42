@@ -6,7 +6,7 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2019/01/11 17:08:41 by efischer         ###   ########.fr        #
+#    Updated: 2019/01/14 17:04:06 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ ft_lstadd ft_lstiter ft_lstmap ft_factorial ft_power ft_isblank ft_iscntrl \
 ft_isgraph ft_islower ft_isspace ft_isupper ft_isxdigit ft_str_is_alpha \
 ft_str_is_lowercase ft_str_is_numeric ft_str_is_printable ft_str_is_uppercase \
 ft_strlowcase ft_strupcase ft_strndup ft_strcasecmp ft_strncasecmp \
-ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_free_tab
+ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_free_tab \
+ft_free_matrix
 SRCS = $(patsubst %,%.c,$(FILE))
 OBJ = $(SRCS:.c=.o)
 

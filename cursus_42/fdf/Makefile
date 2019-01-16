@@ -6,17 +6,19 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/17 13:50:41 by efischer          #+#    #+#              #
-#    Updated: 2019/01/11 17:48:06 by efischer         ###   ########.fr        #
+#    Updated: 2019/01/15 13:47:39 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEBUG = yes
+DEBUG = no
 NAME = fdf
-FILE = color event event2 fdf_42  create_window matrix print_image print_line rotation init
+FILE = color event event2 main  create_window matrix print_image print_line rotation init
 SRCS = $(patsubst %,%.c,$(FILE))
 OBJ = $(SRCS:.c=.o)
-HEAD = -lmlx -framework OpenGL -framework AppKit
+INCLUDES = -I /usr/local/include
+FRAMEWORK = -lmlx -framework OpenGL -framework AppKit
 LIB = libft/libft.a
+CC = gcc
 ifeq ($(DEBUG), yes)
 	FLAG = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -g
 else
@@ -35,14 +37,14 @@ endif
 
 %.o: %.c $(LIB) fdf.h
 	@echo "Creating fdf's objects..."
-	gcc $(FLAG) -c $<
+	@$(CC) $(FLAG) -c $< $(INCLUDES)
 
 $(LIB): 
 	@make -C libft
 
 $(NAME): $(OBJ)
 	@echo "Creating fdf.exe..."
-	@gcc $(FLAG) $(HEAD) $(OBJ) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAG) $(FRAMEWORK) $(OBJ) libft/libft.a -o $(NAME) $(INCLUDES)
 
 libclean:
 	@make clean -C libft

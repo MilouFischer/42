@@ -6,14 +6,24 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:35:35 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/11 15:17:59 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/15 13:24:09 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static int	ft_test_int_max(int height)
+{
+	long	max;
+
+	max = height * 0x010000;
+	return (max > 2147483647 || max < -2147483648);
+}
+
 static int	ft_set_color(int color, int height)
 {
+	if (ft_test_int_max(height))
+		return (color);
 	if (height != 0)
 	{
 		if (height > 0)

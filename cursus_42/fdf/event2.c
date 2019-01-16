@@ -6,13 +6,13 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 14:46:15 by efischer          #+#    #+#             */
-/*   Updated: 2019/01/11 17:37:03 by efischer         ###   ########.fr       */
+/*   Updated: 2019/01/15 14:03:23 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_center(t_pack *p)
+void		ft_center(t_pack *p)
 {
 	t_pixel	px_dest;
 	t_var	tmp;
@@ -31,52 +31,87 @@ void	ft_center(t_pack *p)
 	y = px_dest.y;
 	p->px.x = LENGTH / 2 - (x - p->px.x) / 2;
 	p->px.y = WIDTH / 2 - (y - p->px.y) / 2;
-	ft_print_fdf(&p->mx, p->px, p->var);
 }
 
-void	ft_rot(int key, t_pack *p)
+void		ft_rot(int key, t_pack *p)
 {
+	float	rot;
+
+	rot = 5 * M_PI / 180;
 	if (key == A)
 	{
-		p->var.angle1 += 5;
-		p->var.angle2 += 5;
+		p->var.angle1 += rot;
+		p->var.angle2 += rot;
 	}
 	if (key == S)
 	{
-		p->var.step2 += 1;
+		if (p->var.step2 <= 2 * p->var.step1)
+			p->var.step2 += 1;
 	}
 	if (key == D)
 	{
-		p->var.angle1 -= 5;
-		p->var.angle2 -= 5;
+		p->var.angle1 -= rot;
+		p->var.angle2 -= rot;
 	}
 	if (key == W)
 	{
-		p->var.step2 -= 1;
+		if (p->var.step2 >= -2 * p->var.step1)
+			p->var.step2 -= 1;
 	}
 	ft_center(p);
-	ft_print_fdf(&p->mx, p->px, p->var);
 }
 
-void	ft_free_matrix(t_matrix *mx)
+static void	ft_move_hud(t_pack *p)
 {
-	int		i;
-
-	i = 0;
-	while (i < mx->x)
+	if (p->var.rot == -1)
 	{
-		free(mx->matrix[i]);
-		mx->matrix[i] = NULL;
-		i++;
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 90, 100,
+		0xdb1702, "R");
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 130,
+		0x87cefa, "Move:         W");
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 160,
+		0x87cefa, "            A S D");
 	}
-	free(mx->matrix);
-	mx->matrix = NULL;
+	else
+	{
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 90, 100,
+		0x7fff00, "R");
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 130,
+		0x87cefa, "Rotation:     W");
+		mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 160,
+		0x87cefa, "            A S D");
+	}
 }
 
-void	ft_exit(t_pack *p)
+void		ft_hud(t_pack *p)
 {
-	free(p->px.mlx_ptr);
-	free(p->px.win_ptr);
-	ft_free_matrix(&p->mx);
-	exit(0);
+	if (LENGTH - 250 < 0 || WIDTH < 220)
+		return ;
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 30, 0xffffff,
+	"       HUD");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 70, 0xffa500,
+	"Pov:      1 2 3 4");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 100, 0x87cefa,
+	"Rotation mode:");
+	ft_move_hud(p);
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 190, 0x87cefa,
+	"Zoom:         - +");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 220, 0x87cefa,
+	"Height:       K I");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 250, 0xffffff,
+	"Center:         C");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 280, 0xffffff,
+	"Grid:           G");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 310, 0xffffff,
+	"Hud:            H");
+	mlx_string_put(p->px.mlx_ptr, p->px.win_ptr, LENGTH - 250, 340, 0xdb1702,
+	"Exit:         ESC");
+}
+
+void		ft_exit(t_matrix *mx, t_pixel *px)
+{
+	free(px->mlx_ptr);
+	free(px->win_ptr);
+	ft_free_matrix(mx->matrix, mx->x);
+	exit(errno);
 }
