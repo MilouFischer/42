@@ -11,7 +11,8 @@ ft_lstadd ft_lstiter ft_lstmap ft_factorial ft_power ft_isblank ft_iscntrl \
 ft_isgraph ft_islower ft_isspace ft_isupper ft_isxdigit ft_str_is_alpha \
 ft_str_is_lowercase ft_str_is_numeric ft_str_is_printable ft_str_is_uppercase \
 ft_strlowcase ft_strupcase ft_strndup ft_strcasecmp ft_strncasecmp \
-ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_printf
+ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_printf \
+ft_manage_conv
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o) 
 HEAD = -I includes/libft.h includes/ft_printf.h

@@ -1,21 +1,45 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static char *ft_process_flag(char *format, va_list *arg)
+static char *ft_process_flag(char *s, char *out, va_list *arg)
 {
-	char	*s;
 	char	*tmp;
+	char	*tmp2;
 
-	while (*format)
+	while (*s)
 	{
-		if (*format == 's')
+		tmp = out;
+		if (*s == '#' || *s == '0' || *s == '-' || *s == '+' || *s == ' ')
 		{
-			s = va_arg(*arg, char *);
-			tmp = format + 1;
-			format = ft_strjoin(s, tmp);
-			return (format);
+			out = ft_strjoin(tmp, ft_manage_flag(*s));
+			ft_strdel(&tmp);
 		}
-		format++;
+		else if (*s == 'h' || *s == 'l' || *s == 'L')
+		{
+			out = ft_strjoin(tmp, ft_manage_conv_flag(*s));
+			ft_strdel(&tmp);
+		}
+		else if (*s == 'c' || *s == 's' || *s == 'p')
+		{
+			out = ft_strjoin(tmp, ft_manage_str(*s, arg));
+			ft_strdel(&tmp);
+			tmp = out;
+			out = ft_strjoin(tmp, s + 1);
+			ft_strdel(&tmp);
+			return (out);
+		}
+		else if (*s == 'd' || *s == 'i' || *s == 'o' || *s == 'u' || *s == 'x'
+				|| *s == 'X' || *s == 'f')
+		{
+			out = ft_strjoin(tmp, tmp2 = ft_manage_conv(*s, arg));
+			ft_strdel(&tmp);
+			ft_strdel(&tmp2);
+			tmp = out;
+			out = ft_strjoin(tmp, s + 1);
+			ft_strdel(&tmp);
+			return (out);
+		}
+		s++;
 	}
 	return (NULL);
 }
@@ -27,11 +51,10 @@ static char	*ft_get_flags(char *out, va_list *arg)
 
 	while ((format = ft_strchr(out, '%')))
 	{
-		out = ft_strsub(out, 0, format - out);
-		format = ft_process_flag(format, arg);
 		tmp = out;
-		out = ft_strjoin(out, format);
+		out = ft_strsub(tmp, 0, format - tmp);
 		ft_strdel(&tmp);
+		out = ft_process_flag(format, out, arg);
 	}
 	return (out);
 }
