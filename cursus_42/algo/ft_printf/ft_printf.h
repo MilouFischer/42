@@ -2,6 +2,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include "libft.h"
 
 int		ft_printf(const char *format, ...);
 char	*ft_manage_flag(char c);

@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-#include "libft.h"
 
 static char *ft_process_flag(char *s, char *out, va_list *arg)
 {
