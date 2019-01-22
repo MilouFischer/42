@@ -11,7 +11,8 @@
 # **************************************************************************** #
 
 NAME = libft.a
-SRC = ft_atoi ft_isalnum ft_isascii ft_isprint ft_strchr ft_strcpy ft_strlen \
+HEAD = libft.h
+FILES = ft_atoi ft_isalnum ft_isascii ft_isprint ft_strchr ft_strcpy ft_strlen \
 ft_strncmp ft_strnstr ft_strstr ft_toupper ft_bzero ft_isalpha ft_isdigit \
 ft_strcat ft_strcmp ft_strdup ft_strncat ft_strncpy ft_strrchr ft_tolower \
 ft_memset ft_memchr ft_memcpy ft_memcmp ft_memccpy ft_putchar ft_putstr \
@@ -23,21 +24,30 @@ ft_lstadd ft_lstiter ft_lstmap ft_factorial ft_power ft_isblank ft_iscntrl \
 ft_isgraph ft_islower ft_isspace ft_isupper ft_isxdigit ft_str_is_alpha \
 ft_str_is_lowercase ft_str_is_numeric ft_str_is_printable ft_str_is_uppercase \
 ft_strlowcase ft_strupcase ft_strndup ft_strcasecmp ft_strncasecmp \
-ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix
-OBJ = $(patsubst %,%.o,$(SRC))
+ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_itoa_base
+SRCS = $(patsubst %,%.c,$(FILES))
+OBJS = $(SRCS:.c=.o)
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(OBJ): $(patsubst %,%.c,$(SRC))
-	@gcc -c -Wall -Wextra -Werror $(patsubst %,%.c,$(SRC))
+%.o: %.c $(HEAD)
+	@echo "Creating libft's objects..."
+	@$(CC) $(CFLAGS) -c $(SRCS)
 
-$(NAME): $(OBJ)
-	@ar -rcs $(NAME) $(OBJ)
+$(NAME): $(OBJS)
+	@echo "Creating libft.a..."
+	@ar -rcs $(NAME) $(OBJS)
 
 clean:
-	@rm -rf $(OBJ)
+	@echo "Deleting libft's objects..."
+	@rm -rf $(OBJS)
 
 fclean: clean
+	@echo "Deleting libft.a..."
 	@rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: clean fclean re

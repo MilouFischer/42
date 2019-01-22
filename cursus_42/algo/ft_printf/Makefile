@@ -12,10 +12,10 @@ ft_isgraph ft_islower ft_isspace ft_isupper ft_isxdigit ft_str_is_alpha \
 ft_str_is_lowercase ft_str_is_numeric ft_str_is_printable ft_str_is_uppercase \
 ft_strlowcase ft_strupcase ft_strndup ft_strcasecmp ft_strncasecmp \
 ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_printf \
-ft_manage_conv
+ft_manage_conv ft_itoa_base
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o) 
-HEAD = -I includes/libft.h includes/ft_printf.h
+HEAD = libft.h ft_printf.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 DEBUG = -Wall -Wextra -Werror -fsanitize=address,undefined -g3
@@ -23,16 +23,20 @@ DEBUG = -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 all: $(NAME)
 
 %.o: %.c $(HEAD)
-	$(CC) $(CFLAGS) -c $< $(HEAD)
+	@echo "Creating libft's objects..."
+	@$(CC) $(CFLAGS) -c $<
 
 $(NAME): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+	@echo "Creating libftprintf.a..."
+	@ar -rcs $(NAME) $<
 
 clean:
-	rm -rf $(OBJS)
+	@echo "Deleting libft's objects..."
+	@rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@echo "Deleting libftprintf.a..."
+	@rm -rf $(NAME)
 
 re: fclean all
 
