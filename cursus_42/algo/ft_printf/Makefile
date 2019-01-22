@@ -28,7 +28,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "Creating libftprintf.a..."
-	@ar -rcs $(NAME) $<
+	@ar -rcs $(NAME) $(OBJS)
 
 clean:
 	@echo "Deleting libft's objects..."
@@ -40,4 +40,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re
