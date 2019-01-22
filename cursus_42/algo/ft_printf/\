@@ -1,0 +1,9 @@
+#include <stdio.h>
+#include "libft.h"
+#include "ft_printf.h"
+
+int		main(void)
+{
+	printf("truprintf: %s ca va ?\n %s\n", "Bonjour", "Oui, tres bien !");
+	return (ft_printf("ft_printf: %s ca va ?\n", "Bonjour", "Oui, tres bien !"));
+}
