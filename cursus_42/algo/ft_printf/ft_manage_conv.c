@@ -43,15 +43,30 @@ char	*ft_manage_conv(char c, va_list *arg)
 		return (ft_itoa(nb));
 	}
 	else if (c == 'i')
-		return ("i");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_itoa(nb));
+	}
 	else if (c == 'o')
-		return ("o");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_itoa_base(nb, 8));
+	}
 	else if (c == 'u')
-		return ("u");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_itoa_base(nb, 10));
+	}
 	else if (c == 'x')
-		return ("x");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_itoa_base(nb, 16));
+	}
 	else if (c == 'X')
-		return ("X");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_strupcase(ft_itoa_base(nb, 16)));
+	}
 	else
 		return ("f");
 }
