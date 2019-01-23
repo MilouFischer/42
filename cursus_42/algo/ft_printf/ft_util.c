@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "ft_printf.h"
 
 static size_t	ft_intlen(int nb, int base)
 {
@@ -7,11 +7,6 @@ static size_t	ft_intlen(int nb, int base)
 	i = 0;
 	if (nb == 0)
 		return (1);
-	if (nb < 0)
-	{
-		nb *= -1;
-		i++;
-	}
 	while (nb)
 	{
 		nb /= base;
@@ -20,7 +15,8 @@ static size_t	ft_intlen(int nb, int base)
 	return (i);
 }
 
-char			*ft_itoa_base(int nb, int base)
+char			*ft_itoa_base_u(unsigned long nb,
+				unsigned long base)
 {
 	size_t	len;
 	char	*str;
@@ -30,11 +26,6 @@ char			*ft_itoa_base(int nb, int base)
 	len = ft_intlen(nb, base);
 	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	if (nb < 0)
-	{
-		str[0] = '-';
-		nb *= -1;
-	}
 	if (nb == 0)
 		str[0] = '0';
 	str[len--] = '\0';

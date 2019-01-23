@@ -15,27 +15,35 @@ char	*ft_manage_conv_flag(char c)
 char	*ft_manage_str(char c, va_list *arg)
 {
 	char	*s;
-	char	a[2];
+	int		a;
+	void	*p;
 	
 	if (c == 'c')
 	{
-		a[0] = va_arg(*arg, int);
-		a[1] = '\0';
-		s = (char*)a;
+		a = va_arg(*arg, int);
+		if (!(s = (char*)malloc(sizeof(char) * 2)))
+			return (NULL);
+		s[0] = a;
+		s[1] = '\0';
 		return (s);
 	}
 	else if (c == 's')
 	{
-		s = va_arg(*arg, char *);
+		s = va_arg(*arg, char*);
 		return (s);
 	}
 	else
-		return ("P");
+	{
+		p = va_arg(*arg, void*);
+		return ((char*)p);
+	}
 }
 
 char	*ft_manage_conv(char c, va_list *arg)
 {
-	int		nb;
+	int				nb;
+	unsigned long	u;
+	char			*s;
 
 	if (c == 'd')
 	{
@@ -49,24 +57,23 @@ char	*ft_manage_conv(char c, va_list *arg)
 	}
 	else if (c == 'o')
 	{
-		nb = va_arg(*arg, int);
-		return (ft_itoa_base(nb, 8));
+		u = va_arg(*arg, unsigned long);
+		return (ft_itoa_base_u(u, 8));
 	}
 	else if (c == 'u')
 	{
-		nb = va_arg(*arg, int);
-		return (ft_itoa_base(nb, 10));
+		u = va_arg(*arg, unsigned long);
+		return (ft_itoa_base_u(u, 10));
 	}
-	else if (c == 'x')
+	else if (c == 'x' || c == 'X')
 	{
-		nb = va_arg(*arg, int);
-		return (ft_itoa_base(nb, 16));
-	}
-	else if (c == 'X')
-	{
-		nb = va_arg(*arg, int);
-		return (ft_strupcase(ft_itoa_base(nb, 16)));
+		u = va_arg(*arg, unsigned long);
+		s = ft_itoa_base_u(u, 16);
+		return (c == 'X' ? ft_strupcase(s) : s);
 	}
 	else
-		return ("f");
+	{
+		nb = va_arg(*arg, int);
+		return (ft_itoa(nb));
+	}
 }
