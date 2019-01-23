@@ -24,7 +24,7 @@ all: $(NAME)
 
 %.o: %.c $(HEAD)
 	@echo "Creating libft's objects..."
-	@$(CC) $(CFLAGS) -c $<
+	@$(CC) $(DEBUG) -c $<
 
 $(NAME): $(OBJS)
 	@echo "Creating libftprintf.a..."

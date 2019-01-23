@@ -16,7 +16,6 @@ char	*ft_manage_str(char c, va_list *arg)
 {
 	char	*s;
 	char	a[2];
-	void	*p;
 	
 	if (c == 'c')
 	{
@@ -31,9 +30,7 @@ char	*ft_manage_str(char c, va_list *arg)
 		return (s);
 	}
 	else
-	{
-		return (s);
-	}
+		return ("P");
 }
 
 char	*ft_manage_conv(char c, va_list *arg)
