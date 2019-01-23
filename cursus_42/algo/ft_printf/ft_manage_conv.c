@@ -12,31 +12,32 @@ char	*ft_manage_conv_flag(char c)
 	return (" conv_flag");
 }
 
-char	*ft_manage_str(char c, va_list *arg)
+char	*ft_manage_str(char c, char	*format, va_list *arg)
 {
 	char	*s;
-	int		a;
 	void	*p;
+	char	*tmp;
 	
 	if (c == 'c')
 	{
-		a = va_arg(*arg, int);
 		if (!(s = (char*)malloc(sizeof(char) * 2)))
 			return (NULL);
-		s[0] = a;
+		s[0] = va_arg(*arg, int);
 		s[1] = '\0';
-		return (s);
 	}
 	else if (c == 's')
-	{
 		s = va_arg(*arg, char*);
-		return (s);
-	}
-	else
+	else if (c == 'p')
 	{
 		p = va_arg(*arg, void*);
 		return ((char*)p);
 	}
+	tmp = format;
+	format = ft_strjoin(tmp, s);
+	ft_strdel(&tmp);
+	if (c == 'c')
+		ft_strdel(&s);
+	return (format);
 }
 
 char	*ft_manage_conv(char c, va_list *arg)

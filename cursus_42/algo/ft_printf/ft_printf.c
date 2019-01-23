@@ -16,8 +16,7 @@ static char *ft_process_flag(char **s, va_list *arg)
 			format = ft_strjoin(tmp, ft_manage_conv_flag(**s));
 		else if (**s == 'c' || **s == 's' || **s == 'p')
 		{
-			format = ft_strjoin(tmp, ft_manage_str(**s, arg));
-			ft_strdel(&tmp);
+			format = ft_manage_str(**s, format, arg);
 			return (format);
 		}
 		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
