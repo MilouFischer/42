@@ -1,50 +1,54 @@
 #include "ft_printf.h"
 
-char	*ft_manage_flag(char c)
+void	ft_manage_flag(char c, t_flag *flag)
 {
-	(void)c;
-	return (" flag");
+	if (c == '#')
+		flag->sharp = 1;
+	else
+		(void)flag;
 }
 
-char	*ft_manage_conv_flag(char c)
+char	*ft_manage_conv_flag(char c, t_flag *flag)
 {
 	(void)c;
+	(void)flag;
 	return (" conv_flag");
 }
 
-char	*ft_manage_str(char c, char	*format, va_list *arg)
+char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
 	char	*s;
 	void	*p;
-	char	*tmp;
-	
+
+	(void)flag;	
 	if (c == 'c')
 	{
 		if (!(s = (char*)malloc(sizeof(char) * 2)))
 			return (NULL);
 		s[0] = va_arg(*arg, int);
 		s[1] = '\0';
+		format = ft_strdup(s);
+		ft_strdel(&s);
+		return (format);
 	}
 	else if (c == 's')
+	{
 		s = va_arg(*arg, char*);
-	else if (c == 'p')
+		return (s);
+	}
+	else
 	{
 		p = va_arg(*arg, void*);
 		return ((char*)p);
 	}
-	tmp = format;
-	format = ft_strjoin(tmp, s);
-	ft_strdel(&tmp);
-	if (c == 'c')
-		ft_strdel(&s);
-	return (format);
 }
 
-char	*ft_manage_conv(char c, va_list *arg)
+char	*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 {
 	int				nb;
 	unsigned long	u;
 	char			*s;
+	char			*tmp;
 
 	if (c == 'd')
 	{
@@ -59,7 +63,14 @@ char	*ft_manage_conv(char c, va_list *arg)
 	else if (c == 'o')
 	{
 		u = va_arg(*arg, unsigned long);
-		return (ft_itoa_base_u(u, 8));
+		s = ft_itoa_base_u(u, 8);
+		if (flag->sharp)
+		{
+			tmp = s;
+			s = ft_strjoin("0", tmp);
+			ft_strdel(&tmp);
+		}
+		return (s);
 	}
 	else if (c == 'u')
 	{

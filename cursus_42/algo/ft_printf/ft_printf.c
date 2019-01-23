@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static char *ft_process_flag(char **s, va_list *arg)
+static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
@@ -11,18 +11,18 @@ static char *ft_process_flag(char **s, va_list *arg)
 	{
 		tmp = format;
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ')
-			format = ft_strjoin(tmp, ft_manage_flag(**s));
+			ft_manage_flag(**s, flag);
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
-			format = ft_strjoin(tmp, ft_manage_conv_flag(**s));
+			ft_manage_conv_flag(**s, flag);
 		else if (**s == 'c' || **s == 's' || **s == 'p')
 		{
-			format = ft_manage_str(**s, format, arg);
+			format = ft_manage_str(**s, format, arg, flag);
 			return (format);
 		}
 		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
 				|| **s == 'X' || **s == 'f')
 		{
-			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg));
+			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
 			return (format);
@@ -39,17 +39,19 @@ static char	*ft_get_flags(char *cp, va_list *arg)
 	char	*out;
 	char	*tmp;
 	char	*format;
+	t_flag	flag;
 
 	(void)arg;
 	out = NULL;
 	while ((s = ft_strchr(cp, '%')))
 	{
+		ft_init_flag(&flag);
 		format = ft_strsub(cp, 0, s - cp);
 		tmp = out;
 		out = ft_strjoin(tmp, format);
 		ft_strdel(&format);
 		ft_strdel(&tmp);
-		format = ft_process_flag(&s, arg);
+		format = ft_process_flag(&s, arg, &flag);
 		tmp = out;
 		out = ft_strjoin(tmp, format);
 		ft_strdel(&format);

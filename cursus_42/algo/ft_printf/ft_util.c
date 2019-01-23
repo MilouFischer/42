@@ -1,5 +1,19 @@
 #include "ft_printf.h"
 
+void			ft_init_flag(t_flag *flag)
+{
+	flag->sharp = 0;
+	flag->zero = 0;
+	flag->min = 0;
+	flag->space = 0;
+	flag->plus = 0;
+	flag->h = 0;
+	flag->hh = 0;
+	flag->l = 0;
+	flag->ll = 0;
+	flag->L = 0;
+}
+
 static size_t	ft_intlen(int nb, int base)
 {
 	size_t	i;
