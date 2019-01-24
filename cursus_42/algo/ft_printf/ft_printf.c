@@ -11,20 +11,22 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	{
 		tmp = format;
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ')
-			ft_manage_flag(**s, flag);
-		else if (**s == 'h' || **s == 'l' || **s == 'L')
+			ft_manage_flag(s, flag);
+		if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
-		else if (**s == 'c' || **s == 's' || **s == 'p')
+		if (**s == 'c' || **s == 's' || **s == 'p')
 		{
 			format = ft_manage_str(**s, format, arg, flag);
 			return (format);
 		}
-		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
+		if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
 				|| **s == 'X' || **s == 'f')
 		{
 			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
+			if (flag->zero)
+				format = ft_flag_zero(format, flag);
 			return (format);
 		}
 		ft_strdel(&tmp);
@@ -51,7 +53,8 @@ static char	*ft_get_flags(char *cp, va_list *arg)
 		out = ft_strjoin(tmp, format);
 		ft_strdel(&format);
 		ft_strdel(&tmp);
-		format = ft_process_flag(&s, arg, &flag);
+		if (!(format = ft_process_flag(&s, arg, &flag)))
+			return (NULL);
 		tmp = out;
 		out = ft_strjoin(tmp, format);
 		ft_strdel(&format);

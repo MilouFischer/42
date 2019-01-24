@@ -1,9 +1,15 @@
 #include "ft_printf.h"
 
-void	ft_manage_flag(char c, t_flag *flag)
+void	ft_manage_flag(char **s, t_flag *flag)
 {
-	if (c == '#')
+	if (**s == '#')
 		flag->sharp = 1;
+	else if (**s == '0' && !flag->min)
+	{
+		flag->zero = ft_atoi(*s);
+		while (ft_isdigit(**s))
+			(*s)++;
+	}
 	else
 		(void)flag;
 }
