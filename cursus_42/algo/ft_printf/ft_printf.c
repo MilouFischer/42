@@ -12,24 +12,30 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		tmp = format;
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ')
 			ft_manage_flag(s, flag);
-		if (**s == 'h' || **s == 'l' || **s == 'L')
+		else if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
-		if (**s == 'c' || **s == 's' || **s == 'p')
+		else if (**s == 'c' || **s == 's' || **s == 'p')
 		{
 			format = ft_manage_str(**s, format, arg, flag);
 			return (format);
 		}
-		if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
+		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
 				|| **s == 'X' || **s == 'f')
 		{
 			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
-			if (flag->zero)
-				format = ft_flag_zero(format, flag);
+			if (flag->width)
+				format = ft_width(format, flag);
 			return (format);
 		}
-		ft_strdel(&tmp);
+		else if (**s >= '1' && **s <= '9')
+		{
+			flag->width = ft_atoi(*s);
+			while (ft_isdigit(**s))
+				(*s)++;
+			(*s)--;
+		}
 		(*s)++;
 	}
 	return (NULL);

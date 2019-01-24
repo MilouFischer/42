@@ -2,6 +2,7 @@
 
 void			ft_init_flag(t_flag *flag)
 {
+	flag->width = 0;
 	flag->sharp = 0;
 	flag->zero = 0;
 	flag->min = 0;

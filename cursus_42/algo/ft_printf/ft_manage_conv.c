@@ -5,11 +5,7 @@ void	ft_manage_flag(char **s, t_flag *flag)
 	if (**s == '#')
 		flag->sharp = 1;
 	else if (**s == '0' && !flag->min)
-	{
-		flag->zero = ft_atoi(*s);
-		while (ft_isdigit(**s))
-			(*s)++;
-	}
+		flag->zero = 1;
 	else
 		(void)flag;
 }

@@ -6,6 +6,7 @@
 
 typedef struct	s_flag
 {
+	int			width;
 	int			sharp;
 	int			zero;
 	int			min;
@@ -25,6 +26,6 @@ char	*ft_manage_str(char c, char *format, va_list *arg, t_flag *flag);
 char	*ft_manage_conv(char c, va_list *arg, t_flag *flag);
 char	*ft_itoa_base_u(unsigned long nb, unsigned long base);
 void	ft_init_flag(t_flag *flag);
-char	*ft_flag_zero(char *format, t_flag *flag);
+char	*ft_width(char *format, t_flag *flag);
 
 #endif
