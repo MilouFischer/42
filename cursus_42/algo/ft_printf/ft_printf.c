@@ -29,6 +29,8 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 				format = ft_width(**s, format, flag);
 			else if (flag->sharp && (**s == 'x' || **s == 'X'))
 				format = ft_join_free("0x", format, 2);
+			else if (flag->plus && *format != '-')
+				format = ft_join_free("+", format, 2);
 			return (**s == 'X' ? ft_strupcase(format) : format);
 		}
 		else if (**s >= '1' && **s <= '9')
