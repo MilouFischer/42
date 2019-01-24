@@ -54,3 +54,23 @@ char			*ft_itoa_base_u(unsigned long nb,
 	}
 	return (str);
 }
+
+char			*ft_join_free(char *s1, char *s2, int op)
+{
+	char	*tmp;
+	char	*str;
+
+	if (op == 1)
+	{
+		tmp = s1;
+		str = ft_strjoin(tmp, s2);
+		ft_strdel(&tmp);
+	}
+	else
+	{
+		tmp = s2;
+		str = ft_strjoin(s1, tmp);
+		ft_strdel(&tmp);
+	}
+	return (str);
+}

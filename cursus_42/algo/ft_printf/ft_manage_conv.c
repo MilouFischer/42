@@ -35,7 +35,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	}
 	else if (c == 's')
 	{
-		s = va_arg(*arg, char*);
+		s = ft_strdup(va_arg(*arg, char*));
 		return (s);
 	}
 	else
@@ -83,13 +83,7 @@ char	*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 	{
 		u = va_arg(*arg, unsigned long);
 		s = ft_itoa_base_u(u, 16);
-		if (flag->sharp)
-		{
-			tmp = s;
-			s = ft_strjoin("0x", tmp);
-			ft_strdel(&tmp);
-		}
-		return (c == 'X' ? ft_strupcase(s) : s);
+		return (s);
 	}
 	else
 	{
