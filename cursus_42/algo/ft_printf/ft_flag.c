@@ -2,8 +2,8 @@
 
 char	*ft_precision(char conv, char *format, t_flag *flag)
 {
-	int		len;
-	int		i;
+	size_t	len;
+	size_t	i;
 	char	*str;
 	char	c;
 
@@ -15,10 +15,9 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	}
 	if (flag->plus && *format != '-')
 		flag->precision--;
-	if (flag->width)
-		len = flag->width - ft_strlen(format);
-	else
-		len = flag->precision - ft_strlen(format);
+	len = flag->precision - ft_strlen(format);
+	//if (flag->width - ft_strlen(format) > len)
+	//	len = flag->width - ft_strlen(format);
 	if (len > 0)
 	{
 		c = flag->zero ? '0' : ' ';
