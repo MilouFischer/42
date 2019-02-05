@@ -3,3 +3,4 @@ main.c
 *.a
 *.swp
 a.out
+a.out.dSYM

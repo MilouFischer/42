@@ -3,6 +3,7 @@
 void			ft_init_flag(t_flag *flag)
 {
 	flag->width = 0;
+	flag->precision = 0;
 	flag->sharp = 0;
 	flag->zero = 0;
 	flag->min = 0;
@@ -15,7 +16,7 @@ void			ft_init_flag(t_flag *flag)
 	flag->L = 0;
 }
 
-static size_t	ft_intlen(unsigned long nb, int base)
+static size_t	ft_intlen(unsigned long long nb, int base)
 {
 	size_t	i;
 
@@ -30,7 +31,7 @@ static size_t	ft_intlen(unsigned long nb, int base)
 	return (i);
 }
 
-char			*ft_itoa_base_u(unsigned long nb, int base)
+char			*ft_itoa_base_u(unsigned long long nb, int base)
 {
 	size_t	len;
 	char	*str;

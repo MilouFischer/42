@@ -10,6 +10,11 @@ void	ft_manage_flag(char **s, t_flag *flag)
 		flag->plus = 1;
 	else if (**s == '-')
 		flag->min = 1;
+	else if (**s == '.')
+	{
+		flag->width = flag->precision;
+		flag->precision = 0;
+	}
 	else
 		(void)flag;
 }
@@ -64,10 +69,10 @@ char	*ft_float(va_list *arg, t_flag *flag)
 
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	int				nb;
-	unsigned long	u;
-	char			*s;
-	char			*tmp;
+	int					nb;
+	unsigned long long	u;
+	char				*s;
+	char				*tmp;
 
 	if (c == 'd')
 	{
@@ -81,7 +86,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	}
 	else if (c == 'o')
 	{
-		u = va_arg(*arg, unsigned long);
+		u = va_arg(*arg, unsigned long long);
 		s = ft_itoa_base_u(u, 8);
 		if (flag->sharp)
 		{
@@ -93,12 +98,12 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	}
 	else if (c == 'u')
 	{
-		u = va_arg(*arg, unsigned long);
+		u = va_arg(*arg, unsigned long long);
 		return (ft_itoa_base_u(u, 10));
 	}
 	else if (c == 'x' || c == 'X')
 	{
-		u = va_arg(*arg, unsigned long);
+		u = va_arg(*arg, unsigned long long);
 		if (u == 4294967296)
 			s = ft_strdup("0");
 		else

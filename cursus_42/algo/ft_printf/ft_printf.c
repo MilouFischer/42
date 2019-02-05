@@ -11,13 +11,13 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	while (**s)
 	{
 		tmp = format;
-		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ')
+		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ' || **s == '.')
 			ft_manage_flag(s, flag);
 		else if (**s == '%')
 		{
 			format = ft_strdup("%");
-			if (flag->width)
-				format = ft_width(**s, format, flag);
+			if (flag->precision)
+				format = ft_precision(**s, format, flag);
 			return (format);
 		}
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
@@ -33,17 +33,20 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
-			if (flag->width)
-				format = ft_width(**s, format, flag);
-			else if (flag->sharp && (**s == 'x' || **s == 'X'))
+			if (flag->sharp && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
+			{
 				format = ft_join_free("0x", format, 2);
+				flag->sharp = 0;
+			}
+			if (flag->precision)
+				format = ft_precision(**s, format, flag);
 			else if (flag->plus && *format != '-')
 				format = ft_join_free("+", format, 2);
 			return (**s == 'X' ? ft_strupcase(format) : format);
 		}
 		else if (**s >= '1' && **s <= '9')
 		{
-			flag->width = ft_atoi(*s);
+			flag->precision = ft_atoi(*s);
 			while (ft_isdigit(**s))
 				(*s)++;
 			(*s)--;
