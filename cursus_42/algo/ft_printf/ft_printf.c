@@ -7,11 +7,19 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	char	*nb;
 
 	format = NULL;
+	(*s)++;
 	while (**s)
 	{
 		tmp = format;
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ')
 			ft_manage_flag(s, flag);
+		else if (**s == '%')
+		{
+			format = ft_strdup("%");
+			if (flag->width)
+				format = ft_width(**s, format, flag);
+			return (format);
+		}
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
 		else if (**s == 'c' || **s == 's' || **s == 'p')

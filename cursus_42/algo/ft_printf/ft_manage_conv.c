@@ -8,14 +8,20 @@ void	ft_manage_flag(char **s, t_flag *flag)
 		flag->zero = 1;
 	else if (**s == '+' && !flag->min)
 		flag->plus = 1;
+	else if (**s == '-')
+		flag->min = 1;
 	else
 		(void)flag;
 }
 
 char	*ft_manage_conv_flag(char c, t_flag *flag)
 {
-	(void)c;
-	(void)flag;
+	if (c == 'l' && flag->l)
+		flag->ll = 1;
+	else if (c == 'l')
+		flag->l = 1;
+	else
+		(void)flag;
 	return (" conv_flag");
 }
 
@@ -47,7 +53,16 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	}
 }
 
-char	*ft_manage_conv(char c, va_list *arg, t_flag *flag)
+char	*ft_float(va_list *arg, t_flag *flag)
+{
+	int		nb;
+
+	(void)flag;
+	nb = va_arg(*arg, int);
+	return (ft_itoa(nb));
+}
+
+char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	int				nb;
 	unsigned long	u;
@@ -84,12 +99,69 @@ char	*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 	else if (c == 'x' || c == 'X')
 	{
 		u = va_arg(*arg, unsigned long);
+		if (u == 4294967296)
+			s = ft_strdup("0");
+		else
+			s = ft_itoa_base_u(u, 16);
+		return (s);
+	}
+	else
+		return (NULL);
+}
+
+char	*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
+{
+	long long int	nb;
+	unsigned long	u;
+	char			*s;
+	char			*tmp;
+
+	if (c == 'd')
+	{
+		nb = va_arg(*arg, long long int);
+		return (ft_itoa_base_u(nb, 10));
+	}
+	else if (c == 'i')
+	{
+		nb = va_arg(*arg, long long int);
+		return (ft_itoa_base_u(nb, 10));
+	}
+	else if (c == 'o')
+	{
+		u = va_arg(*arg, unsigned long);
+		s = ft_itoa_base_u(u, 8);
+		if (flag->sharp)
+		{
+			tmp = s;
+			s = ft_strjoin("0", tmp);
+			ft_strdel(&tmp);
+		}
+		return (s);
+	}
+	else if (c == 'u')
+	{
+		u = va_arg(*arg, unsigned long);
+		return (ft_itoa_base_u(u, 10));
+	}
+	else if (c == 'x' || c == 'X')
+	{
+		u = va_arg(*arg, unsigned long);
 		s = ft_itoa_base_u(u, 16);
 		return (s);
 	}
 	else
-	{
-		nb = va_arg(*arg, int);
-		return (ft_itoa(nb));
-	}
+		return (NULL);
+}
+
+char	*ft_manage_conv(char c, va_list *arg, t_flag *flag)
+{
+	char	*str;
+
+	if (c == 'f')
+		str = ft_float(arg, flag);
+	else if (flag->l || flag->ll)
+		str = ft_long_diouxx(c, arg, flag);
+	else
+		str = ft_diouxx(c, arg, flag);
+	return (str);
 }

@@ -34,11 +34,12 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 			else if (flag->plus && *format != '-')
 				str = ft_join_free("+", str, 2);
 		}
-		else if ((conv == 'x' || conv == 'X'))
-			str = ft_join_free(str, "0x", 1);
 		else if (flag->plus && *format != '-')
 			format = ft_join_free("+", format, 2);
-		format = ft_join_free(str, format, 2);
+		if (flag->min)
+			format = ft_join_free(format, str, 1);
+		else
+			format = ft_join_free(str, format, 2);
 		ft_strdel(&str);
 	}
 	return (format);
