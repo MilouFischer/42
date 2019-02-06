@@ -35,7 +35,9 @@ char	*ft_manage_conv_flag(char c, t_flag *flag)
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
 	char	*s;
+	char	*tmp;
 	void	*p;
+	int		len;
 
 	(void)flag;	
 	if (c == 'c')
@@ -50,7 +52,34 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	}
 	else if (c == 's')
 	{
-		s = ft_strdup(va_arg(*arg, char*));
+		if (flag->precision)
+			s = ft_strndup(va_arg(*arg, char*), flag->width);
+		else
+			s = ft_strdup(va_arg(*arg, char*));
+		if (flag->precision)
+		{
+			len = ft_strlen(s);
+			if (len > flag->precision)
+			{
+				tmp = s;
+				s = ft_strndup(tmp, len);
+				ft_strdel(&tmp);
+			}
+			else if (len < flag->precision)
+			{
+				len = flag->precision - len;
+				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+				{
+					ft_strdel(&format);
+					return (NULL);
+				}
+				tmp[len--] = '\0';
+				while (len >= 0)
+					tmp[len--] = ' ';
+				s = ft_join_free(tmp, s, 2);
+				ft_strdel(&tmp);
+			}
+		}
 		return (s);
 	}
 	else
