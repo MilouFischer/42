@@ -34,18 +34,35 @@ char	*ft_manage_conv_flag(char c, t_flag *flag)
 
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
-	char	*s;
-	char	*tmp;
-	void	*p;
-	int		len;
+	char			*s;
+	char			*tmp;
+	void			*p;
+	unsigned long	nb;
+	int				len;
 
 	(void)flag;	
 	if (c == 'c')
 	{
+		len = 2;
 		if (!(s = (char*)malloc(sizeof(char) * 2)))
 			return (NULL);
 		s[0] = va_arg(*arg, int);
 		s[1] = '\0';
+		if (flag->precision >= 1)
+		{
+			len = flag->precision - 1;
+			if (!(tmp = (char*)malloc(sizeof(char) * len)))
+			{
+				ft_strdel(&s);
+				return (NULL);
+			}
+			tmp[len--] = '\0';
+			while (len)
+				tmp[len--] = ' ';
+			tmp[len] = ' ';
+			s = ft_join_free(tmp, s, 2);
+			ft_strdel(&tmp);
+		}
 		format = ft_strdup(s);
 		ft_strdel(&s);
 		return (format);
@@ -90,7 +107,10 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else
 	{
 		p = va_arg(*arg, void*);
-		return ((char*)p);
+		nb = (unsigned long)&p;
+		s = ft_itoa_base_u(nb, 16);
+		ft_join_free("0x", s, 2);
+		return (s);
 	}
 }
 
