@@ -48,4 +48,9 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re
+up:
+	git add -A
+	git commit -m"up"
+	git push
+
+.PHONY: all clean fclean re up
