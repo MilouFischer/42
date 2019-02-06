@@ -56,7 +56,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 			s = ft_strndup(va_arg(*arg, char*), flag->precision);
 		else
 			s = ft_strdup(va_arg(*arg, char*));
-		if (flag->width || flag->precision)
+		if (flag->width || (flag->precision && *s))
 		{
 			if (flag->width < flag->precision)
 				flag->width = flag->precision;
