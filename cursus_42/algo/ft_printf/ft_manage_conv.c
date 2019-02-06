@@ -53,21 +53,23 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else if (c == 's')
 	{
 		if (flag->precision)
-			s = ft_strndup(va_arg(*arg, char*), flag->width);
+			s = ft_strndup(va_arg(*arg, char*), flag->precision);
 		else
 			s = ft_strdup(va_arg(*arg, char*));
-		if (flag->precision)
+		if (flag->width || flag->precision)
 		{
+			if (flag->width < flag->precision)
+				flag->width = flag->precision;
 			len = ft_strlen(s);
-			if (len > flag->precision)
+			if (len > flag->width)
 			{
 				tmp = s;
 				s = ft_strndup(tmp, len);
 				ft_strdel(&tmp);
 			}
-			else if (len < flag->precision)
+			else if (len < flag->width)
 			{
-				len = flag->precision - len;
+				len = flag->width - len;
 				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
 				{
 					ft_strdel(&format);
