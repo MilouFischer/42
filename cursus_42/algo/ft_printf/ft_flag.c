@@ -15,6 +15,8 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	}
 	if (flag->plus && *format != '-')
 		flag->precision--;
+	if (flag->width > flag->precision)
+		flag->precision = flag->width;
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
 	{
