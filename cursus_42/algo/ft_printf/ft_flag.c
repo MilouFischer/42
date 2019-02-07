@@ -22,8 +22,21 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 		format = ft_strdup("");
 		flag->zero = 0;
 	}
-	if (flag->width > flag->precision)
-		flag->precision = flag->width;
+	len = flag->width - ft_strlen(format);
+	if (len > 0)
+	{
+		c = '0';
+		if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+		{
+			ft_strdel(&format);
+			return (NULL);
+		}
+		while (i < len)
+			str[i++] = c;
+		str[i] = '\0';
+		format = ft_join_free(str, format, 2);
+		ft_strdel(&str);
+	}
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
 	{

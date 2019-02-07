@@ -27,6 +27,10 @@ char	*ft_manage_conv_flag(char c, t_flag *flag)
 		flag->ll = 1;
 	else if (c == 'l')
 		flag->l = 1;
+	else if (c == 'h' && flag->h)
+		flag->hh = 1;
+	else if (c == 'h')
+		flag->h = 1;
 	else
 		(void)flag;
 	return (" conv_flag");
@@ -129,6 +133,8 @@ char	*ft_float(va_list *arg, t_flag *flag)
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	int					nb;
+	short				sh;
+	char				ch;
 	unsigned long long	u;
 	char				*s;
 	char				*tmp;
@@ -136,6 +142,16 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	if (c == 'd')
 	{
 		nb = va_arg(*arg, int);
+		if (flag->hh)
+		{
+			ch = (char)nb;
+			nb = ch;
+		}
+		else if (flag->h)
+		{
+			sh = (short)nb;
+			nb = sh;
+		}
 		return (ft_itoa(nb));
 	}
 	else if (c == 'i')
