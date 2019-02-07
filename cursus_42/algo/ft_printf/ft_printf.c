@@ -42,6 +42,8 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 				format = ft_precision(**s, format, flag);
 			else if (flag->plus && *format != '-')
 				format = ft_join_free("+", format, 2);
+			else if (flag->space && *format != '-')
+				format = ft_join_free(" ", format, 2);
 			return (**s == 'X' ? ft_strupcase(format) : format);
 		}
 		else if (**s >= '1' && **s <= '9')

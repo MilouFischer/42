@@ -5,6 +5,7 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	int		len;
 	int		i;
 	char	*str;
+	char	*tmp;
 	char	c;
 
 	i = 0;
@@ -41,6 +42,14 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 			format = ft_join_free("+", format, 2);
 		if (flag->min)
 			format = ft_join_free(format, str, 1);
+		else if (*format == '-' && flag->zero)
+		{
+			str = ft_join_free("-", str, 2);
+			tmp = format;
+			format = ft_strsub(tmp, 1, ft_strlen(tmp + 1));
+			ft_strdel(&tmp);
+			format = ft_join_free(str, format, 2);
+		}
 		else
 			format = ft_join_free(str, format, 2);
 		if (flag->sharp && flag->zero)

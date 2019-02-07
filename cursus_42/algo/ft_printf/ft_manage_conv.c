@@ -17,8 +17,8 @@ void	ft_manage_flag(char **s, t_flag *flag)
 		if (!flag->width)
 			flag->sharp = 0;
 	}
-	else
-		(void)flag;
+	else if (**s == ' ')
+		flag->space = 1;
 }
 
 char	*ft_manage_conv_flag(char c, t_flag *flag)
@@ -152,6 +152,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 			tmp = s;
 			s = ft_strjoin("0", tmp);
 			ft_strdel(&tmp);
+			flag->sharp = 0;
 		}
 		return (s);
 	}
