@@ -38,10 +38,13 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 				format = ft_join_free("0x", format, 2);
 				flag->sharp = 0;
 			}
-			if (flag->precision)
-				format = ft_precision(**s, format, flag);
-			if (flag->width >= 0)
-				format = ft_width(**s, format, flag);
+			if (flag->precision || flag->width >= 0)
+			{
+				if (flag->precision)
+					format = ft_precision(**s, format, flag);
+				if (flag->width >= 0)
+					format = ft_width(**s, format, flag);
+			}
 			else if (flag->plus && *format != '-')
 				format = ft_join_free("+", format, 2);
 			else if (flag->space && *format != '-')
