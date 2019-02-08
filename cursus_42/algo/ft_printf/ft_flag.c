@@ -29,7 +29,10 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 		while (i < len)
 			str[i++] = c;
 		str[i] = '\0';
-		format = ft_join_free(str, format, 2);
+		if (flag->min)
+			format = ft_join_free(format, str, 1);
+		else
+			format = ft_join_free(str, format, 2);
 		ft_strdel(&str);
 	}
 	return (format);
