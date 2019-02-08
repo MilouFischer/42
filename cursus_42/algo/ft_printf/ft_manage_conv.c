@@ -15,7 +15,7 @@ void	ft_manage_flag(char **s, t_flag *flag)
 		flag->width = flag->precision;
 		flag->precision = 0;
 		if (!flag->width)
-			flag->sharp = 0;
+			flag->sharp = -1;
 	}
 	else if (**s == ' ')
 		flag->space = 1;
@@ -168,7 +168,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 			tmp = s;
 			s = ft_strjoin("0", tmp);
 			ft_strdel(&tmp);
-			flag->sharp = 0;
+			flag->sharp = -1;
 		}
 		return (s);
 	}

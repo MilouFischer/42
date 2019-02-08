@@ -33,7 +33,7 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
-			if (flag->sharp && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
+			if (flag->sharp > 0 && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
 			{
 				format = ft_join_free("0x", format, 2);
 				flag->sharp = 0;
