@@ -29,5 +29,6 @@ char			*ft_itoa_base_u(unsigned long long nb, int base);
 void			ft_init_flag(t_flag *flag);
 char			*ft_precision(char conv, char *format, t_flag *flag);
 char			*ft_join_free(char *s1, char *s2, int op);
+char			*ft_width(char conv, char *format, t_flag *flag);
 
 #endif
