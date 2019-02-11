@@ -175,6 +175,8 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'u')
 	{
 		u = va_arg(*arg, unsigned long long);
+		flag->space = 0;
+		flag->plus = 0;
 		return (ft_itoa_base_u(u, 10));
 	}
 	else if (c == 'x' || c == 'X')
