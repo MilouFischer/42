@@ -1,6 +1,6 @@
 #include "libft.h"
 
-static size_t	ft_intlen(int nb, int base)
+static size_t	ft_intlen(long long int nb, long long int base)
 {
 	size_t	i;
 
@@ -20,7 +20,7 @@ static size_t	ft_intlen(int nb, int base)
 	return (i);
 }
 
-char			*ft_itoa_base(int nb, int base)
+char			*ft_itoa_base(long long int nb, long long int base)
 {
 	size_t	len;
 	char	*str;

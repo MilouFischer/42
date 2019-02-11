@@ -204,7 +204,7 @@ char	*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 	if (c == 'd')
 	{
 		nb = va_arg(*arg, long long int);
-		return (ft_itoa_base_u(nb, 10));
+		return (ft_itoa_base(nb, 10));
 	}
 	else if (c == 'i')
 	{
