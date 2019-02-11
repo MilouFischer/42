@@ -41,8 +41,6 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 	return (format);
 }
 
-#include <stdio.h>
-
 char	*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
@@ -60,7 +58,6 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	if (flag->plus && *format != '-' && flag->width == -1)
 		flag->precision--;
 	len = flag->precision - ft_strlen(format);
-//	printf("len = %d", len);
 	if (len > 0)
 	{
 		c = ' ';

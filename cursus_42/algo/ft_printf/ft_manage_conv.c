@@ -6,7 +6,7 @@ void	ft_manage_flag(char **s, t_flag *flag)
 		flag->sharp = 1;
 	else if (**s == '0' && !flag->min)
 		flag->zero = 1;
-	else if (**s == '+' && !flag->min)
+	else if (**s == '+')
 		flag->plus = 1;
 	else if (**s == '-')
 		flag->min = 1;
