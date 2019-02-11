@@ -14,7 +14,7 @@ void	ft_manage_flag(char **s, t_flag *flag)
 	{
 		flag->width = flag->precision;
 		flag->precision = 0;
-		if (!flag->width)
+		if (flag->sharp && !flag->width)
 			flag->sharp = -1;
 	}
 	else if (**s == ' ')
