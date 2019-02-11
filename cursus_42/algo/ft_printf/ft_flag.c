@@ -58,6 +58,11 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	if (flag->plus && *format != '-' && flag->width == -1)
 		flag->precision--;
 	len = flag->precision - ft_strlen(format);
+	if (!len && *format == '-')
+	{
+		*format = '0';
+		return (ft_join_free("-", format, 2));
+	}
 	if (len > 0)
 	{
 		c = ' ';
@@ -73,8 +78,6 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 		str[i] = '\0';
 		if (flag->plus && *format != '-')
 			str = ft_join_free("+", str, 2);
-		else if (flag->plus && *format != '-')
-			format = ft_join_free("+", format, 2);
 		if (flag->min && flag->width == -1)
 			format = ft_join_free(format, str, 1);
 		else if (*format == '-' && flag->zero)
