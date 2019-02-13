@@ -9,7 +9,7 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 
 	(void)conv;
 	i = 0;
-	if (flag->width >= 0 && !flag->precision)
+	if (flag->width >= 0 && !flag->precision && *format == '0')
 	{
 		ft_strdel(&format);
 		if (conv == 'o' && flag->sharp == -1)
@@ -80,12 +80,17 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 			str = ft_join_free("+", str, 2);
 		if (flag->min && flag->width == -1)
 			format = ft_join_free(format, str, 1);
-		else if (*format == '-' && flag->zero)
+		else if (*format == '-' && c == '0')
 		{
 			str = ft_join_free("-", str, 2);
-			tmp = format;
-			format = ft_strsub(tmp, 1, ft_strlen(tmp + 1));
-			ft_strdel(&tmp);
+			if (flag->width == -1)
+			{
+				tmp = format;
+				format = ft_strsub(tmp, 1, ft_strlen(tmp + 1));
+				ft_strdel(&tmp);
+			}
+			else
+				format[0] = '0';
 			format = ft_join_free(str, format, 2);
 		}
 		else
