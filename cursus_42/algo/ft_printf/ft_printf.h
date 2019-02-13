@@ -18,6 +18,7 @@ typedef struct	s_flag
 	int			l;
 	int			ll;
 	int			L;
+	int			null;
 }				t_flag;
 
 int				ft_printf(const char *format, ...);
@@ -30,5 +31,7 @@ void			ft_init_flag(t_flag *flag);
 char			*ft_precision(char conv, char *format, t_flag *flag);
 char			*ft_join_free(char *s1, char *s2, int op);
 char			*ft_width(char conv, char *format, t_flag *flag);
+int				ft_strlen_null(char *s, int nb);
+int				ft_putstr_null(char	*s, int nb);
 
 #endif

@@ -77,7 +77,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else if (c == 's')
 	{
 		if (!(s = va_arg(*arg, char*)))
-			return (NULL);
+			return (s = ft_strdup("(null)"));
 		if (flag->precision)
 			s = ft_strndup(s, flag->precision);
 		else

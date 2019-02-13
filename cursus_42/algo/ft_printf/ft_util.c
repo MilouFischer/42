@@ -1,5 +1,28 @@
 #include "ft_printf.h"
 
+int				ft_strlen_null(char *s, int nb)
+{
+	int		count;
+
+	count = 0;
+	while (s[count] && nb)
+	{
+		if (!s[count])
+			nb--;
+		count++;
+	}
+	return (count);
+}
+
+int				ft_putstr_null(char	*s, int nb)
+{
+	int		len;
+
+	len = 0;
+	write(1, s, len = ft_strlen_null(s, nb));
+	return (len);
+}
+
 void			ft_init_flag(t_flag *flag)
 {
 	flag->width = -1;
