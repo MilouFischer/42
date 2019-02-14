@@ -109,8 +109,11 @@ int			ft_printf(const char *format, ...)
 	out = ft_strdup(format);
 	if (ft_strchr(out, '%'))
 	{
+		if (!*(out + 1))
+			return (0);
 		va_start(arg, format);
-		out = ft_get_flags(out, &arg);
+		if (!(out = ft_get_flags(out, &arg)))
+			return (0);
 		va_end(arg);
 	}
 	ft_putstr(out);
