@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 15:18:26 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:02:52 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	char	*format;
 	char	*tmp;
 	char	*nb;
+	int		len;
 
 	format = NULL;
 	(*s)++;
@@ -73,7 +74,26 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == 'Z')
 			return (ft_strdup("Z"));
 		else
-			return (ft_strndup(*s, 1));
+		{
+			format = ft_strndup(*s, 1);
+			if ((len = flag->precision - ft_strlen(format)) > 0)
+			{
+				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+				{
+					ft_strdel(&format);
+					return (NULL);
+				}
+				tmp[len--] = '\0';
+				while (len >= 0)
+					tmp[len--] = ' ';
+				if (flag->min)
+					format = ft_join_free(format, tmp, 1);
+				else
+					format = ft_join_free(tmp, format, 2);
+				ft_strdel(&tmp);
+			}
+			return (format);
+		}
 		(*s)++;
 	}
 	return (ft_strdup("\0"));
@@ -105,8 +125,6 @@ static t_list	*ft_fill_content(t_list *list, char *str, t_flag flag)
 	}
 	return (list);
 }
-
-#include <stdio.h>
 
 static t_list	*ft_get_flags(t_list *list, va_list *arg)
 {
