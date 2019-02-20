@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:11:45 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:43:56 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 				(*s)++;
 			(*s)--;
 		}
+		else if (**s == 'Z')
+			return (ft_strdup("Z"));
 		(*s)++;
 	}
 	return (NULL);
