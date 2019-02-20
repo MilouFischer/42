@@ -6,46 +6,47 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 12:08:44 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 13:09:00 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char *ft_process_flag(char *s, va_list *arg, t_flag *flag)
+static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
 	char	*nb;
 
 	format = NULL;
-	s++;
-	while (*s)
+	(*s)++;
+	while (**s)
 	{
 		tmp = format;
-		if (*s == '#' || *s == '0' || *s == '-' || *s == '+' || *s == ' ' || *s == '.')
-			ft_manage_flag(*s, flag);
-		else if (*s == '%')
+		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ' || **s == '.')
+			ft_manage_flag(**s, flag);
+		else if (**s == '%')
 		{
+			(*s)++;
 			format = ft_strdup("%");
 			if (flag->precision)
-				format = ft_precision(*s, format, flag);
+				format = ft_precision(**s, format, flag);
 			return (format);
 		}
-		else if (*s == 'h' || *s == 'l' || *s == 'L')
-			ft_manage_conv_flag(*s, flag);
-		else if (*s == 'c' || *s == 's' || *s == 'p')
+		else if (**s == 'h' || **s == 'l' || **s == 'L')
+			ft_manage_conv_flag(**s, flag);
+		else if (**s == 'c' || **s == 's' || **s == 'p')
 		{
-			format = ft_manage_str(*s, format, arg, flag);
+			format = ft_manage_str(**s, format, arg, flag);
 			return (format);
 		}
-		else if (*s == 'd' || *s == 'i' || *s == 'o' || *s == 'u' || *s == 'x'
-				|| *s == 'X' || *s == 'f')
+		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
+				|| **s == 'X' || **s == 'f')
 		{
-			format = ft_strjoin(tmp, nb = ft_manage_conv(*s, arg, flag));
+			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
-			if (flag->sharp > 0 && (*s == 'x' || *s == 'X') && *format != '0' && !flag->zero)
+			if (flag->sharp > 0 && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
 			{
 				format = ft_join_free("0x", format, 2);
 				flag->sharp = 0;
@@ -53,50 +54,52 @@ static char *ft_process_flag(char *s, va_list *arg, t_flag *flag)
 			if (flag->precision || flag->width >= 0)
 			{
 				if (flag->precision)
-					format = ft_precision(*s, format, flag);
+					format = ft_precision(**s, format, flag);
 				if (flag->width >= 0)
-					format = ft_width(*s, format, flag);
+					format = ft_width(**s, format, flag);
 			}
 			else if (flag->plus && *format != '-')
 				format = ft_join_free("+", format, 2);
 			else if (flag->space && *format != '-')
 				format = ft_join_free(" ", format, 2);
-			return (*s == 'X' ? ft_strupcase(format) : format);
+			return (**s == 'X' ? ft_strupcase(format) : format);
 		}
-		else if (*s >= '1' && *s <= '9')
+		else if (**s >= '1' && **s <= '9')
 		{
-			flag->precision = ft_atoi(s);
-			while (ft_isdigit(*s))
-				s++;
-			s--;
+			flag->precision = ft_atoi(*s);
+			while (ft_isdigit(**s))
+				(*s)++;
+			(*s)--;
 		}
-		s++;
+		(*s)++;
 	}
 	return (NULL);
 }
 
 static t_list	*ft_get_flags(t_list *list, va_list *arg)
 {
+	char	*str;
 	char	*tmp;
 	t_list	*tmp_list;
 	t_list	*new;
 	t_flag	flag;
 
 	tmp_list = list;
-	while ((tmp = ft_strchr(list->content, '%')))
+	str = list->content;
+	while ((tmp = ft_strchr(str, '%')))
 	{
 		ft_init_flag(&flag);
-		new = ft_lstnew_str(tmp, ft_strlen(tmp));
+		new = ft_lstnew_str(NULL, 0);
+		str = ft_strdup(tmp);
 		tmp = list->content;
-		list->content = ft_strsub(tmp, 0, list->content_size - new->content_size);
+		list->content = ft_strsub(tmp, 0, list->content_size - ft_strlen(str));
 		list->content_size = ft_strlen(list->content);
 		ft_lstadd(&new, list);
 		list = list->next;
-		tmp = list->content;
-		if (!(list->content = ft_process_flag(tmp, arg, &flag)))
+		if (!(list->content = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
+		list->content = ft_join_free(list->content, str + 1, 1);
 		list->content_size = ft_strlen(list->content);
-		ft_strdel(&tmp);
 	}
 	return (tmp_list);
 }
