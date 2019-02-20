@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 16:12:52 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:17:46 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	{
 		u = va_arg(*arg, unsigned long long);
 		s = ft_itoa_base_u(u, 8);
-		if (flag->sharp)
+		if (flag->sharp && u)
 		{
 			tmp = s;
 			s = ft_strjoin("0", tmp);
