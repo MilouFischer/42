@@ -1,23 +1,23 @@
 #include "ft_printf.h"
 
-void	ft_manage_flag(char **s, t_flag *flag)
+void	ft_manage_flag(char c, t_flag *flag)
 {
-	if (**s == '#')
+	if (c == '#')
 		flag->sharp = 1;
-	else if (**s == '0' && !flag->min)
+	else if (c == '0' && !flag->min)
 		flag->zero = 1;
-	else if (**s == '+')
+	else if (c == '+')
 		flag->plus = 1;
-	else if (**s == '-')
+	else if (c == '-')
 		flag->min = 1;
-	else if (**s == '.')
+	else if (c == '.')
 	{
 		flag->width = flag->precision;
 		flag->precision = 0;
 		if (flag->sharp && !flag->width)
 			flag->sharp = -1;
 	}
-	else if (**s == ' ')
+	else if (c == ' ')
 		flag->space = 1;
 }
 

@@ -1,4 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_util.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/20 11:26:50 by efischer          #+#    #+#             */
+/*   Updated: 2019/02/20 12:08:48 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
+
+int		ft_print_list(t_list *list)
+{
+	int		len;
+
+	len = 0;
+	while (list)
+	{
+		ft_putstr(list->content);
+		len += list->content_size;
+		list = list->next;
+	}
+	return (len);
+}
+
+void	ft_free_list(t_list *list)
+{
+	if (!list)
+		return ;
+	ft_strdel(&list->content);
+	ft_free_list(list->next);
+	free(list);
+}
+
+t_list	*ft_lstnew_str(char const *content, size_t content_size)
+{
+	t_list	*list;
+
+	if (!(list = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	if (content == NULL)
+	{
+		list->content = NULL;
+		list->content_size = 0;
+	}
+	else
+	{
+		if (!(list->content = (char*)malloc(sizeof(char) * (content_size + 1))))
+		{
+			free(list);
+			return (NULL);
+		}
+		list->content = ft_strdup(content);
+		list->content_size = content_size;
+	}
+	list->next = NULL;
+	return (list);
+}
 
 int				ft_strlen_null(char *s, int nb)
 {

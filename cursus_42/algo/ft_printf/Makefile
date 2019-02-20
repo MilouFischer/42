@@ -6,7 +6,7 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2018/12/03 18:39:31 by efischer         ###   ########.fr        #
+#    Updated: 2019/02/20 11:34:16 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ DEBUG = -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 all: $(NAME)
 
 %.o: %.c $(HEAD)
-	$(CC) $(CFLAGS) -c $(SRCS)
+	$(CC) $(DEBUG) -c $(SRCS)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)

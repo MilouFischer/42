@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 18:39:09 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 11:31:29 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct		s_list
 {
-	void			*content;
+	char			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
