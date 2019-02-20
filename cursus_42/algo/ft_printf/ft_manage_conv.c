@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 15:47:57 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:49:00 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,10 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 				tmp[len--] = '\0';
 				while (len >= 0)
 					tmp[len--] = ' ';
-				s = ft_join_free(tmp, s, 2);
+				if (flag->min)
+					s = ft_join_free(s, tmp, 1);
+				else
+					s = ft_join_free(tmp, s, 2);
 				ft_strdel(&tmp);
 			}
 		}
