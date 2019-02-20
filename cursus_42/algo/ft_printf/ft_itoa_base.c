@@ -27,6 +27,8 @@ char			*ft_itoa_base(long long int nb, long long int base)
 
 	if (base < 2 || base > 16)
 		return (NULL);
+	if (nb < -9223372036854775807)
+		return (ft_strdup("-9223372036854775808"));
 	len = ft_intlen(nb, base);
 	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
