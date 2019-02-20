@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:26:50 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 12:08:48 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 13:49:50 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 int		ft_print_list(t_list *list)
 {
 	int		len;
+	size_t	i;
 
 	len = 0;
 	while (list)
 	{
+		i = 0;
 		ft_putstr(list->content);
+		if (list->content_size > ft_strlen(list->content))
+			ft_putchar('\0');
 		len += list->content_size;
 		list = list->next;
 	}
@@ -97,6 +101,7 @@ void			ft_init_flag(t_flag *flag)
 	flag->l = 0;
 	flag->ll = 0;
 	flag->L = 0;
+	flag->null = 0;
 }
 
 static size_t	ft_intlen(unsigned long long nb, int base)

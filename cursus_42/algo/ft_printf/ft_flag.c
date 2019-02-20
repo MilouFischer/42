@@ -7,7 +7,6 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 	char	*str;
 	char	c;
 
-	(void)conv;
 	i = 0;
 	if (flag->width >= 0 && !flag->precision && *format == '0')
 	{

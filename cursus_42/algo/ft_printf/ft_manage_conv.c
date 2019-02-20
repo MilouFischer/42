@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_manage_conv.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
+/*   Updated: 2019/02/20 13:40:54 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	ft_manage_flag(char c, t_flag *flag)
@@ -52,6 +64,11 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 			return (NULL);
 		s[0] = va_arg(*arg, int);
 		s[1] = '\0';
+		if (!s[0])
+		{
+			flag->precision--;
+			flag->null = 1;
+		}
 		if (flag->precision >= 1)
 		{
 			len = flag->precision - 1;
