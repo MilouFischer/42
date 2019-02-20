@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 16:17:46 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:07:49 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 			s = ft_strndup(s, flag->precision);
 		else
 			s = ft_strdup(s);
-		if (flag->width || (flag->precision && *s))
+		if (flag->width || (flag->precision  && *s))
 		{
-			if (flag->width < flag->precision)
+			if (flag->precision > 0 && flag->width < flag->precision)
 				flag->width = flag->precision;
 			len = ft_strlen(s);
 			if (len > flag->width)
