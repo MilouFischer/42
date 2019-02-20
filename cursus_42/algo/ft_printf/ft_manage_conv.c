@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 15:26:02 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:32:39 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	char			*s;
 	char			*tmp;
 	void			*p;
-	unsigned long	nb;
 	int				len;
 
 	(void)flag;	
@@ -140,8 +139,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 		p = va_arg(*arg, void*);
 		if (!p)
 			return (ft_strdup("0x0"));
-		nb = (unsigned long)&p;
-		s = ft_itoa_base_u(nb, 16);
+		s = ft_itoa_base_u((unsigned long)p, 16);
 		s = ft_join_free("0x", s, 2);
 		return (s);
 	}
