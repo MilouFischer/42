@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:26:50 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 13:49:50 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:09:30 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int		ft_print_list(t_list *list)
 	while (list)
 	{
 		i = 0;
-		ft_putstr(list->content);
-		if (list->content_size > ft_strlen(list->content))
-			ft_putchar('\0');
+		while (i < list->content_size)
+			ft_putchar(list->content[i++]);
 		len += list->content_size;
 		list = list->next;
 	}

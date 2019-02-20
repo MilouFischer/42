@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:05:56 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:11:45 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ static t_list	*ft_fill_content(t_list *list, char *str, t_flag flag)
 		while (*str)
 			list->content[i++] = *str++;
 		list->content[i] = '\0';
+		list->content_size = i;
 	}
 	else
 	{
-		list->content = ft_join_free(list->content, str + 1, 1);
+		list->content = ft_join_free(list->content, str, 1);
 		list->content_size = ft_strlen(list->content);
 	}
 	return (list);
@@ -124,7 +125,7 @@ static t_list	*ft_get_flags(t_list *list, va_list *arg)
 		list = list->next;
 		if (!(list->content = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
-		list = ft_fill_content(list, str, flag);
+		list = ft_fill_content(list, str + 1, flag);
 	}
 	return (tmp_list);
 }
