@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:45:43 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:26:02 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,11 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else
 	{
 		p = va_arg(*arg, void*);
+		if (!p)
+			return (ft_strdup("0x0"));
 		nb = (unsigned long)&p;
 		s = ft_itoa_base_u(nb, 16);
-		ft_join_free("0x", s, 2);
+		s = ft_join_free("0x", s, 2);
 		return (s);
 	}
 }
