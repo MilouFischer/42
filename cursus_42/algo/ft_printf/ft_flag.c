@@ -75,6 +75,8 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 		while (i < len)
 			str[i++] = c;
 		str[i] = '\0';
+		if (flag->space)
+			str[0] = ' ';
 		if (flag->plus && *format != '-')
 			str = ft_join_free("+", str, 2);
 		if (flag->min && flag->width == -1)
