@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 13:40:54 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:21:01 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,16 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 		s[1] = '\0';
 		if (!s[0])
 		{
-			flag->precision--;
+			flag->width--;
 			flag->null = 1;
 		}
 		if (flag->precision >= 1)
 		{
-			len = flag->precision - 1;
+			if (!(len = flag->precision - 1))
+			{
+				ft_strdel(&s);
+				return (ft_strdup("\0"));
+			}
 			if (!(tmp = (char*)malloc(sizeof(char) * len)))
 			{
 				ft_strdel(&s);
