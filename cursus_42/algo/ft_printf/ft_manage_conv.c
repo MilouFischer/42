@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 15:32:39 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:47:57 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,28 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	{
 		p = va_arg(*arg, void*);
 		if (!p)
-			return (ft_strdup("0x0"));
-		s = ft_itoa_base_u((unsigned long)p, 16);
-		s = ft_join_free("0x", s, 2);
+			s = ft_strdup("0x0");
+		else
+		{
+			s = ft_itoa_base_u((unsigned long)p, 16);
+			s = ft_join_free("0x", s, 2);
+		}
+		if (flag->precision)
+		{
+			if ((len = flag->precision - ft_strlen(s)) > 0)
+			{
+				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+				{
+					ft_strdel(&format);
+					return (NULL);
+				}
+				tmp[len--] = '\0';
+				while (len >= 0)
+					tmp[len--] = ' ';
+				s = ft_join_free(tmp, s, 2);
+				ft_strdel(&tmp);
+			}
+		}
 		return (s);
 	}
 }
