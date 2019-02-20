@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:21:01 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:23:14 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 		s[1] = '\0';
 		if (!s[0])
 		{
-			flag->width--;
+			if (!flag->width)
+				flag->precision--;
 			flag->null = 1;
 		}
 		if (flag->precision >= 1)
