@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:39:25 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:45:43 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,6 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'x' || c == 'X')
 	{
 		u = va_arg(*arg, unsigned int);
-		//if (u == 4294967296)
-		//	s = ft_strdup("0");
-		//else
 			s = ft_itoa_base_u(u, 16);
 		return (s);
 	}
