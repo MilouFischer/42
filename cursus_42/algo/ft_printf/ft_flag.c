@@ -65,7 +65,7 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	if (len > 0)
 	{
 		c = ' ';
-		if ((flag->zero || flag->width >= 0) && !flag->min)
+		if (flag->zero || flag->width >= 0)
 			c = '0';
 		if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		{
