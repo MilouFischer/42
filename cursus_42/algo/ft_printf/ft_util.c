@@ -6,13 +6,13 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:26:50 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 13:24:56 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:47:28 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_print_list(t_list *list)
+int				ft_print_list(t_list *list)
 {
 	int		len;
 	size_t	i;
@@ -29,7 +29,7 @@ int		ft_print_list(t_list *list)
 	return (len);
 }
 
-void	ft_free_list(t_list *list)
+void			ft_free_list(t_list *list)
 {
 	if (!list)
 		return ;
@@ -38,7 +38,7 @@ void	ft_free_list(t_list *list)
 	free(list);
 }
 
-t_list	*ft_lstnew_str(char const *content, size_t content_size)
+t_list			*ft_lstnew_str(char const *content, size_t content_size)
 {
 	t_list	*list;
 
@@ -77,7 +77,7 @@ int				ft_strlen_null(char *s, int nb)
 	return (count);
 }
 
-int				ft_putstr_null(char	*s, int nb)
+int				ft_putstr_null(char *s, int nb)
 {
 	int		len;
 

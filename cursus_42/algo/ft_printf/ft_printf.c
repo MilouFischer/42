@@ -6,13 +6,13 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:15:56 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:53:02 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
+static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
@@ -43,7 +43,8 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
 				|| **s == 'X' || **s == 'f')
 		{
-			format = ft_strjoin(tmp, nb = ft_manage_conv(**s, arg, flag));
+			nb = ft_manage_conv(**s, arg, flag);
+			format = ft_strjoin(tmp, nb);
 			ft_strdel(&tmp);
 			ft_strdel(&nb);
 			if (flag->sharp > 0 && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
@@ -157,7 +158,7 @@ static t_list	*ft_get_flags(t_list *list, va_list *arg)
 	return (tmp_list);
 }
 
-int			ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	int		len;
 	va_list	arg;
