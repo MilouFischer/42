@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 15:13:26 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:38:33 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	void			*p;
 	int				len;
 
-	(void)flag;	
 	if (c == 'c')
 	{
 		len = 2;
@@ -94,8 +93,10 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	{
 		if (!(s = va_arg(*arg, char*)))
 			return (s = ft_strdup("(null)"));
-		if (flag->precision)
+		if (flag->precision > 0)
 			s = ft_strndup(s, flag->precision);
+		else if (flag->precision == -1)
+			s = ft_strdup("");
 		else
 			s = ft_strdup(s);
 		if (flag->width)
@@ -106,10 +107,11 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 				len = flag->width - len;
 				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
 					return (NULL);
+				c = flag->zero ? '0' : ' ';
 				tmp[len--] = '\0';
 				while (len)
-					tmp[len--] = ' ';
-				tmp[len] = ' ';
+					tmp[len--] = c;
+				tmp[len] = c;
 				if (flag->min)
 					s = ft_join_free(s, tmp, 1);
 				else
@@ -123,15 +125,20 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	{
 		p = va_arg(*arg, void*);
 		if (!p)
-			s = ft_strdup("0x0");
+		{
+			if (flag->precision == -1)
+				s = ft_strdup("0x");
+			else
+				s = ft_strdup("0x0");
+		}
 		else
 		{
 			s = ft_itoa_base_u((unsigned long)p, 16);
 			s = ft_join_free("0x", s, 2);
 		}
-		if (flag->precision)
+		if (flag->width)
 		{
-			if ((len = flag->precision - ft_strlen(s)) > 0)
+			if ((len = flag->width - ft_strlen(s)) > 0)
 			{
 				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
 				{
