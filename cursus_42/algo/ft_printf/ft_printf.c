@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 13:45:52 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 15:34:31 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 				format = ft_join_free("0x", format, 2);
 				flag->sharp = 0;
 			}
-			if (flag->precision || flag->width >= 0)
+			if (flag->precision || flag->width)
 			{
 				if (flag->precision)
 					format = ft_precision(**s, format, flag);
-				if (flag->width >= 0)
+				if (flag->width)
 					format = ft_width(**s, format, flag);
 			}
 			else if (flag->plus && *format != '-')
