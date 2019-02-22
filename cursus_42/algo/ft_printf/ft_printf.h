@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:27:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 11:27:42 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 10:57:20 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_flag
 
 int				ft_printf(const char *format, ...);
 void			ft_manage_flag(char c, t_flag *flag);
-char			*ft_manage_conv_flag(char c, t_flag *flag);
+void			ft_manage_conv_flag(char c, t_flag *flag);
 char			*ft_manage_str(char c, char *format, va_list *arg, t_flag *flag);
 char			*ft_manage_conv(char c, va_list *arg, t_flag *flag);
 char			*ft_itoa_base_u(unsigned long long nb, int base);

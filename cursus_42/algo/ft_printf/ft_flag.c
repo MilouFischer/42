@@ -72,6 +72,8 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 			ft_strdel(&format);
 			return (NULL);
 		}
+		if (flag->space && len != 1)
+			str[i++] = ' ';
 		while (i < len)
 			str[i++] = c;
 		str[i] = '\0';

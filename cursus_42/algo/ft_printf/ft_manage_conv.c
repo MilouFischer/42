@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 17:07:49 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 10:57:51 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_manage_flag(char c, t_flag *flag)
 		flag->space = 1;
 }
 
-char	*ft_manage_conv_flag(char c, t_flag *flag)
+void	ft_manage_conv_flag(char c, t_flag *flag)
 {
 	if (c == 'l' && flag->l)
 		flag->ll = 1;
@@ -43,9 +43,6 @@ char	*ft_manage_conv_flag(char c, t_flag *flag)
 		flag->hh = 1;
 	else if (c == 'h')
 		flag->h = 1;
-	else
-		(void)flag;
-	return (" conv_flag");
 }
 
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
@@ -180,12 +177,12 @@ char	*ft_float(va_list *arg, t_flag *flag)
 
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	int					nb;
-	short				sh;
-	char				ch;
+	int				nb;
+	short			sh;
+	char			ch;
 	unsigned int	u;
-	char				*s;
-	char				*tmp;
+	char			*s;
+	char			*tmp;
 
 	if (c == 'd')
 	{
