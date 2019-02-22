@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 16:04:05 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:04:32 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 			return (NULL);
 		}
 		c = ' ';
-		if (flag->zero && !flag->min && (!flag->precision || flag->width <= flag->precision))
+		if (flag->zero && !flag->min && (flag->precision <= 0 || flag->width <= flag->precision))
 			c = '0';
 		if (flag->space && len != 1)
 			str[i++] = ' ';

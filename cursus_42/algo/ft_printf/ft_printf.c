@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 15:34:31 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:15:56 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else
 		{
 			format = ft_strndup(*s, 1);
-			if ((len = flag->precision - ft_strlen(format)) > 0)
+			if ((len = flag->width - ft_strlen(format)) > 0)
 			{
 				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
 				{

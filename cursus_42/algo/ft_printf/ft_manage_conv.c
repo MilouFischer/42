@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 16:38:33 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:13:45 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,12 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else if (c == 's')
 	{
 		if (!(s = va_arg(*arg, char*)))
-			return (s = ft_strdup("(null)"));
+		{
+			if (flag->width)
+				s = ft_strdup("");
+			else
+				return (s = ft_strdup("(null)"));
+		}
 		if (flag->precision > 0)
 			s = ft_strndup(s, flag->precision);
 		else if (flag->precision == -1)
@@ -124,18 +129,30 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	else
 	{
 		p = va_arg(*arg, void*);
-		if (!p)
-		{
-			if (flag->precision == -1)
-				s = ft_strdup("0x");
-			else
-				s = ft_strdup("0x0");
-		}
+		if (flag->precision == -1)
+			s = ft_strdup("");
 		else
-		{
 			s = ft_itoa_base_u((unsigned long)p, 16);
-			s = ft_join_free("0x", s, 2);
+		if (flag->precision)
+		{
+			if ((len = flag->precision - ft_strlen(s)) > 0)
+			{
+				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+				{
+					ft_strdel(&format);
+					return (NULL);
+				}
+				tmp[len--] = '\0';
+				while (len >= 0)
+					tmp[len--] = '0';
+				if (flag->min)
+					s = ft_join_free(s, tmp, 1);
+				else
+					s = ft_join_free(tmp, s, 2);
+				ft_strdel(&tmp);
+			}
 		}
+		s = ft_join_free("0x", s, 2);
 		if (flag->width)
 		{
 			if ((len = flag->width - ft_strlen(s)) > 0)
@@ -173,6 +190,8 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	int				nb;
 	short			sh;
 	char			ch;
+	unsigned short	u_sh;
+	unsigned char	u_ch;
 	unsigned int	u;
 	char			*s;
 	char			*tmp;
@@ -200,6 +219,16 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'o')
 	{
 		u = va_arg(*arg, unsigned long long);
+		if (flag->hh)
+		{
+			u_ch = (char)u;
+			u = u_ch;
+		}
+		else if (flag->h)
+		{
+			u_sh = (short)u;
+			u = u_sh;
+		}
 		s = ft_itoa_base_u(u, 8);
 		if (flag->sharp && u)
 		{
