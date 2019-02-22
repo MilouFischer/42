@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char	*ft_width(char conv, char *format, t_flag *flag)
+char	*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
 	int		i;
@@ -40,7 +40,9 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 	return (format);
 }
 
-char	*ft_precision(char conv, char *format, t_flag *flag)
+#include <stdio.h>
+
+char	*ft_width(char conv, char *format, t_flag *flag)
 {
 	int		len;
 	int		i;
@@ -64,14 +66,14 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	}
 	if (len > 0)
 	{
-		c = ' ';
-		if (flag->zero || flag->width >= 0)
-			c = '0';
 		if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		{
 			ft_strdel(&format);
 			return (NULL);
 		}
+		c = ' ';
+		if ((flag->zero && !flag->min) || flag->width >= 0)
+			c = '0';
 		if (flag->space && len != 1)
 			str[i++] = ' ';
 		while (i < len)
@@ -100,5 +102,7 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 			format = ft_join_free("0x", format, 2);
 		ft_strdel(&str);
 	}
+	else if (flag->plus && *format != '-')
+		format = ft_strjoin("+", format);
 	return (format);
 }

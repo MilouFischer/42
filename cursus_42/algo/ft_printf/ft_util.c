@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:26:50 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 14:09:30 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:24:56 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				ft_putstr_null(char	*s, int nb)
 
 void			ft_init_flag(t_flag *flag)
 {
-	flag->width = -1;
+	flag->width = 0;
 	flag->precision = 0;
 	flag->sharp = 0;
 	flag->zero = 0;

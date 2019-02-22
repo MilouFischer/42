@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/20 16:02:52 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:45:52 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == '%')
 		{
 			format = ft_strdup("%");
-			if (flag->precision)
-				format = ft_precision(**s, format, flag);
+			if (flag->width)
+				format = ft_width(**s, format, flag);
 			return (format);
 		}
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
@@ -66,7 +66,10 @@ static char *ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		}
 		else if (**s >= '1' && **s <= '9')
 		{
-			flag->precision = ft_atoi(*s);
+			if (flag->precision == -1)
+				flag->precision = ft_atoi(*s);
+			else
+				flag->width = ft_atoi(*s);
 			while (ft_isdigit(**s))
 				(*s)++;
 			(*s)--;

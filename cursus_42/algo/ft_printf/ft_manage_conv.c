@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 10:57:51 by efischer         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:36:46 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ void	ft_manage_flag(char c, t_flag *flag)
 	else if (c == '-')
 		flag->min = 1;
 	else if (c == '.')
-	{
-		flag->width = flag->precision;
-		flag->precision = 0;
-		if (flag->sharp && !flag->width)
-			flag->sharp = -1;
-	}
+		flag->precision = -1;
 	else if (c == ' ')
 		flag->space = 1;
 }
@@ -44,6 +39,8 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 	else if (c == 'h')
 		flag->h = 1;
 }
+
+#include <stdio.h>
 
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
@@ -101,29 +98,18 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 			s = ft_strndup(s, flag->precision);
 		else
 			s = ft_strdup(s);
-		if (flag->width || (flag->precision  && *s))
+		if (flag->width)
 		{
-			if (flag->precision > 0 && flag->width < flag->precision)
-				flag->width = flag->precision;
 			len = ft_strlen(s);
-			if (len > flag->width)
-			{
-				tmp = s;
-				s = ft_strndup(tmp, len);
-				ft_strdel(&tmp);
-			}
-			else if (len < flag->width)
+			if (len < flag->width)
 			{
 				len = flag->width - len;
 				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
-				{
-					ft_strdel(&format);
 					return (NULL);
-				}
 				tmp[len--] = '\0';
-				c = flag->zero ? '0' : ' ';
-				while (len >= 0)
-					tmp[len--] = c;
+				while (len)
+					tmp[len--] = ' ';
+				tmp[len] = ' ';
 				if (flag->min)
 					s = ft_join_free(s, tmp, 1);
 				else
