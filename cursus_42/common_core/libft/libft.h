@@ -117,5 +117,6 @@ char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
+char				*ft_itoa_base(long long int nb, long long int base);
 
 #endif
