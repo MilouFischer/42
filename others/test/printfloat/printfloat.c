@@ -1,88 +1,112 @@
 #include "libft/libft.h"
+#include "float.h"
 
-static int	ft_atoi_base(const char *str, int base)
+#include <stdio.h>
+
+static char	**ft_init_tab(char **tab)
 {
-	unsigned int	i;
-	int				nbr;
-
-	i = 0;
-	nbr = 0;
-	if (base < 2 || base > 16)
-		return (0);
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * base;
-	return (str[0] == '-' ? -nbr : nbr);
+	tab[0] = pm1;
+	tab[1] = pm2;
+	tab[2] = pm3;
+	tab[3] = pm4;
+	tab[4] = pm5;
+	tab[5] = pm6;
+	tab[6] = pm7;
+	tab[7] = pm8;
+	tab[8] = pm9;
+	tab[9] = pm10;
+	tab[10] = pm11;
+	tab[11] = pm12;
+	tab[12] = pm13;
+	tab[13] = pm14;
+	tab[14] = pm15;
+	tab[15] = pm16;
+	tab[16] = pm17;
+	tab[17] = pm18;
+	tab[18] = pm19;
+	tab[19] = pm20;
+	tab[20] = pm21;
+	tab[21] = pm22;
+	tab[22] = pm23;
+	tab[23] = 0;
+	return (tab);
 }
 
-static int	ft_natoi_base(const char *str, int base, int n)
+static char	*ft_add(char *s1, char *s2)
 {
-	unsigned int	i;
-	int				nbr;
-
-	i = 0;
-	nbr = 0;
-	if (base < 2 || base > 16 || !n)
-		return (0);
-	while ((*str == ' ' || (*str >= 9 && *str <= 13)) && n)
-	{
-		str++;
-		n--;
-	}
-	if ((str[i] == '-' || str[i] == '+') && n)
-	{
-		i++;
-		n--;
-	}
-	while (str[i] && n && ft_isdigit(str[i]))
-	{
-		nbr = str[i++] - '0' + nbr * base;
-		n--;
-	}
-	return (str[0] == '-' ? -nbr : nbr);
-}
-
-void	ft_printfloat(float f)
-{
-	int		intf;
-	int		exp;
-	int		men;
-	int		len;
 	int		i;
-	char	*str;
-	char	*tmp;
+	int		nb;
+	int		ret;
 
 	i = 0;
-	if ((intf = *(int*)&f) < 0)
-		str = ft_itoa_base(0x80000000 - intf, 2);
-	else
-		str = ft_itoa_base(intf, 2);
-	len = 32 - ft_strlen(str);
-	if (len)
+	ret = 0;
+	while (s2[i + 1])
+		i++;
+	while (i > -1)
 	{
-		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+		nb = s1[i] - '0' + s2[i] - '0';
+		if (ret)
 		{
-			ft_strdel(&str);
-			return ;
+			nb += 1;
+			ret = 0;
 		}
-		if (intf < 0)
-			tmp[i++] = '1';
-		while (i < len)
-			tmp[i++] = '0';
-		tmp[i] = '\0';
-		str = ft_strjoin(tmp, str);
+		if (nb >= 10)
+		{
+			nb -= 10;
+			ret = 1;
+		}
+		s1[i] = nb + '0';
+		i--;
 	}
+	return (s1);
+}
+
+static char	*ft_print_mentice(char *str)
+{
+	char	*tab;
+	char	*pm[24];
+	int		i;
+
+	i = 0;
+	ft_init_tab(pm);
+	if (!(tab = (char*)malloc(sizeof(char) * 24)))
+		return (NULL);
+	while (i < 24)
+		tab[i++] = '0';
+	tab[i] = '\0';
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '1')
+			tab = ft_add(tab, pm[i]);
+		i++;
+	}
+	return (tab);
+}
+
+void		ft_printfloat(float f)
+{
+	int		nb;
+	int		i;
+	char	tab[24];
+	char	*str;
+
+	printf("f = %f\n", f);
+	i = 0;
+	while (i < 24)
+		tab[i++] = '0';
+	tab[i] = '\0';
+	nb = (int)f;
+	ft_putnbr(nb);
+	ft_putchar('.');
+	f -= nb;
+	i = 0;
+	while (f && i < 24)
+	{
+		f *= 2;
+		tab[i++] = (int)f + '0';
+		f -= (int)f;
+	}
+	str = ft_print_mentice(tab);
 	ft_putendl(str);
-	if (*str++ == '1')
-		ft_putendl("-");
-	exp = ft_natoi_base(str, 2, 8);
-	ft_putnbr(exp);
-	ft_putchar('\n');
-	str += 8;
-	men = ft_atoi_base(str, 2);
-	ft_putnbr(men);
-	ft_putchar('\n');
 }
