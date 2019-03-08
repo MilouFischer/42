@@ -1,9 +1,7 @@
 #include "libft/libft.h"
 #include "float.h"
 
-#include <stdio.h>
-
-static char	**ft_init_tab(char **tab)
+static char	**ft_init_pm(char **tab)
 {
 	tab[0] = pm1;
 	tab[1] = pm2;
@@ -30,6 +28,16 @@ static char	**ft_init_tab(char **tab)
 	tab[22] = pm23;
 	tab[23] = 0;
 	return (tab);
+}
+
+static void	ft_init_tab(char *tab)
+{
+	int	i;
+
+	i = 0;
+	while (i < 24)
+		tab[i++] = '0';
+	tab[i] = '\0';
 }
 
 static char	*ft_add(char *s1, char *s2)
@@ -68,10 +76,10 @@ static char	*ft_print_mentice(char *str)
 	int		i;
 
 	i = 0;
-	ft_init_tab(pm);
-	if (!(tab = (char*)malloc(sizeof(char) * 24)))
+	ft_init_pm(pm);
+	if (!(tab = (char*)malloc(sizeof(char) * 11)))
 		return (NULL);
-	while (i < 24)
+	while (i < 11)
 		tab[i++] = '0';
 	tab[i] = '\0';
 	i = 0;
@@ -90,23 +98,25 @@ void		ft_printfloat(float f)
 	int		i;
 	char	tab[24];
 	char	*str;
+	char	*tmp;
 
-	printf("f = %f\n", f);
 	i = 0;
-	while (i < 24)
-		tab[i++] = '0';
-	tab[i] = '\0';
+	ft_init_tab(tab);
 	nb = (int)f;
-	ft_putnbr(nb);
-	ft_putchar('.');
+	str = ft_itoa(nb);
+	if (f < 0)
+	{
+		f *= -1;
+		nb *= -1;
+	}
+	str = ft_strjoin(str, ".");
 	f -= nb;
-	i = 0;
 	while (f && i < 24)
 	{
 		f *= 2;
 		tab[i++] = (int)f + '0';
 		f -= (int)f;
 	}
-	str = ft_print_mentice(tab);
-	ft_putendl(str);
+	tmp = ft_print_mentice(tab);
+	str = ft_strjoin(str, tmp);
 }
