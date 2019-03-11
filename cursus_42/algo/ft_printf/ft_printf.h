@@ -60,7 +60,7 @@ typedef struct	s_flag
 int				ft_printf(const char *format, ...);
 void			ft_manage_flag(char c, t_flag *flag);
 void			ft_manage_conv_flag(char c, t_flag *flag);
-char			*ft_manage_str(char c, char *format, va_list *arg, t_flag *flag);
+char			*ft_manage_str(char c, va_list *arg, t_flag *flag);
 char			*ft_manage_conv(char c, va_list *arg, t_flag *flag);
 char			*ft_itoa_base_u(unsigned long long nb, int base);
 void			ft_init_flag(t_flag *flag);

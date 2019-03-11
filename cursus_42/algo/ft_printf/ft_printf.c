@@ -86,14 +86,8 @@ static char		*ft_flag_error(char *s, t_flag *flag)
 
 static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
-	char	*format;
-
-	format = NULL;	
 	if (c == 'c' || c == 's' || c == 'p')
-	{
-		format = ft_manage_str(c, format, arg, flag);
-		return (format);
-	}
+		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'i' || c == 'o' || c == 'u' || c == 'x'
 	|| c == 'X' || c == 'f')
 		return (ft_diouxxf(c, arg, flag));
