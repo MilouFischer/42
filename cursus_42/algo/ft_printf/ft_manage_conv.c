@@ -45,7 +45,6 @@ static char		*ft_manage_c(va_list *arg, t_flag *flag)
 	int		len;
 	char	*s;
 	char	*tmp;
-	char	*format;
 	char	c;
 
 	len = 2;
@@ -82,9 +81,50 @@ static char		*ft_manage_c(va_list *arg, t_flag *flag)
 			s = ft_join_free(tmp, s, 2);
 		ft_strdel(&tmp);
 	}
-	format = ft_strdup(s);
-	ft_strdel(&s);
-	return (format);
+	return (s);
+}
+
+static char		*ft_manage_s(va_list *arg, t_flag *flag)
+{
+	int		len;
+	char	*s;
+	char	*tmp;
+	char	c;
+
+	if (!(s = va_arg(*arg, char*)))
+	{
+		if (flag->width)
+			s = ft_strdup("");
+		else
+			return (s = ft_strdup("(null)"));
+	}
+	if (flag->precision > 0)
+		s = ft_strndup(s, flag->precision);
+	else if (flag->precision == -1)
+		s = ft_strdup("");
+	else
+		s = ft_strdup(s);
+	if (flag->width)
+	{
+		len = ft_strlen(s);
+		if (len < flag->width)
+		{
+			len = flag->width - len;
+			if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+				return (NULL);
+			c = flag->zero ? '0' : ' ';
+			tmp[len--] = '\0';
+			while (len)
+				tmp[len--] = c;
+			tmp[len] = c;
+			if (flag->min)
+				s = ft_join_free(s, tmp, 1);
+			else
+				s = ft_join_free(tmp, s, 2);
+			ft_strdel(&tmp);
+		}
+	}
+	return (s);
 }
 
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
@@ -97,42 +137,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	if (c == 'c')
 		return (ft_manage_c(arg, flag));
 	else if (c == 's')
-	{
-		if (!(s = va_arg(*arg, char*)))
-		{
-			if (flag->width)
-				s = ft_strdup("");
-			else
-				return (s = ft_strdup("(null)"));
-		}
-		if (flag->precision > 0)
-			s = ft_strndup(s, flag->precision);
-		else if (flag->precision == -1)
-			s = ft_strdup("");
-		else
-			s = ft_strdup(s);
-		if (flag->width)
-		{
-			len = ft_strlen(s);
-			if (len < flag->width)
-			{
-				len = flag->width - len;
-				if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
-					return (NULL);
-				c = flag->zero ? '0' : ' ';
-				tmp[len--] = '\0';
-				while (len)
-					tmp[len--] = c;
-				tmp[len] = c;
-				if (flag->min)
-					s = ft_join_free(s, tmp, 1);
-				else
-					s = ft_join_free(tmp, s, 2);
-				ft_strdel(&tmp);
-			}
-		}
-		return (s);
-	}
+		return (ft_manage_s(arg, flag));
 	else
 	{
 		p = va_arg(*arg, void*);
