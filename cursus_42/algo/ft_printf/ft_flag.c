@@ -11,16 +11,39 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+static char		*ft_process_precision(char *format, int len, t_flag *flag)
+{
+	char	c;
+	char	*str;
+
+	c = ' ';
+	if (flag->precision > (int)ft_strlen(format))
+		c = '0';
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+	{
+		ft_strdel(&format);
+		return (NULL);
+	}
+	str[len--] = '\0';
+	while (len > -1)
+		str[len--] = c;
+	if (*format == '-' && c == '0')
+	{
+		format[0] = '0';
+		str = ft_join_free("-", str, 2);
+	}
+	if (flag->min && (!flag->width || !flag->precision))
+		format = ft_join_free(format, str, 1);
+	else
+		format = ft_join_free(str, format, 2);
+	ft_strdel(&str);
+	return (format);
+}
 
 char	*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
-	int		i;
-	char	*str;
-	char	c;
 
-	i = 0;
 	if (flag->precision == -1 && *format == '0')
 	{
 		ft_strdel(&format);
@@ -32,29 +55,7 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	}
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
-	{
-		c = ' ';
-		if (flag->precision > (int)ft_strlen(format))
-			c = '0';
-		if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
-		{
-			ft_strdel(&format);
-			return (NULL);
-		}
-		while (i < len)
-			str[i++] = c;
-		str[i] = '\0';
-		if (*format == '-' && c == '0')
-		{
-			format[0] = '0';
-			str = ft_join_free("-", str, 2);
-		}
-		if (flag->min && (!flag->width || !flag->precision))
-			format = ft_join_free(format, str, 1);
-		else
-			format = ft_join_free(str, format, 2);
-		ft_strdel(&str);
-	}
+		format = ft_process_precision(format, len, flag);
 	return (format);
 }
 
@@ -84,7 +85,8 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 			return (NULL);
 		}
 		c = ' ';
-		if (flag->zero && !flag->min && (flag->precision <= 0 || flag->width <= flag->precision))
+		if (flag->zero && !flag->min && (flag->precision <= 0
+		|| flag->width <= flag->precision))
 			c = '0';
 		if (flag->space && len != 1)
 			str[i++] = ' ';
