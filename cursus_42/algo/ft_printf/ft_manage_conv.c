@@ -219,11 +219,29 @@ char	*ft_float(va_list *arg, t_flag *flag)
 	return (str);
 }
 
+static char		*ft_manage_d(va_list *arg, t_flag *flag)
+{
+	int		nb;
+	short	sh;
+	char	c;
+
+	nb = va_arg(*arg, int);
+	if (flag->hh)
+	{
+		c = (char)nb;
+		nb = c;
+	}
+	else if (flag->h)
+	{
+		sh = (short)nb;
+		nb = sh;
+	}
+	return (ft_itoa(nb));
+}
+
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	int				nb;
-	short			sh;
-	char			ch;
 	unsigned short	u_sh;
 	unsigned char	u_ch;
 	unsigned int	u;
@@ -231,20 +249,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	char			*tmp;
 
 	if (c == 'd')
-	{
-		nb = va_arg(*arg, int);
-		if (flag->hh)
-		{
-			ch = (char)nb;
-			nb = ch;
-		}
-		else if (flag->h)
-		{
-			sh = (short)nb;
-			nb = sh;
-		}
-		return (ft_itoa(nb));
-	}
+		return (ft_manage_d(arg, flag));
 	else if (c == 'i')
 	{
 		nb = va_arg(*arg, int);
