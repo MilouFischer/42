@@ -58,20 +58,21 @@ typedef struct	s_flag
 }				t_flag;
 
 int				ft_printf(const char *format, ...);
+t_list			*ft_lstnew_str(char const *content, size_t content_size);
+char			*ft_process_flag(char **s, va_list *arg, t_flag *flag);
+void			ft_init_flag(t_flag *flag);
 void			ft_manage_flag(char c, t_flag *flag);
 void			ft_manage_conv_flag(char c, t_flag *flag);
 char			*ft_manage_str(char c, va_list *arg, t_flag *flag);
-char			*ft_manage_conv(char c, va_list *arg, t_flag *flag);
-char			*ft_itoa_base_u(unsigned long long nb, int base);
-void			ft_init_flag(t_flag *flag);
+char			*ft_manage_c(va_list *arg, t_flag *flag);
+char			*ft_manage_s(va_list *arg, t_flag *flag);
+char			*ft_manage_p(va_list *arg, t_flag *flag);
+char			*ft_diouxxf(char c, va_list *arg, t_flag *flag);
+char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag);
+char			*ft_diouxx(char c, va_list *arg, t_flag *flag);
 char			*ft_precision(char conv, char *format, t_flag *flag);
-char			*ft_join_free(char *s1, char *s2, int op);
 char			*ft_width(char conv, char *format, t_flag *flag);
 int				ft_strlen_null(char *s, int nb);
 int				ft_putstr_null(char	*s, int nb);
-t_list			*ft_lstnew_str(char const *content, size_t content_size);
-int				ft_print_list(t_list *list);
-void			ft_free_list(t_list *list);
-char			*ft_printfloat(double f);
 
 #endif

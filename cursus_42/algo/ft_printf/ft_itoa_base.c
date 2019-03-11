@@ -12,26 +12,6 @@
 
 #include "libft.h"
 
-static size_t	ft_intlen(long long int nb, long long int base)
-{
-	size_t	i;
-
-	i = 0;
-	if (nb == 0)
-		return (1);
-	if (nb < 0)
-	{
-		nb *= -1;
-		i++;
-	}
-	while (nb)
-	{
-		nb /= base;
-		i++;
-	}
-	return (i);
-}
-
 char			*ft_itoa_base(long long int nb, long long int base)
 {
 	size_t	len;

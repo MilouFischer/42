@@ -28,32 +28,12 @@ static void			ft_intmin(char *str)
 	str[11] = '\0';
 }
 
-static unsigned int	ft_intlen(int n)
-{
-	unsigned int	len;
-
-	len = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-	{
-		len++;
-		n *= -1;
-	}
-	while (n)
-	{
-		len++;
-		n /= 10;
-	}
-	return (len);
-}
-
 char				*ft_itoa(int n)
 {
 	unsigned int	len;
 	char			*str;
 
-	len = ft_intlen(n);
+	len = ft_intlen(n, 10);
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	if (n == -2147483648)

@@ -118,5 +118,12 @@ char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**mx, unsigned int x, unsigned int y);
 char				*ft_itoa_base(long long int nb, long long int base);
+size_t				ft_intlen(unsigned long long nb, int base);
+char				*ft_itoa_base_u(unsigned long long nb, int base);
+char				*ft_join_free(char *s1, char *s2, int op);
+t_list				*ft_lstnew_str(char const *content, size_t content_size);
+int					ft_lstprint(t_list *list);
+void				ft_lstfree(t_list *list);
+char				*ft_printfloat(double f);
 
 #endif
