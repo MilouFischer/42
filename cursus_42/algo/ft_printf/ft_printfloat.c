@@ -1,5 +1,4 @@
-#include "libft/libft.h"
-#include "float.h"
+#include "ft_printf.h"
 
 static char	**ft_init_pm(char **tab)
 {
@@ -92,7 +91,7 @@ static char	*ft_print_mentice(char *str)
 	return (tab);
 }
 
-char		*ft_printfloat(float f)
+char		*ft_printfloat(double f)
 {
 	int		nb;
 	int		i;
@@ -109,7 +108,7 @@ char		*ft_printfloat(float f)
 		f *= -1;
 		nb *= -1;
 	}
-	str = ft_strjoin(str, ".");
+	str = ft_join_free(str, ".", 1);
 	f -= nb;
 	while (f && i < 24)
 	{
@@ -118,7 +117,8 @@ char		*ft_printfloat(float f)
 		f -= (int)f;
 	}
 	tmp = ft_print_mentice(tab);
-	str = ft_strjoin(str, tmp);
+	str = ft_join_free(str, tmp, 1);
+	ft_strdel(&tmp);
 	ft_putendl(str);
-	return (NULL);
+	return (str);
 }

@@ -12,11 +12,49 @@
 
 #include "ft_printf.h"
 
+static char		*ft_percent(char c, t_flag *flag)
+{
+	char	*format;
+
+	format = ft_strdup("%");
+	if (flag->width)
+		format = ft_width(c, format, flag);
+	return (format);
+}
+
+static char		*ft_diouxxf(char c, va_list *arg, t_flag *flag, char *tmp)
+{
+	char	*nb;
+	char	*format;
+
+	nb = ft_manage_conv(c, arg, flag);
+	format = ft_strjoin(tmp, nb);
+	ft_strdel(&tmp);
+	ft_strdel(&nb);
+	if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
+	&& !flag->zero)
+	{
+		format = ft_join_free("0x", format, 2);
+		flag->sharp = 0;
+	}
+	if (flag->precision || flag->width)
+	{
+		if (flag->precision)
+			format = ft_precision(c, format, flag);
+		if (flag->width)
+			format = ft_width(c, format, flag);
+	}
+	else if (flag->plus && *format != '-')
+		format = ft_join_free("+", format, 2);
+	else if (flag->space && *format != '-')
+		format = ft_join_free(" ", format, 2);
+	return (c == 'X' ? ft_strupcase(format) : format);
+}
+
 static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
-	char	*nb;
 	int		len;
 
 	format = NULL;
@@ -24,15 +62,11 @@ static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	while (**s)
 	{
 		tmp = format;
-		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' ' || **s == '.')
+		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' '
+		|| **s == '.')
 			ft_manage_flag(**s, flag);
 		else if (**s == '%')
-		{
-			format = ft_strdup("%");
-			if (flag->width)
-				format = ft_width(**s, format, flag);
-			return (format);
-		}
+			return (ft_percent(**s, flag));
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
 		else if (**s == 'c' || **s == 's' || **s == 'p')
@@ -40,31 +74,9 @@ static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			format = ft_manage_str(**s, format, arg, flag);
 			return (format);
 		}
-		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u' || **s == 'x'
-				|| **s == 'X' || **s == 'f')
-		{
-			nb = ft_manage_conv(**s, arg, flag);
-			format = ft_strjoin(tmp, nb);
-			ft_strdel(&tmp);
-			ft_strdel(&nb);
-			if (flag->sharp > 0 && (**s == 'x' || **s == 'X') && *format != '0' && !flag->zero)
-			{
-				format = ft_join_free("0x", format, 2);
-				flag->sharp = 0;
-			}
-			if (flag->precision || flag->width)
-			{
-				if (flag->precision)
-					format = ft_precision(**s, format, flag);
-				if (flag->width)
-					format = ft_width(**s, format, flag);
-			}
-			else if (flag->plus && *format != '-')
-				format = ft_join_free("+", format, 2);
-			else if (flag->space && *format != '-')
-				format = ft_join_free(" ", format, 2);
-			return (**s == 'X' ? ft_strupcase(format) : format);
-		}
+		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u'
+		|| **s == 'x' || **s == 'X' || **s == 'f')
+			return (ft_diouxxf(**s, arg, flag, tmp));
 		else if (**s >= '1' && **s <= '9')
 		{
 			if (flag->precision == -1)
@@ -103,7 +115,7 @@ static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 	return (ft_strdup("\0"));
 }
 
-static t_list	*ft_fill_content(t_list *list, char *str, t_flag flag)
+static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 {
 	int		i;
 	char	*tmp;
@@ -111,23 +123,24 @@ static t_list	*ft_fill_content(t_list *list, char *str, t_flag flag)
 	i = 0;
 	if (flag.null)
 	{
-		tmp = list->content;
-		list->content_size = ft_strlen(list->content) + 1;
-		if (!(list->content = (char*)malloc(sizeof(char) * (list->content_size + ft_strlen(str) + 1))))
-			list->content = NULL;
-		list->content = (char*)ft_memcpy(list->content, tmp, list->content_size);
-		i = list->content_size;
+		tmp = lst->content;
+		lst->content_size = ft_strlen(lst->content) + 1;
+		if (!(lst->content = (char*)malloc(sizeof(char) *
+		(lst->content_size + ft_strlen(str) + 1))))
+			lst->content = NULL;
+		lst->content = (char*)ft_memcpy(lst->content, tmp, lst->content_size);
+		i = lst->content_size;
 		while (*str)
-			list->content[i++] = *str++;
-		list->content[i] = '\0';
-		list->content_size = i;
+			lst->content[i++] = *str++;
+		lst->content[i] = '\0';
+		lst->content_size = i;
 	}
 	else
 	{
-		list->content = ft_join_free(list->content, str, 1);
-		list->content_size = ft_strlen(list->content);
+		lst->content = ft_join_free(lst->content, str, 1);
+		lst->content_size = ft_strlen(lst->content);
 	}
-	return (list);
+	return (lst);
 }
 
 static t_list	*ft_get_flags(t_list *list, va_list *arg)

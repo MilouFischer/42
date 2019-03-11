@@ -1,5 +1,4 @@
 #include "libft/libft.h"
-#include <locale.h>
 
 /*static unsigned int	ft_atoi_base(char *str, int base)
 {
@@ -20,8 +19,8 @@
 
 static void			ft_print_unicode(unsigned int nb)
 {
-	wchar_t				c;
-	unsigned long int	tmp;
+	unsigned int	c;
+	unsigned int	tmp;
 
 	if (nb < 128)
 		write(1, &nb, 1);
@@ -47,7 +46,7 @@ static void			ft_print_unicode(unsigned int nb)
 		ft_putendl(ft_itoa_base(c, 2));
 		write(1, &c, 3);
 	}
-/*	else if (nb <= 2097152)
+	else if (nb <= 2097152)
 	{
 		c = 3766517888;
 		c |= nb % 64;
@@ -61,14 +60,13 @@ static void			ft_print_unicode(unsigned int nb)
 		ft_putstr(ft_itoa_base(c, 2));
 		write(1, &c, 4);
 	}
-*/	return ;
+	return ;
 }
 
-void				ft_putunicode(wchar_t c)
+void				ft_putunicode(unsigned int c)
 {
 	ft_putnbr(c);
 	ft_putchar('\n');
 	ft_putendl(ft_itoa_base(c, 2));
-	setlocale(LC_CTYPE, "");
 	ft_print_unicode(c);
 }

@@ -40,8 +40,6 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 		flag->h = 1;
 }
 
-#include <stdio.h>
-
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
 	char			*s;
@@ -178,11 +176,15 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 
 char	*ft_float(va_list *arg, t_flag *flag)
 {
-	int		nb;
+	double	f;
+	char	*str;
 
 	(void)flag;
-	nb = va_arg(*arg, int);
-	return (ft_itoa(nb));
+	f = va_arg(*arg, double);
+	//str = ft_printfloat(f);
+	//ft_putendl(str);
+	str = "float";
+	return (str);
 }
 
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
