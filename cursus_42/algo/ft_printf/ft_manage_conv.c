@@ -88,12 +88,35 @@ static char		*ft_manage_c(va_list *arg, t_flag *flag)
 	return (s);
 }
 
-static char		*ft_manage_s(va_list *arg, t_flag *flag)
+static char		*ft_s_width(char *s, t_flag *flag)
 {
 	int		len;
-	char	*s;
 	char	*tmp;
 	char	c;
+
+	len = ft_strlen(s);
+	if (len < flag->width)
+	{
+		len = flag->width - len;
+		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+			return (NULL);
+		c = flag->zero ? '0' : ' ';
+		tmp[len--] = '\0';
+		while (len)
+			tmp[len--] = c;
+		tmp[len] = c;
+		if (flag->min)
+			s = ft_join_free(s, tmp, 1);
+		else
+			s = ft_join_free(tmp, s, 2);
+		ft_strdel(&tmp);
+	}
+	return (s);
+}
+
+static char		*ft_manage_s(va_list *arg, t_flag *flag)
+{
+	char	*s;
 
 	if (!(s = va_arg(*arg, char*)))
 	{
@@ -109,25 +132,7 @@ static char		*ft_manage_s(va_list *arg, t_flag *flag)
 	else
 		s = ft_strdup(s);
 	if (flag->width)
-	{
-		len = ft_strlen(s);
-		if (len < flag->width)
-		{
-			len = flag->width - len;
-			if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
-				return (NULL);
-			c = flag->zero ? '0' : ' ';
-			tmp[len--] = '\0';
-			while (len)
-				tmp[len--] = c;
-			tmp[len] = c;
-			if (flag->min)
-				s = ft_join_free(s, tmp, 1);
-			else
-				s = ft_join_free(tmp, s, 2);
-			ft_strdel(&tmp);
-		}
-	}
+		s = ft_s_width(s, flag);
 	return (s);
 }
 
