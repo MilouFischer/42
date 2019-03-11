@@ -40,6 +40,53 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 		flag->h = 1;
 }
 
+static char		*ft_manage_c(va_list *arg, t_flag *flag)
+{
+	int		len;
+	char	*s;
+	char	*tmp;
+	char	*format;
+	char	c;
+
+	len = 2;
+	if (!(s = (char*)malloc(sizeof(char) * 2)))
+		return (NULL);
+	s[0] = va_arg(*arg, int);
+	s[1] = '\0';
+	if (!s[0])
+	{
+		if (!flag->width)
+			flag->precision--;
+		flag->null = 1;
+	}
+	if (flag->width >= 1)
+	{
+		if (!(len = flag->width - 1))
+		{
+			ft_strdel(&s);
+			return (ft_strdup("\0"));
+		}
+		if (!(tmp = (char*)malloc(sizeof(char) * len)))
+		{
+			ft_strdel(&s);
+			return (NULL);
+		}
+		tmp[len--] = '\0';
+		c = flag->zero ? '0' : ' ';
+		while (len)
+			tmp[len--] = c;
+		tmp[len] = c;
+		if (flag->min)
+			s = ft_join_free(s, tmp, 1);
+		else
+			s = ft_join_free(tmp, s, 2);
+		ft_strdel(&tmp);
+	}
+	format = ft_strdup(s);
+	ft_strdel(&s);
+	return (format);
+}
+
 char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 {
 	char			*s;
@@ -48,45 +95,7 @@ char	*ft_manage_str(char c, char	*format, va_list *arg, t_flag *flag)
 	int				len;
 
 	if (c == 'c')
-	{
-		len = 2;
-		if (!(s = (char*)malloc(sizeof(char) * 2)))
-			return (NULL);
-		s[0] = va_arg(*arg, int);
-		s[1] = '\0';
-		if (!s[0])
-		{
-			if (!flag->width)
-				flag->precision--;
-			flag->null = 1;
-		}
-		if (flag->width >= 1)
-		{
-			if (!(len = flag->width - 1))
-			{
-				ft_strdel(&s);
-				return (ft_strdup("\0"));
-			}
-			if (!(tmp = (char*)malloc(sizeof(char) * len)))
-			{
-				ft_strdel(&s);
-				return (NULL);
-			}
-			tmp[len--] = '\0';
-			c = flag->zero ? '0' : ' ';
-			while (len)
-				tmp[len--] = c;
-			tmp[len] = c;
-			if (flag->min)
-				s = ft_join_free(s, tmp, 1);
-			else
-				s = ft_join_free(tmp, s, 2);
-			ft_strdel(&tmp);
-		}
-		format = ft_strdup(s);
-		ft_strdel(&s);
-		return (format);
-	}
+		return (ft_manage_c(arg, flag));
 	else if (c == 's')
 	{
 		if (!(s = va_arg(*arg, char*)))
@@ -253,7 +262,7 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'x' || c == 'X')
 	{
 		u = va_arg(*arg, unsigned int);
-			s = ft_itoa_base_u(u, 16);
+		s = ft_itoa_base_u(u, 16);
 		return (s);
 	}
 	else
