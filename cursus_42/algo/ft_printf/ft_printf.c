@@ -24,13 +24,13 @@ static char		*ft_percent(char c, t_flag *flag)
 
 static char		*ft_diouxxf(char c, va_list *arg, t_flag *flag, char *tmp)
 {
-	char	*nb;
+	char	*str;
 	char	*format;
 
-	nb = ft_manage_conv(c, arg, flag);
-	format = ft_strjoin(tmp, nb);
+	str = ft_manage_conv(c, arg, flag);
+	format = ft_strjoin(tmp, str);
 	ft_strdel(&tmp);
-	ft_strdel(&nb);
+	ft_strdel(&str);
 	if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
 	&& !flag->zero)
 	{
@@ -49,6 +49,17 @@ static char		*ft_diouxxf(char c, va_list *arg, t_flag *flag, char *tmp)
 	else if (flag->space && *format != '-')
 		format = ft_join_free(" ", format, 2);
 	return (c == 'X' ? ft_strupcase(format) : format);
+}
+
+static void		ft_precision_width(t_flag *flag, char **s)
+{
+	if (flag->precision == -1)
+		flag->precision = ft_atoi(*s);
+	else
+		flag->width = ft_atoi(*s);
+	while (ft_isdigit(**s))
+		(*s)++;
+	(*s)--;
 }
 
 static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
@@ -78,15 +89,7 @@ static char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		|| **s == 'x' || **s == 'X' || **s == 'f')
 			return (ft_diouxxf(**s, arg, flag, tmp));
 		else if (**s >= '1' && **s <= '9')
-		{
-			if (flag->precision == -1)
-				flag->precision = ft_atoi(*s);
-			else
-				flag->width = ft_atoi(*s);
-			while (ft_isdigit(**s))
-				(*s)++;
-			(*s)--;
-		}
+			ft_precision_width(flag, s);
 		else if (**s == 'Z')
 			return (ft_strdup("Z"));
 		else
