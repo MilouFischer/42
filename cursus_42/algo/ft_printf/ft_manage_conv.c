@@ -239,14 +239,49 @@ static char		*ft_manage_d(va_list *arg, t_flag *flag)
 	return (ft_itoa(nb));
 }
 
+static char		*ft_manage_o(va_list *arg, t_flag *flag)
+{
+	unsigned int	u;
+	unsigned char	c;
+	unsigned short	sh;
+	char			*s;
+
+	u = va_arg(*arg, unsigned long long);
+	if (flag->hh)
+	{
+		c = (char)u;
+		u = c;
+	}
+	else if (flag->h)
+	{
+		sh = (short)u;
+		u = sh;
+	}
+	s = ft_itoa_base_u(u, 8);
+	if (flag->sharp && u)
+	{
+		s = ft_join_free("0", s, 2);
+		flag->sharp = -1;
+	}
+	return (s);
+}
+
+static char		*ft_manage_u(va_list *arg, t_flag *flag)
+{
+	unsigned int	u;
+
+	u = va_arg(*arg, unsigned long long);
+	if (!flag->l)
+		u = (unsigned)u;
+	flag->space = 0;
+	flag->plus = 0;
+	return (ft_itoa_base_u(u, 10));
+}
+
 char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	int				nb;
-	unsigned short	u_sh;
-	unsigned char	u_ch;
 	unsigned int	u;
-	char			*s;
-	char			*tmp;
 
 	if (c == 'd')
 		return (ft_manage_d(arg, flag));
@@ -256,42 +291,13 @@ char	*ft_diouxx(char c, va_list *arg, t_flag *flag)
 		return (ft_itoa(nb));
 	}
 	else if (c == 'o')
-	{
-		u = va_arg(*arg, unsigned long long);
-		if (flag->hh)
-		{
-			u_ch = (char)u;
-			u = u_ch;
-		}
-		else if (flag->h)
-		{
-			u_sh = (short)u;
-			u = u_sh;
-		}
-		s = ft_itoa_base_u(u, 8);
-		if (flag->sharp && u)
-		{
-			tmp = s;
-			s = ft_strjoin("0", tmp);
-			ft_strdel(&tmp);
-			flag->sharp = -1;
-		}
-		return (s);
-	}
+		return (ft_manage_o(arg, flag));
 	else if (c == 'u')
-	{
-		u = va_arg(*arg, unsigned long long);
-		if (!flag->l)
-			u = (unsigned)u;
-		flag->space = 0;
-		flag->plus = 0;
-		return (ft_itoa_base_u(u, 10));
-	}
+		return (ft_manage_u(arg, flag));
 	else if (c == 'x' || c == 'X')
 	{
 		u = va_arg(*arg, unsigned int);
-		s = ft_itoa_base_u(u, 16);
-		return (s);
+		return (ft_itoa_base_u(u, 16));
 	}
 	else
 		return (NULL);
