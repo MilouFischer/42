@@ -76,10 +76,9 @@ static char		*ft_flag_error(char *s, t_flag *flag)
 		while (len >= 0)
 			tmp[len--] = ' ';
 		if (flag->min)
-			format = ft_join_free(format, tmp, 1);
+			format = ft_join_free(format, tmp, 3);
 		else
-			format = ft_join_free(tmp, format, 2);
-		ft_strdel(&tmp);
+			format = ft_join_free(tmp, format, 3);
 	}
 	return (format);
 }

@@ -62,10 +62,9 @@ static char		*ft_c_width(char *s, t_flag *flag)
 		tmp[len--] = c;
 	tmp[len] = c;
 	if (flag->min)
-		s = ft_join_free(s, tmp, 1);
+		s = ft_join_free(s, tmp, 3);
 	else
-		s = ft_join_free(tmp, s, 2);
-	ft_strdel(&tmp);
+		s = ft_join_free(tmp, s, 3);
 	return (s);
 }
 
@@ -106,10 +105,9 @@ static char		*ft_s_width(char *s, t_flag *flag)
 			tmp[len--] = c;
 		tmp[len] = c;
 		if (flag->min)
-			s = ft_join_free(s, tmp, 1);
+			s = ft_join_free(s, tmp, 3);
 		else
-			s = ft_join_free(tmp, s, 2);
-		ft_strdel(&tmp);
+			s = ft_join_free(tmp, s, 3);
 	}
 	return (s);
 }
@@ -149,10 +147,9 @@ static char		*ft_p_precision(char *s, t_flag *flag)
 		while (len >= 0)
 			tmp[len--] = '0';
 		if (flag->min)
-			s = ft_join_free(s, tmp, 1);
+			s = ft_join_free(s, tmp, 3);
 		else
-			s = ft_join_free(tmp, s, 2);
-		ft_strdel(&tmp);
+			s = ft_join_free(tmp, s, 3);
 	}
 	return (s);
 }
@@ -170,10 +167,9 @@ static char		*ft_p_width(char *s, t_flag *flag)
 		while (len >= 0)
 			tmp[len--] = ' ';
 		if (flag->min)
-			s = ft_join_free(s, tmp, 1);
+			s = ft_join_free(s, tmp, 3);
 		else
-			s = ft_join_free(tmp, s, 2);
-		ft_strdel(&tmp);
+			s = ft_join_free(tmp, s, 3);
 	}
 	return (s);
 }
