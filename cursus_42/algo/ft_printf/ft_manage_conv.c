@@ -40,14 +40,39 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 		flag->h = 1;
 }
 
-static char		*ft_manage_c(va_list *arg, t_flag *flag)
+static char		*ft_c_width(char *s, t_flag *flag)
 {
 	int		len;
-	char	*s;
 	char	*tmp;
 	char	c;
 
-	len = 2;
+	if (!(len = flag->width - 1))
+	{
+		ft_strdel(&s);
+		return (ft_strdup("\0"));
+	}
+	if (!(tmp = (char*)malloc(sizeof(char) * len)))
+	{
+		ft_strdel(&s);
+		return (NULL);
+	}
+	tmp[len--] = '\0';
+	c = flag->zero ? '0' : ' ';
+	while (len)
+		tmp[len--] = c;
+	tmp[len] = c;
+	if (flag->min)
+		s = ft_join_free(s, tmp, 1);
+	else
+		s = ft_join_free(tmp, s, 2);
+	ft_strdel(&tmp);
+	return (s);
+}
+
+static char		*ft_manage_c(va_list *arg, t_flag *flag)
+{
+	char	*s;
+
 	if (!(s = (char*)malloc(sizeof(char) * 2)))
 		return (NULL);
 	s[0] = va_arg(*arg, int);
@@ -59,28 +84,7 @@ static char		*ft_manage_c(va_list *arg, t_flag *flag)
 		flag->null = 1;
 	}
 	if (flag->width >= 1)
-	{
-		if (!(len = flag->width - 1))
-		{
-			ft_strdel(&s);
-			return (ft_strdup("\0"));
-		}
-		if (!(tmp = (char*)malloc(sizeof(char) * len)))
-		{
-			ft_strdel(&s);
-			return (NULL);
-		}
-		tmp[len--] = '\0';
-		c = flag->zero ? '0' : ' ';
-		while (len)
-			tmp[len--] = c;
-		tmp[len] = c;
-		if (flag->min)
-			s = ft_join_free(s, tmp, 1);
-		else
-			s = ft_join_free(tmp, s, 2);
-		ft_strdel(&tmp);
-	}
+		s = ft_c_width(s, flag);
 	return (s);
 }
 
