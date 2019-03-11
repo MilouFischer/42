@@ -59,14 +59,57 @@ char	*ft_precision(char conv, char *format, t_flag *flag)
 	return (format);
 }
 
-char	*ft_width(char conv, char *format, t_flag *flag)
+static char		*ft_flag_width(char *str, char *format, char c, t_flag *flag)
 {
-	int		len;
+	if (flag->plus && *format != '-' && c == '0')
+		str = ft_join_free("+", str, 2);
+	else if (flag->plus && *format != '-' && c == ' ')
+		format = ft_join_free("+", format, 2);
+	if (flag->min)
+		format = ft_join_free(format, str, 1);
+	else if (*format == '-' && c == '0')
+	{
+		str[0] = '-';
+		format[0] = '0';
+		format = ft_join_free(str, format, 2);
+	}
+	else
+		format = ft_join_free(str, format, 2);
+	ft_strdel(&str);
+	return (format);
+}
+
+static char		*ft_process_width(int len, char	*format, char x, t_flag *flag)
+{
 	int		i;
 	char	*str;
 	char	c;
 
 	i = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+	{
+		ft_strdel(&format);
+		return (NULL);
+	}
+	c = ' ';
+	if (flag->zero && !flag->min && (flag->precision <= 0
+	|| flag->width <= flag->precision))
+		c = '0';
+	if (flag->space && len != 1)
+		str[i++] = ' ';
+	while (i < len)
+		str[i++] = c;
+	str[i] = '\0';
+	format = ft_flag_width(str, format, c, flag);
+	if (flag->sharp && flag->zero && (x == 'x' || x == 'X'))
+		format = ft_join_free("0x", format, 2);
+	return (format);
+}
+
+char	*ft_width(char conv, char *format, t_flag *flag)
+{
+	int		len;
+
 	if (flag->sharp > 0 && (conv == 'x' || conv == 'X'))
 	{
 		flag->width -= 2;
@@ -78,39 +121,7 @@ char	*ft_width(char conv, char *format, t_flag *flag)
 	if (*format == '-' && flag->precision)
 		flag->precision++;
 	if (len > 0)
-	{
-		if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
-		{
-			ft_strdel(&format);
-			return (NULL);
-		}
-		c = ' ';
-		if (flag->zero && !flag->min && (flag->precision <= 0
-		|| flag->width <= flag->precision))
-			c = '0';
-		if (flag->space && len != 1)
-			str[i++] = ' ';
-		while (i < len)
-			str[i++] = c;
-		str[i] = '\0';
-		if (flag->plus && *format != '-' && c == '0')
-			str = ft_join_free("+", str, 2);
-		else if (flag->plus && *format != '-' && c == ' ')
-			format = ft_join_free("+", format, 2);
-		if (flag->min)
-			format = ft_join_free(format, str, 1);
-		else if (*format == '-' && c == '0')
-		{
-			str[0] = '-';
-			format[0] = '0';
-			format = ft_join_free(str, format, 2);
-		}
-		else
-			format = ft_join_free(str, format, 2);
-		if (flag->sharp && flag->zero && (conv == 'x' || conv == 'X'))
-			format = ft_join_free("0x", format, 2);
-		ft_strdel(&str);
-	}
+		format = ft_process_width(len, format, conv, flag);
 	else if (flag->plus && *format != '-')
 		format = ft_strjoin("+", format);
 	return (format);
