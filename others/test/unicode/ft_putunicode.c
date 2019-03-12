@@ -21,7 +21,57 @@ static void		ft_init_str(char *s, int n)
 		s[i++] = '\0';
 }
 
-static void			ft_print_unicode(char *s)
+static int		ft_check_unicode(char *s, unsigned int c)
+{
+	int				len;
+	unsigned int	nb;
+
+	len = ft_strlen(s);
+	if (len != 16 && len != 24 && len != 32)
+		return (1);
+	else if (len == 16)
+	{
+		nb = 6;
+		c >>= 6;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 7;
+		if (c != nb)
+			return (1);
+	}
+	else if (len == 24)
+	{
+		nb = 14;
+		c >>= 6;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 8;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 6;
+		if (c != nb)
+			return (1);
+	}
+	else if (len == 32)
+	{
+		nb = 30;
+		c >>= 6;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 8;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 8;
+		if (c % 2 || !((c >> 1) % 2))
+			return (1);
+		c >>= 5;
+		if (c != nb)
+			return (1);
+	}
+	return (0);
+}
+
+static void		ft_print_unicode(char *s)
 {
 	char	unicode[4];
 	char	tmp[3];
@@ -43,13 +93,15 @@ static void			ft_print_unicode(char *s)
 		}
 		s++;
 	}
-	ft_putnbr(i);
-	ft_putchar('\n');
 	write(1, unicode, i);
 }
 
 void				ft_putunicode(unsigned int c)
 {
-	ft_putendl(ft_itoa_base(c, 16));
-	ft_print_unicode(ft_itoa_base(c, 16));
+	if (c < 128)
+		ft_putchar(c);
+	else if (ft_check_unicode(ft_itoa_base(c, 2), c))
+		ft_putstr("Non unicode");
+	else
+		ft_print_unicode(ft_itoa_base(c, 16));
 }
