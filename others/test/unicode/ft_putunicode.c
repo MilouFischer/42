@@ -12,6 +12,8 @@
 
 #include "libft/libft.h"
 
+unsigned int	ft_convert_to_unicode(unsigned int nb);
+
 static void		ft_init_str(char *s, int n)
 {
 	int		i;
@@ -99,9 +101,11 @@ static void		ft_print_unicode(char *s)
 void				ft_putunicode(unsigned int c)
 {
 	if (c < 128)
+	{
 		ft_putchar(c);
-	else if (ft_check_unicode(ft_itoa_base(c, 2), c))
-		ft_putstr("Non unicode");
-	else
-		ft_print_unicode(ft_itoa_base(c, 16));
+		return ;
+	}
+	if (ft_check_unicode(ft_itoa_base(c, 2), c))
+		c = ft_convert_to_unicode(c);
+	ft_print_unicode(ft_itoa_base(c, 16));
 }
