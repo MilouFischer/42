@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:41:02 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:55:56 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 	return (format);
 }
 
-char	*ft_precision(char conv, char *format, t_flag *flag)
+char			*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
@@ -78,7 +78,7 @@ static char		*ft_flag_width(char *str, char *format, char c, t_flag *flag)
 	return (format);
 }
 
-static char		*ft_process_width(int len, char	*format, char x, t_flag *flag)
+static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 {
 	int		i;
 	char	*str;
@@ -105,7 +105,7 @@ static char		*ft_process_width(int len, char	*format, char x, t_flag *flag)
 	return (format);
 }
 
-char	*ft_width(char conv, char *format, t_flag *flag)
+char			*ft_width(char conv, char *format, t_flag *flag)
 {
 	int		len;
 

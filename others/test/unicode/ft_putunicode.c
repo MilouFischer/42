@@ -23,7 +23,10 @@ static void			ft_print_unicode(unsigned int nb)
 	unsigned int	tmp;
 
 	if (nb < 128)
+	{
 		write(1, &nb, 1);
+		ft_putendl("Louis le best");
+	}
 	else if (nb < 2048)
 	{
 		c = 49280;
@@ -33,6 +36,7 @@ static void			ft_print_unicode(unsigned int nb)
 		c |= tmp;
 		ft_putstr(ft_itoa_base(c, 2));
 		write(1, &c, 2);
+		ft_putendl("Youen le best");
 	}
 	else if (nb <= 65535)
 	{
@@ -45,6 +49,7 @@ static void			ft_print_unicode(unsigned int nb)
 		c |= tmp;
 		ft_putendl(ft_itoa_base(c, 2));
 		write(1, &c, 3);
+		ft_putendl("Etienne le best");
 	}
 	else if (nb <= 2097152)
 	{
@@ -59,7 +64,10 @@ static void			ft_print_unicode(unsigned int nb)
 		c |= tmp;
 		ft_putstr(ft_itoa_base(c, 2));
 		write(1, &c, 4);
+		ft_putendl("Alex le best");
 	}
+		ft_putendl("Moulinet le best");
+		write(1, &nb, 4);
 	return ;
 }
 
@@ -67,6 +75,6 @@ void				ft_putunicode(unsigned int c)
 {
 	ft_putnbr(c);
 	ft_putchar('\n');
-	ft_putendl(ft_itoa_base(c, 2));
+	//ft_putendl(ft_itoa_base(c, 2));
 	ft_print_unicode(c);
 }

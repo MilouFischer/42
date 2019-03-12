@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:53:02 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/12 12:00:24 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				ft_printf(const char *format, ...)
 	if (ft_strchr(list->content, '%'))
 	{
 		va_start(arg, format);
-		if (!(list	= ft_get_flags(list, &arg)))
+		if (!(list = ft_get_flags(list, &arg)))
 			return (0);
 		va_end(arg);
 	}

@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:27:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 10:57:20 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/12 12:26:11 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,29 @@
 # include <stdarg.h>
 # include "libft.h"
 
-# define pm1 "5"
-# define pm2 "25"
-# define pm3 "125"
-# define pm4 "0625"
-# define pm5 "03125"
-# define pm6 "015625"
-# define pm7 "0078125"
-# define pm8 "00390625"
-# define pm9 "001953125"
-# define pm10 "0009765625"
-# define pm11 "00048828125"
-# define pm12 "00024414062"
-# define pm13 "00012207031"
-# define pm14 "00006103515"
-# define pm15 "00003051757"
-# define pm16 "00001525878"
-# define pm17 "00000762939"
-# define pm18 "00000381469"
-# define pm19 "00000190734"
-# define pm20 "00000095367"
-# define pm21 "00000047683"
-# define pm22 "00000023841"
-# define pm23 "00000011920"
+# define PM1 "5"
+# define PM2 "25"
+# define PM3 "125"
+# define PM4 "0625"
+# define PM5 "03125"
+# define PM6 "015625"
+# define PM7 "0078125"
+# define PM8 "00390625"
+# define PM9 "001953125"
+# define PM10 "0009765625"
+# define PM11 "00048828125"
+# define PM12 "00024414062"
+# define PM13 "00012207031"
+# define PM14 "00006103515"
+# define PM15 "00003051757"
+# define PM16 "00001525878"
+# define PM17 "00000762939"
+# define PM18 "00000381469"
+# define PM19 "00000190734"
+# define PM20 "00000095367"
+# define PM21 "00000047683"
+# define PM22 "00000023841"
+# define PM23 "00000011920"
 
 typedef struct	s_flag
 {
@@ -53,7 +53,6 @@ typedef struct	s_flag
 	int			hh;
 	int			l;
 	int			ll;
-	int			L;
 	int			null;
 }				t_flag;
 

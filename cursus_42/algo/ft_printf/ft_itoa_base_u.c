@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_base_u.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/12 12:07:09 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 12:07:12 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_itoa_base_u(unsigned long long nb, int base)
@@ -7,7 +19,7 @@ char	*ft_itoa_base_u(unsigned long long nb, int base)
 
 	if (base < 2 || base > 16)
 		return (NULL);
-	len = ft_intlen(nb, base);
+	len = ft_intlen_u(nb, base);
 	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
 	if (nb == 0)

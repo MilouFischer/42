@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printfloat.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/12 11:57:59 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 12:20:55 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static char	**ft_init_pm(char **tab)
 {
-	tab[0] = pm1;
-	tab[1] = pm2;
-	tab[2] = pm3;
-	tab[3] = pm4;
-	tab[4] = pm5;
-	tab[5] = pm6;
-	tab[6] = pm7;
-	tab[7] = pm8;
-	tab[8] = pm9;
-	tab[9] = pm10;
-	tab[10] = pm11;
-	tab[11] = pm12;
-	tab[12] = pm13;
-	tab[13] = pm14;
-	tab[14] = pm15;
-	tab[15] = pm16;
-	tab[16] = pm17;
-	tab[17] = pm18;
-	tab[18] = pm19;
-	tab[19] = pm20;
-	tab[20] = pm21;
-	tab[21] = pm22;
-	tab[22] = pm23;
+	tab[0] = PM1;
+	tab[1] = PM2;
+	tab[2] = PM3;
+	tab[3] = PM4;
+	tab[4] = PM5;
+	tab[5] = PM6;
+	tab[6] = PM7;
+	tab[7] = PM8;
+	tab[8] = PM9;
+	tab[9] = PM10;
+	tab[10] = PM11;
+	tab[11] = PM12;
+	tab[12] = PM13;
+	tab[13] = PM14;
+	tab[14] = PM15;
+	tab[15] = PM16;
+	tab[16] = PM17;
+	tab[17] = PM18;
+	tab[18] = PM19;
+	tab[19] = PM20;
+	tab[20] = PM21;
+	tab[21] = PM22;
+	tab[22] = PM23;
 	tab[23] = 0;
 	return (tab);
 }

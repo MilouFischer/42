@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:48:04 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:17:13 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,13 @@ char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**mx, unsigned int x, unsigned int y);
 char				*ft_itoa_base(long long int nb, long long int base);
-size_t				ft_intlen(unsigned long long nb, int base);
+size_t				ft_intlen(long long nb, int base);
 char				*ft_itoa_base_u(unsigned long long nb, int base);
 char				*ft_join_free(char *s1, char *s2, int op);
 t_list				*ft_lstnew_str(char const *content, size_t content_size);
 int					ft_lstprint(t_list *list);
 void				ft_lstfree(t_list *list);
 char				*ft_printfloat(double f);
+size_t				ft_intlen_u(unsigned long long nb, int base);
 
 #endif

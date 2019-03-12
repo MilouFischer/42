@@ -6,11 +6,25 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:46:57 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:47:02 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/12 12:19:52 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char		*ft_fill_str(char *str, size_t len, long long int nb,
+				long long int base)
+{
+	while (nb)
+	{
+		if (nb % base < 10)
+			str[len--] = nb % base + '0';
+		else
+			str[len--] = (nb - 10) % base + 'a';
+		nb /= base;
+	}
+	return (str);
+}
 
 char			*ft_itoa_base(long long int nb, long long int base)
 {
@@ -32,13 +46,6 @@ char			*ft_itoa_base(long long int nb, long long int base)
 	if (nb == 0)
 		str[0] = '0';
 	str[len--] = '\0';
-	while (nb)
-	{
-		if (nb % base < 10)
-			str[len--] = nb % base + '0';
-		else
-			str[len--] = (nb - 10) % base + 'a';
-		nb /= base;
-	}
+	str = ft_fill_str(str, len, nb, base);
 	return (str);
 }

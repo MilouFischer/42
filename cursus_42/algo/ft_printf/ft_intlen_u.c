@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_join_free.c                                     :+:      :+:    :+:   */
+/*   ft_intlen_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 12:05:41 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:06:34 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 11:57:05 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 11:57:07 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_join_free(char *s1, char *s2, int op)
+size_t	ft_intlen_u(unsigned long long nb, int base)
 {
-	char	*str;
+	size_t	i;
 
-	str = ft_strjoin(s1, s2);
-	if (op == 1)
-		ft_strdel(&s1);
-	else if (op == 2)
-		ft_strdel(&s2);
-	else
+	i = 0;
+	if (nb == 0)
+		return (1);
+	while (nb)
 	{
-		ft_strdel(&s1);
-		ft_strdel(&s2);
+		nb /= base;
+		i++;
 	}
-	return (str);
+	return (i);
 }
