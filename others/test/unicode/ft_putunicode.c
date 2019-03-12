@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putunicode.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/12 12:32:14 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 13:12:15 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 
-/*static unsigned int	ft_atoi_base(char *str, int base)
+static unsigned int	ft_atoi_base(char *str, int base)
 {
 	unsigned int	nb;
 
 	nb = 0;
 	if (base < 2 || base > 16)
 		return (0);
+	str = ft_strupcase(str);
 	while (*str && (ft_isdigit(*str) || (*str >= 'A' && *str <= 'F')))
 	{
 		if (*str - '0' < 10)
@@ -15,66 +28,43 @@
 			nb = *str++ - 'A' + 10 + nb * base;
 	}
 	return (nb);
-}*/
+}
 
-static void			ft_print_unicode(unsigned int nb)
+static void		ft_init_str(char *s, int n)
 {
-	unsigned int	c;
-	unsigned int	tmp;
+	int		i;
 
-	if (nb < 128)
+	i = 0;
+	while (i < n)
+		s[i++] = '\0';
+}
+
+static void			ft_print_unicode(char *s)
+{
+	char	unicode[4];
+	char	tmp[3];
+	int		i;
+	int		tmp_i;
+
+	i = 0;
+	tmp_i = 0;
+	ft_init_str(unicode, 4);
+	while (*s && i < 4)
 	{
-		write(1, &nb, 1);
-		ft_putendl("Louis le best");
+		tmp[tmp_i++] = *s;
+		if (tmp_i == 2)
+		{
+			tmp[tmp_i] = '\0';
+			unicode[i++] = ft_atoi_base(tmp, 16);
+			tmp_i = 0;
+			ft_init_str(tmp, 3);
+		}
+		s++;
 	}
-	else if (nb < 2048)
-	{
-		c = 49280;
-		c |= nb % 64;
-		tmp = nb / 64;
-		tmp <<= 8;
-		c |= tmp;
-		ft_putstr(ft_itoa_base(c, 2));
-		write(1, &c, 2);
-		ft_putendl("Youen le best");
-	}
-	else if (nb <= 65535)
-	{
-		c = 14712960;
-		c |= nb % 64;
-		tmp = nb / 4096;
-		tmp <<= 8;
-		tmp |= nb % 4096 / 64;
-		tmp <<= 8;
-		c |= tmp;
-		ft_putendl(ft_itoa_base(c, 2));
-		write(1, &c, 3);
-		ft_putendl("Etienne le best");
-	}
-	else if (nb <= 2097152)
-	{
-		c = 3766517888;
-		c |= nb % 64;
-		tmp = nb / 262144;
-		tmp <<= 8;
-		tmp |= nb % 262144 / 4096;
-		tmp <<= 8;
-		tmp |= nb % 4096 / 64;
-		tmp <<= 8;
-		c |= tmp;
-		ft_putstr(ft_itoa_base(c, 2));
-		write(1, &c, 4);
-		ft_putendl("Alex le best");
-	}
-		ft_putendl("Moulinet le best");
-		write(1, &nb, 4);
-	return ;
+	write(1, unicode, i);
 }
 
 void				ft_putunicode(unsigned int c)
 {
-	ft_putnbr(c);
-	ft_putchar('\n');
-	//ft_putendl(ft_itoa_base(c, 2));
-	ft_print_unicode(c);
+	ft_print_unicode(ft_itoa_base(c, 16));
 }
