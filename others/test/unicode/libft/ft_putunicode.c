@@ -10,67 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-unsigned int	ft_convert_to_unicode(unsigned int nb);
-
-static void		ft_init_str(char *s, int n)
+static void	ft_init_str(char *s, int n)
 {
 	int		i;
 
 	i = 0;
 	while (i < n)
 		s[i++] = '\0';
-}
-
-static int		ft_check_unicode(char *s, unsigned int c)
-{
-	int				len;
-	unsigned int	nb;
-
-	len = ft_strlen(s);
-	if (len != 16 && len != 24 && len != 32)
-		return (1);
-	else if (len == 16)
-	{
-		nb = 6;
-		c >>= 6;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 7;
-		if (c != nb)
-			return (1);
-	}
-	else if (len == 24)
-	{
-		nb = 14;
-		c >>= 6;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 8;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 6;
-		if (c != nb)
-			return (1);
-	}
-	else if (len == 32)
-	{
-		nb = 30;
-		c >>= 6;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 8;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 8;
-		if (c % 2 || !((c >> 1) % 2))
-			return (1);
-		c >>= 5;
-		if (c != nb)
-			return (1);
-	}
-	return (0);
 }
 
 static void		ft_print_unicode(char *s)

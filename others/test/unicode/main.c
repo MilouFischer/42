@@ -1,7 +1,5 @@
 #include "libft/libft.h"
 
-void				ft_putunicode(unsigned int c);
-
 int		main(int ac, char **av)
 {
 	if (ac == 2)
