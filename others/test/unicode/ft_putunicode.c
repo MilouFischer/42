@@ -12,24 +12,6 @@
 
 #include "libft/libft.h"
 
-static unsigned int	ft_atoi_base(char *str, int base)
-{
-	unsigned int	nb;
-
-	nb = 0;
-	if (base < 2 || base > 16)
-		return (0);
-	str = ft_strupcase(str);
-	while (*str && (ft_isdigit(*str) || (*str >= 'A' && *str <= 'F')))
-	{
-		if (*str - '0' < 10)
-			nb = *str++ - '0' + nb * base;
-		else
-			nb = *str++ - 'A' + 10 + nb * base;
-	}
-	return (nb);
-}
-
 static void		ft_init_str(char *s, int n)
 {
 	int		i;
@@ -61,10 +43,13 @@ static void			ft_print_unicode(char *s)
 		}
 		s++;
 	}
+	ft_putnbr(i);
+	ft_putchar('\n');
 	write(1, unicode, i);
 }
 
 void				ft_putunicode(unsigned int c)
 {
+	ft_putendl(ft_itoa_base(c, 16));
 	ft_print_unicode(ft_itoa_base(c, 16));
 }
