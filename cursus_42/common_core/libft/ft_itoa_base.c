@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/22 17:46:57 by efischer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:47:02 by efischer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 static size_t	ft_intlen(long long int nb, long long int base)
@@ -22,8 +10,7 @@ static size_t	ft_intlen(long long int nb, long long int base)
 	if (nb < 0)
 	{
 		nb *= -1;
-		if (base == 10)
-			i++;
+		i++;
 	}
 	while (nb)
 	{
@@ -40,15 +27,12 @@ char			*ft_itoa_base(long long int nb, long long int base)
 
 	if (base < 2 || base > 16)
 		return (NULL);
-	if (nb < -9223372036854775807)
-		return (ft_strdup("-9223372036854775808"));
 	len = ft_intlen(nb, base);
 	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
 	if (nb < 0)
 	{
-		if (base == 10)
-			str[0] = '-';
+		str[0] = '-';
 		nb *= -1;
 	}
 	if (nb == 0)

@@ -118,5 +118,9 @@ char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
 char				*ft_itoa_base(long long int nb, long long int base);
+long long			ft_atoi_base(char *str, int base);
+void				ft_putunicode(unsigned int c);
+int					ft_check_unicode(char *s, unsigned int c);
+unsigned int		ft_convert_to_unicode(unsigned int nb);
 
 #endif
