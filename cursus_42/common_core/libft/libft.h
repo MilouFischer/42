@@ -119,7 +119,7 @@ int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
 char				*ft_itoa_base(long long int nb, long long int base);
 long long			ft_atoi_base(char *str, int base);
-char				*ft_putunicode(unsigned int c);
+char				*ft_putunicode(wchar_t *s);
 int					ft_check_unicode(char *s, unsigned int c);
 unsigned int		ft_convert_to_unicode(unsigned int nb);
 

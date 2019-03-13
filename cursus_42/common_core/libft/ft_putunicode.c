@@ -48,9 +48,46 @@ static char		*ft_print_unicode(char *s)
 	return (str);
 }
 
-char			*ft_putunicode(unsigned int c)
+char			*ft_putunicode(wchar_t *s)
 {
-	if (c > 128 && ft_check_unicode(ft_itoa_base(c, 2), c))
-		c = ft_convert_to_unicode(c);
-	return (ft_print_unicode(ft_itoa_base(c, 16)));
+	char	**tab;
+	char	*str;
+	int		i;
+	int		j;
+	int		len;
+
+	i = 0;
+	j = 0;
+	len = 0;
+	while (s[i])
+	{
+		if (s[i] > 128 && ft_check_unicode(ft_itoa_base(s[i], 2), s[i]))
+			s[i] = ft_convert_to_unicode(s[i]);
+		i++;
+	}
+	if (!(tab = (char**)malloc(sizeof(char*) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (s[i])
+		tab[j++] = ft_print_unicode(ft_itoa_base(s[i++], 16));
+	tab[j] = 0;
+	i = 0;
+	while (tab[i])
+		len += ft_strlen(tab[i++]);
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+	{
+		free(tab);
+		return (NULL);
+	}
+	i = 0;
+	while (*tab)
+	{
+		while (**tab)
+		{
+			str[i++] = *(*tab)++;
+		}
+		tab++;
+	}
+	str[i] = '\0';
+	return (str);
 }

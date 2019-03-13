@@ -2,11 +2,13 @@
 
 int		main(int ac, char **av)
 {
-	char	*str;
+	char			*str;
+	unsigned int	c;
 
+	c = ft_atoi(av[1]);
 	if (ac == 2)
 	{
-		str = ft_putunicode(ft_atoi(av[1]));
+		str = ft_putunicode((wchar_t*)&c);
 		ft_putstr(str);
 	}
 	write(1, "\n", 1);
