@@ -42,7 +42,6 @@ static unsigned int	ft_three_byte(unsigned int nb)
 	tmp |= nb % 4096 / 64;
 	tmp <<= 8;
 	c |= tmp;
-	ft_putendl(ft_itoa_base(c, 2));
 	return (c);
 }
 

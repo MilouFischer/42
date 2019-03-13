@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static void	ft_init_str(char *s, int n)
+static void		ft_init_str(char *s, int n)
 {
 	int		i;
 
@@ -21,10 +21,11 @@ static void	ft_init_str(char *s, int n)
 		s[i++] = '\0';
 }
 
-static void		ft_print_unicode(char *s)
+static char		*ft_print_unicode(char *s)
 {
 	char	unicode[4];
 	char	tmp[3];
+	char	*str;
 	int		i;
 	int		tmp_i;
 
@@ -43,17 +44,14 @@ static void		ft_print_unicode(char *s)
 		}
 		s++;
 	}
-	write(1, unicode, i);
+	str = unicode;
+	//write(1, unicode, i);
+	return (str);
 }
 
-void				ft_putunicode(unsigned int c)
+char			*ft_putunicode(unsigned int c)
 {
-	if (c < 128)
-	{
-		ft_putchar(c);
-		return ;
-	}
-	if (ft_check_unicode(ft_itoa_base(c, 2), c))
+	if (c > 128 && ft_check_unicode(ft_itoa_base(c, 2), c))
 		c = ft_convert_to_unicode(c);
-	ft_print_unicode(ft_itoa_base(c, 16));
+	return (ft_print_unicode(ft_itoa_base(c, 16)));
 }
