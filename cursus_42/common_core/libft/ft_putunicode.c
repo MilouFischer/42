@@ -23,7 +23,7 @@ static void		ft_init_str(char *s, int n)
 
 static char		*ft_print_unicode(char *s)
 {
-	char	unicode[4];
+	char	unicode[5];
 	char	tmp[3];
 	char	*str;
 	int		i;
@@ -31,8 +31,8 @@ static char		*ft_print_unicode(char *s)
 
 	i = 0;
 	tmp_i = 0;
-	ft_init_str(unicode, 4);
-	while (*s && i < 4)
+	ft_init_str(unicode, 5);
+	while (*s && i < 5)
 	{
 		tmp[tmp_i++] = *s;
 		if (tmp_i == 2)
@@ -45,7 +45,6 @@ static char		*ft_print_unicode(char *s)
 		s++;
 	}
 	str = unicode;
-	//write(1, unicode, i);
 	return (str);
 }
 

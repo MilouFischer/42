@@ -1,6 +1,7 @@
-*.o
 main.c
-*.a
-*.swp
 a.out
 a.out.dSYM
+*.o
+*.a
+*.swp
+*.c.swo
