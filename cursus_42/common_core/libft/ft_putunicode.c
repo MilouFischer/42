@@ -48,44 +48,65 @@ static char		*ft_print_unicode(char *s)
 	return (str);
 }
 
-char			*ft_putunicode(wchar_t *s)
+size_t			ft_wchar_tlen(wchar_t *ws)
 {
-	char	**tab;
-	char	*str;
-	int		i;
-	int		j;
-	int		len;
+	size_t	len;
+
+	len = 0;
+	while (ws[len])
+		len++;
+	return (len);
+}
+
+char			*ft_putunicode(wchar_t *u)
+{
+	char		*str;
+	char		*tmp;
+	char		**tab;
+	size_t		len;
+	int			i;
+	wchar_t		c;
 
 	i = 0;
-	j = 0;
-	len = 0;
-	while (s[i])
-	{
-		if (s[i] > 128 && ft_check_unicode(ft_itoa_base(s[i], 2), s[i]))
-			s[i] = ft_convert_to_unicode(s[i]);
-		i++;
-	}
-	if (!(tab = (char**)malloc(sizeof(char*) * (i + 1))))
+	len = ft_wchar_tlen(u);
+	if (!(tab = (char**)malloc(sizeof(char*) * (len + 1))))
 		return (NULL);
+	while (*u)
+	{
+		if (*u > 128 && ft_check_unicode((tmp = ft_itoa_base(*u, 2)), *u))
+		{
+			c = ft_convert_to_unicode(*u);
+			ft_strdel(&tmp);
+		}
+		else
+			c = (char)*u;
+		tmp = ft_itoa_base(c, 16);
+		ft_putnbr(i);
+		tab[i++] = ft_print_unicode(tmp);
+		ft_putendl(tab[0]);
+		ft_strdel(&tmp);
+		u++;
+	}
+	tab[i] = 0;
 	i = 0;
-	while (s[i])
-		tab[j++] = ft_print_unicode(ft_itoa_base(s[i++], 16));
-	tab[j] = 0;
+	while (tab[i])
+	{
+		ft_putnbr(i);
+		ft_putendl(tab[i++]);
+	}
 	i = 0;
 	while (tab[i])
 		len += ft_strlen(tab[i++]);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 	{
-		free(tab);
+		ft_free_tab(tab);
 		return (NULL);
 	}
 	i = 0;
 	while (*tab)
 	{
 		while (**tab)
-		{
 			str[i++] = *(*tab)++;
-		}
 		tab++;
 	}
 	str[i] = '\0';
