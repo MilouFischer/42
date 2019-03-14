@@ -14,6 +14,8 @@
 
 char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
 {
+	if (c == 'C' || c == 'S' || (flag->l && (c == 'c' || c == 's')))
+		return (ft_manage_unicode(arg, flag));
 	if (c == 'c')
 		return (ft_manage_c(arg, flag));
 	else if (c == 's')

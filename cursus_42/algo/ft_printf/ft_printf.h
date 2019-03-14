@@ -73,5 +73,6 @@ char			*ft_precision(char conv, char *format, t_flag *flag);
 char			*ft_width(char conv, char *format, t_flag *flag);
 int				ft_strlen_null(char *s, int nb);
 int				ft_putstr_null(char	*s, int nb);
+char			*ft_manage_unicode(va_list *arg, t_flag *flag);
 
 #endif

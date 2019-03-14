@@ -28,7 +28,8 @@ ft_strncasecmp ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix \
 ft_itoa_base ft_printf ft_manage_conv ft_util ft_flag ft_printfloat \
 ft_manage_str ft_diouxx ft_long_diouxx ft_manage_p ft_width_precision \
 ft_process_flag ft_intlen ft_itoa_base_u ft_join_free ft_lstnew_str \
-ft_lstprint ft_lstfree ft_printfloat ft_intlen_u
+ft_lstprint ft_lstfree ft_printfloat ft_intlen_u ft_putunicode \
+ft_check_unicode ft_convert_to_unicode ft_manage_unicode ft_atoi_base
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o)
 CC = gcc

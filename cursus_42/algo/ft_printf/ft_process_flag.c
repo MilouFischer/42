@@ -60,7 +60,7 @@ static char		*ft_flag_error(char *s, t_flag *flag)
 
 static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
-	if (c == 'c' || c == 's' || c == 'p')
+	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
 		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'i' || c == 'o' || c == 'u' || c == 'x'
 	|| c == 'X' || c == 'f')
@@ -82,8 +82,8 @@ char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
 		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u'
-		|| **s == 'x' || **s == 'X' || **s == 'f' || **s == 'c' || **s == 's'
-		|| **s == 'p' || **s == 'Z')
+		|| **s == 'x' || **s == 'X' || **s == 'f' || **s == 'c' || **s == 'C'
+		|| **s == 's' || **s == 'S' || **s == 'p' || **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
 		else if (**s >= '1' && **s <= '9')
 			ft_precision_width(flag, s);

@@ -126,5 +126,9 @@ int					ft_lstprint(t_list *list);
 void				ft_lstfree(t_list *list);
 char				*ft_printfloat(double f);
 size_t				ft_intlen_u(unsigned long long nb, int base);
+char				*ft_putunicode(wchar_t *u);
+int					ft_check_unicode(char *s, unsigned int c);
+unsigned int		ft_convert_to_unicode(unsigned int c);
+long long			ft_atoi_base(char *str, int base);
 
 #endif
