@@ -75,6 +75,7 @@ char			*ft_putunicode(wchar_t *u)
 		else
 			c = (char)*u;
 		tmp = ft_itoa_base(c, 16);
+		str = ft_print_unicode(tmp);
 		str = ft_join_free(str, ft_print_unicode(tmp), 1);
 		ft_strdel(&tmp);
 		u++;
