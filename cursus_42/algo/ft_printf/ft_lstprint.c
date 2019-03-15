@@ -26,5 +26,6 @@ int				ft_lstprint(t_list *list)
 		list = list->next;
 	}
 	write(1, str, len);
+	ft_strdel(&str);
 	return (len);
 }
