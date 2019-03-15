@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 18:39:09 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:27:35 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int					get_next_line(const int fd, char **line);
 void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
 char				*ft_itoa_base(long long int nb, long long int base);
 long long			ft_atoi_base(char *str, int base);
-char				*ft_putunicode(wchar_t *c);
+char				*ft_putunicode(wchar_t *u);
 int					ft_check_unicode(char *s, unsigned int c);
 unsigned int		ft_convert_to_unicode(unsigned int nb);
 char				*ft_join_free(char *s1, char *s2, int op);

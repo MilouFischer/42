@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tmp.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/15 13:52:58 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/15 13:53:19 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 char			*ft_putunicode(wchar_t *u)
 {
 	char		*str;
@@ -21,19 +33,11 @@ char			*ft_putunicode(wchar_t *u)
 		else
 			c = (char)*u;
 		tmp = ft_itoa_base(c, 16);
-		ft_putnbr(i);
 		tab[i++] = ft_print_unicode(tmp);
-		ft_putendl(tab[0]);
 		ft_strdel(&tmp);
 		u++;
 	}
 	tab[i] = 0;
-	i = 0;
-	while (tab[i])
-	{
-		ft_putnbr(i);
-		ft_putendl(tab[i++]);
-	}
 	i = 0;
 	while (tab[i])
 		len += ft_strlen(tab[i++]);
