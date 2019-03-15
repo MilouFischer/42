@@ -6,13 +6,13 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/17 13:50:41 by efischer          #+#    #+#              #
-#    Updated: 2019/01/15 13:47:39 by efischer         ###   ########.fr        #
+#    Updated: 2019/03/15 16:10:25 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DEBUG = no
 NAME = fdf
-FILE = color event event2 main  create_window matrix print_image print_line rotation init
+FILE = color event event2 main create_window matrix print_image print_line rotation init
 SRCS = $(patsubst %,%.c,$(FILE))
 OBJ = $(SRCS:.c=.o)
 INCLUDES = -I /usr/local/include
@@ -39,7 +39,7 @@ endif
 	@echo "Creating fdf's objects..."
 	@$(CC) $(FLAG) -c $< $(INCLUDES)
 
-$(LIB): 
+$(LIB): FORCE
 	@make -C libft
 
 $(NAME): $(OBJ)
@@ -59,5 +59,7 @@ clean: libclean
 fclean: clean libfclean
 	@echo "Deleting fdf.exe..."
 	@rm -rf $(NAME)
+
+FORCE:
 
 re: fclean all

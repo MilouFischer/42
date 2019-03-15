@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:04:54 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:04:55 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/15 16:41:51 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int				ft_lstprint(t_list *list)
 {
+	char	*str;
 	int		len;
-	size_t	i;
 
 	len = 0;
+	str = NULL;
 	while (list)
 	{
-		i = 0;
-		while (i < list->content_size)
-			ft_putchar(list->content[i++]);
+		str = ft_join_free(str, list->content, 1);
 		len += list->content_size;
 		list = list->next;
 	}
+	write(1, str, len);
 	return (len);
 }
