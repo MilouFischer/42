@@ -58,12 +58,15 @@ static t_list	*ft_get_flags(t_list *list, va_list *arg)
 		tmp = list->content;
 		list->content = ft_strsub(tmp, 0, list->content_size - ft_strlen(str));
 		list->content_size = ft_strlen(list->content);
+		ft_putendl(list->content);
 		ft_lstadd(&new, list);
 		list = list->next;
 		if (!(list->content = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
 		str++;
+		ft_putendl(list->content);
 		list = ft_fill_content(list, str, flag);
+		ft_putendl(list->content);
 	}
 	return (tmp_list);
 }
@@ -84,7 +87,8 @@ int				ft_printf(const char *format, ...)
 			return (0);
 		va_end(arg);
 	}
-	len = ft_lstprint(list);
+	//len = ft_lstprint(list);
+	len = 0;
 	ft_lstfree(list);
 	return (len);
 }
