@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:27:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:26:11 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:13:24 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag);
 char			*ft_width(char conv, char *format, t_flag *flag);
 int				ft_strlen_null(char *s, int nb);
 int				ft_putstr_null(char	*s, int nb);
-char			*ft_manage_unicode(va_list *arg, t_flag *flag);
+char			*ft_manage_unicode_str(va_list *arg, t_flag *flag);
+char			*ft_manage_unicode_char(va_list *arg, t_flag *flag);
 
 #endif

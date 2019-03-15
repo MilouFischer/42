@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:04:30 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:04:33 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:10:29 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char			*ft_manage_c(va_list *arg, t_flag *flag)
 
 	if (!(s = (char*)malloc(sizeof(char) * 2)))
 		return (NULL);
-	s[0] = va_arg(*arg, int);
+	s[0] = va_arg(*arg, unsigned int);
 	s[1] = '\0';
 	if (!s[0])
 	{

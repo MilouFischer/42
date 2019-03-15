@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:32:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 13:12:15 by efischer         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:53:18 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ static char		*ft_print_unicode(char *s)
 		}
 		s++;
 	}
-	str = unicode;
+	str = ft_strdup(unicode);
 	return (str);
 }
 
-/*static size_t		ft_wchar_tlen(wchar_t *ws)
+size_t			ft_wchar_tlen(wchar_t *ws)
 {
 	size_t	len;
 
@@ -57,27 +57,27 @@ static char		*ft_print_unicode(char *s)
 		len++;
 	return (len);
 }
-*/
-char			*ft_putunicode(wchar_t *u)
+
+char			*ft_putunicode(wchar_t *ws)
 {
-	char		*str;
-	char		*tmp;
-	wchar_t		c;
+	char	*str;
+	char	*tmp;
+	wchar_t	c;
 
 	str = NULL;
-	while (*u)
+	while (*ws)
 	{
-		if (*u > 128 && ft_check_unicode((tmp = ft_itoa_base(*u, 2)), *u))
+		if (*ws > 128 && ft_check_unicode((tmp = ft_itoa_base(*ws, 2)), *ws))
 		{
-			c = ft_convert_to_unicode(*u);
+			c = ft_convert_to_unicode(*ws);
 			ft_strdel(&tmp);
 		}
 		else
-			c = (char)*u;
+			c = (char)*ws;
 		tmp = ft_itoa_base(c, 16);
 		str = ft_join_free(str, ft_print_unicode(tmp), 1);
 		ft_strdel(&tmp);
-		u++;
+		ws++;
 	}
 	return (str);
 }
