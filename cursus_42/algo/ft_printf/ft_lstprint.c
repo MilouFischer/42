@@ -12,22 +12,23 @@
 
 #include "libft.h"
 
-int				ft_lstprint(t_list *list)
+int				ft_lstprint(t_list *lst)
 {
-	char	*str;
-	int		len;
+	void	*str;
+	void	*tmp;
+	size_t	len;
 
 	len = 0;
 	str = NULL;
-	while (list)
+	while (lst)
 	{
-		str = ft_join_free(str, list->content, 1);
-		if (!*list->content)
-			str = ft_join_free(str, "^@", 1);
-		len += list->content_size;
-		list = list->next;
+		tmp = str;
+		str = ft_memjoin(tmp, lst->content, len, lst->content_size);
+		free(tmp);
+		len += lst->content_size;
+		lst = lst->next;
 	}
 	write(1, str, len);
-	ft_strdel(&str);
+	free(str);
 	return (len);
 }

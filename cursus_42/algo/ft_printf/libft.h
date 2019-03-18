@@ -130,5 +130,6 @@ char				*ft_putunicode(wchar_t *u);
 int					ft_check_unicode(char *s, unsigned int c);
 unsigned int		ft_convert_to_unicode(unsigned int c);
 long long			ft_atoi_base(char *str, int base);
+void				*ft_memjoin(void *s1, void *s2, size_t len1, size_t len2);
 
 #endif

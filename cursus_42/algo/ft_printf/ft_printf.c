@@ -12,6 +12,21 @@
 
 #include "ft_printf.h"
 
+static t_list	*ft_join_content(t_list *lst, char *str, t_flag flag)
+{
+	if (flag.null)
+	{
+		lst->content = ft_memjoin(lst->content, str, lst->content_size, ft_strlen(str) + 1);
+		lst->content_size += ft_strlen(str) + 1;
+	}
+	else
+	{
+		lst->content = ft_join_free(lst->content, str, 1);
+		lst->content_size += ft_strlen(str);
+	}
+	return (lst);
+}
+
 static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 {
 	size_t	i;
@@ -32,7 +47,6 @@ static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 		lst->content = ft_strdup(str);
 		lst->content_size = ft_strlen(lst->content);
 	}
-//	ft_strdel(&str);
 	return (lst);
 }
 
@@ -45,20 +59,16 @@ static t_list	*ft_get_flags(t_list *list, va_list *arg, char *str)
 	t_flag	flag;
 
 	tmp_list = list;
-	ft_strdel(&list->content);
 	while ((format = ft_strchr(str, '%')))
 	{
 		ft_init_flag(&flag);
 		list = ft_fill_content(list, tmp = ft_strsub(str, 0, format - str), flag);
 		ft_strdel(&tmp);
-		new = ft_lstnew_str(NULL, 0);
-		ft_lstadd(&new, list);
-		list = list->next;
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
 		str++;
-		list = ft_fill_content(list, tmp, flag);
+		list = ft_join_content(list, tmp, flag);
 		ft_strdel(&tmp);
 		new = ft_lstnew_str(NULL, 0);
 		ft_lstadd(&new, list);
