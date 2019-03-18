@@ -14,9 +14,13 @@
 
 static t_list	*ft_join_content(t_list *lst, char *str, t_flag flag)
 {
+	char	*tmp;
+
 	if (flag.null)
 	{
-		lst->content = ft_memjoin(lst->content, str, lst->content_size, ft_strlen(str) + 1);
+		tmp = lst->content;
+		lst->content = ft_memjoin(tmp, str, lst->content_size, ft_strlen(str) + 1);
+		ft_strdel(&tmp);
 		lst->content_size += ft_strlen(str) + 1;
 	}
 	else
