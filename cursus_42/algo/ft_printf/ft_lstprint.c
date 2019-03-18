@@ -22,6 +22,8 @@ int				ft_lstprint(t_list *list)
 	while (list)
 	{
 		str = ft_join_free(str, list->content, 1);
+		if (!*list->content)
+			str = ft_join_free(str, "^@", 1);
 		len += list->content_size;
 		list = list->next;
 	}

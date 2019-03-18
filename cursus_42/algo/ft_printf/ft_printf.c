@@ -32,6 +32,7 @@ static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 		lst->content = ft_strdup(str);
 		lst->content_size = ft_strlen(lst->content);
 	}
+//	ft_strdel(&str);
 	return (lst);
 }
 
@@ -48,15 +49,17 @@ static t_list	*ft_get_flags(t_list *list, va_list *arg, char *str)
 	while ((format = ft_strchr(str, '%')))
 	{
 		ft_init_flag(&flag);
-		list = ft_fill_content(list, ft_strsub(str, 0, format - str), flag);
+		list = ft_fill_content(list, tmp = ft_strsub(str, 0, format - str), flag);
+		ft_strdel(&tmp);
 		new = ft_lstnew_str(NULL, 0);
 		ft_lstadd(&new, list);
 		list = list->next;
-		str = ft_strdup(format);
+		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
 		str++;
 		list = ft_fill_content(list, tmp, flag);
+		ft_strdel(&tmp);
 		new = ft_lstnew_str(NULL, 0);
 		ft_lstadd(&new, list);
 		list = list->next;
@@ -87,6 +90,7 @@ int				ft_printf(const char *format, ...)
 			return (0);
 		va_end(arg);
 	}
+	ft_strdel(&str);
 	len = ft_lstprint(list);
 	len = 0;
 	ft_lstfree(list);
