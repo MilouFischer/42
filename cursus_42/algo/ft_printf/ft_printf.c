@@ -36,6 +36,7 @@ static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 	size_t	i;
 
 	i = 0;
+	ft_strdel(&lst->content);
 	if (flag.null)
 	{
 		lst->content_size = ft_strlen(str) + 1;
