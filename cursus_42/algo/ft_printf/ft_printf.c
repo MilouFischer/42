@@ -107,7 +107,6 @@ int				ft_printf(const char *format, ...)
 	}
 	ft_strdel(&str);
 	len = ft_lstprint(list);
-	len = 0;
 	ft_lstfree(list);
 	return (len);
 }
