@@ -20,7 +20,9 @@ int				ft_lstprint(t_list *lst)
 
 	if (!lst)
 		return (0);
-	str = ft_memcpy(src, lst->content, lst->content_size);
+	if (!(str = (void*)malloc(sizeof(char) * (lst->content_size + 1))))
+		return (0);
+	str = ft_memcpy(str, lst->content, lst->content_size);
 	len = lst->content_size;
 	lst = lst->next;
 	while (lst)
