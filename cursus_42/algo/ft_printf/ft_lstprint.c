@@ -20,7 +20,7 @@ int				ft_lstprint(t_list *lst)
 
 	if (!lst)
 		return (0);
-	str = ft_strsub(lst->content, 0, lst->content_size);
+	str = ft_memcpy(src, lst->content, lst->content_size);
 	len = lst->content_size;
 	lst = lst->next;
 	while (lst)
