@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include "ft_printf.h"
+
+int		main(void)
+{
+	int		len;
+
+	//printf("tru: %%   %\n", "test");
+	len = ft_printf("%%   %", "test");
+	//ft_putnbr(len);
+	ft_putchar('\n');
+	return (0);
+}

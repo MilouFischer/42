@@ -55,39 +55,39 @@ static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 	return (lst);
 }
 
-static t_list	*ft_get_flags(t_list *list, va_list *arg, char *str)
+static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 {
 	char	*tmp;
 	char	*format;
 	t_list	*new;
-	t_list	*tmp_list;
+	t_list	*tmp_lst;
 	t_flag	flag;
 
-	tmp_list = list;
+	tmp_lst = lst;
 	while ((format = ft_strchr(str, '%')))
 	{
 		ft_init_flag(&flag);
-		list = ft_fill_content(list, tmp = ft_strsub(str, 0, format - str), flag);
+		lst = ft_fill_content(lst, tmp = ft_strsub(str, 0, format - str), flag);
 		ft_strdel(&tmp);
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
 		str++;
-		list = ft_join_content(list, tmp, flag);
+		lst = ft_join_content(lst, tmp, flag);
 		ft_strdel(&tmp);
 		if (*str)
 		{
 			new = ft_lstnew_str(NULL, 0);
-			ft_lstadd(&new, list);
-			list = list->next;
+			ft_lstadd(&new, lst);
+			lst = lst->next;
 		}
 	}
 	if (*str)
 	{
 		ft_init_flag(&flag);
-		list = ft_fill_content(list, str, flag);
+		lst = ft_fill_content(lst, str, flag);
 	}
-	return (tmp_list);
+	return (tmp_lst);
 }
 
 int				ft_printf(const char *format, ...)
