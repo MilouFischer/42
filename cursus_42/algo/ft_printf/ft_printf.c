@@ -75,18 +75,17 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 		str++;
 		lst = ft_join_content(lst, tmp, flag);
 		ft_strdel(&tmp);
-		if (*str)
-		{
-			new = ft_lstnew_str(NULL, 0);
-			ft_lstadd(&new, lst);
-			lst = lst->next;
-		}
+		new = ft_lstnew_str(NULL, 0);
+		ft_lstadd(&new, lst);
+		lst = lst->next;
 	}
 	if (*str)
 	{
 		ft_init_flag(&flag);
 		lst = ft_fill_content(lst, str, flag);
 	}
+	else
+		free(new);
 	return (tmp_lst);
 }
 
