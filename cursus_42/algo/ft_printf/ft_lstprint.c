@@ -23,19 +23,17 @@ int				ft_lstprint(t_list *lst)
 	if (!(str = (void*)malloc(sizeof(char) * (lst->content_size + 1))))
 		return (0);
 	str = ft_memcpy(str, lst->content, lst->content_size);
-	ft_putstr(lst->content);
 	len = lst->content_size;
 	lst = lst->next;
 	while (lst)
 	{
-		ft_putstr(lst->content);
 		tmp = str;
 		str = ft_memjoin(tmp, lst->content, len, lst->content_size);
 		free(tmp);
 		len += lst->content_size;
 		lst = lst->next;
 	}
-	//write(1, str, len);
+	write(1, str, len);
 	free(str);
 	return (len);
 }

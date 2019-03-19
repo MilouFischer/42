@@ -75,17 +75,18 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 		str++;
 		lst = ft_join_content(lst, tmp, flag);
 		ft_strdel(&tmp);
-		new = ft_lstnew_str(NULL, 0);
-		ft_lstadd(&new, lst);
-		lst = lst->next;
+		if (*str)
+		{
+			new = ft_lstnew_str(NULL, 0);
+			ft_lstadd(&new, lst);
+			lst = lst->next;
+		}
 	}
 	if (*str)
 	{
 		ft_init_flag(&flag);
 		lst = ft_fill_content(lst, str, flag);
 	}
-	else
-		free(new);
 	return (tmp_lst);
 }
 
@@ -98,7 +99,7 @@ int				ft_printf(const char *format, ...)
 
 	if (!format)
 		return (0);
-	list = ft_lstnew(format, ft_strlen(format));
+	list = ft_lstnew_str(format, ft_strlen(format));
 	str = ft_strdup(format);
 	if (ft_strchr(str, '%'))
 	{
