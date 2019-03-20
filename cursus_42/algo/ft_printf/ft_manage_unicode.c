@@ -24,6 +24,30 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	return (s);
 }
 
+static char		*ft_unicode_str_width(char *s, t_flag *flag)
+{
+	int		len;
+	char	*tmp;
+	char	c;
+
+	len = ft_strlen(s);
+	if (len < flag->width)
+	{
+		len = flag->width - len;
+		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+			return (NULL);
+		c = flag->zero ? '0' : ' ';
+		tmp[len--] = '\0';
+		while (len)
+			tmp[len--] = c;
+		tmp[len] = c;
+		if (flag->min)
+			s = ft_join_free(s, tmp, 3);
+		else
+			s = ft_join_free(tmp, s, 3);
+	}
+	return (s);
+}
 char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 {
 	wchar_t	*ws;
@@ -36,14 +60,14 @@ char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 		else
 			return (s = ft_strdup("(null)"));
 	}
-	/*if (flag->precision > 0)
+	if (flag->precision > 0)
 		s = ft_strndup(s, flag->precision);
 	else if (flag->precision == -1)
 		s = ft_strdup("");
 	else
 		s = ft_strdup(s);
+	s = ft_putunicode(ws);		
 	if (flag->width)
-		s = ft_s_width(s, flag);
-	*/s = ft_putunicode(ws);		
+		s = ft_unicode_str_width(s, flag);
 	return (s);
 }
