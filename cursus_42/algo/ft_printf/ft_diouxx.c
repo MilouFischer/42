@@ -67,6 +67,11 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 	char			*s;
 
 	u = va_arg(*arg, unsigned long long);
+	if (flag->space || flag->plus)
+	{
+		flag->space = 0;
+		flag->plus = 0;
+	}
 	if (flag->hh)
 	{
 		c = (char)u;
