@@ -62,8 +62,8 @@ static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
 		return (ft_manage_str(c, arg, flag));
-	else if (c == 'd' || c == 'i' || c == 'o' || c == 'u' || c == 'x'
-	|| c == 'X' || c == 'f')
+	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'u'
+	|| c == 'x' || c == 'X' || c == 'f')
 		return (ft_diouxxf(c, arg, flag));
 	else
 		return (ft_strdup("Z"));
@@ -81,9 +81,9 @@ char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			return (ft_percent(**s, flag));
 		else if (**s == 'h' || **s == 'l' || **s == 'L')
 			ft_manage_conv_flag(**s, flag);
-		else if (**s == 'd' || **s == 'i' || **s == 'o' || **s == 'u'
-		|| **s == 'x' || **s == 'X' || **s == 'f' || **s == 'c' || **s == 'C'
-		|| **s == 's' || **s == 'S' || **s == 'p' || **s == 'Z')
+		else if (**s == 'd' || **s == 'D'|| **s == 'i' || **s == 'o'
+		|| **s == 'u' || **s == 'x' || **s == 'X' || **s == 'f' || **s == 'c'
+		|| **s == 'C' || **s == 's' || **s == 'S' || **s == 'p' || **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
 		else if (**s >= '1' && **s <= '9')
 			ft_precision_width(flag, s);

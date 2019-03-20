@@ -29,7 +29,7 @@ static char		*ft_manage_long_diu(char c, va_list *arg)
 	long long int	nb;
 	unsigned long	u;
 
-	if (c == 'd' || c == 'i')
+	if (c == 'd' || c == 'D' || c == 'i')
 	{
 		nb = va_arg(*arg, long long int);
 		return (ft_itoa_base(nb, 10));
@@ -45,7 +45,7 @@ char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	unsigned long	u;
 
-	if (c == 'd' || c == 'i' || c == 'u')
+	if (c == 'd' || c == 'D' || c == 'i' || c == 'u')
 		return (ft_manage_long_diu(c, arg));
 	else if (c == 'o')
 		return (ft_manage_long_o(arg, flag));
