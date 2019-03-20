@@ -56,6 +56,7 @@ char			*ft_manage_p(va_list *arg, t_flag *flag)
 {
 	void	*p;
 	char	*s;
+	char	*tmp;
 
 	p = va_arg(*arg, void*);
 	if (flag->precision == -1)
@@ -67,5 +68,8 @@ char			*ft_manage_p(va_list *arg, t_flag *flag)
 	s = ft_join_free("0x", s, 2);
 	if (flag->width)
 		s = ft_p_width(s, flag);
+	tmp = s;
+	s = ft_strdup(tmp);
+	ft_strdel(&tmp);
 	return (s);
 }
