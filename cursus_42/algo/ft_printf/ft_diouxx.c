@@ -79,21 +79,32 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 	}
 	s = ft_itoa_base_u(u, 10);
 	return (s);
-	/*unsigned int	u;
+}
+
+static char		*ft_manage_x(va_list *arg, t_flag *flag)
+{
+	unsigned int	u;
+	unsigned char	c;
+	unsigned short	sh;
+	char			*s;
 
 	u = va_arg(*arg, unsigned long long);
-	if (!flag->l)
-		u = (unsigned)u;
-	flag->space = 0;
-	flag->plus = 0;
-	return (ft_itoa_base_u(u, 10));*/
+	if (flag->hh)
+	{
+		c = (char)u;
+		u = c;
+	}
+	else if (flag->h)
+	{
+		sh = (short)u;
+		u = sh;
+	}
+	s = ft_itoa_base_u(u, 16);
+	return (s);
 }
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	//int				nb;
-	unsigned int	u;
-
 	if (c == 'd' || c == 'i')
 		return (ft_manage_d(arg, flag));
 	else if (c == 'o')
@@ -101,10 +112,7 @@ char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'u')
 		return (ft_manage_u(arg, flag));
 	else if (c == 'x' || c == 'X')
-	{
-		u = va_arg(*arg, unsigned int);
-		return (ft_itoa_base_u(u, 16));
-	}
+		return (ft_manage_x(arg, flag));
 	else
 		return (NULL);
 }
