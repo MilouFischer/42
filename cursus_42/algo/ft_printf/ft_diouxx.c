@@ -73,16 +73,16 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	int				nb;
+	//int				nb;
 	unsigned int	u;
 
-	if (c == 'd')
+	if (c == 'd' || c == 'i')
 		return (ft_manage_d(arg, flag));
-	else if (c == 'i')
+	/*else if (c == 'i')
 	{
 		nb = va_arg(*arg, int);
 		return (ft_itoa(nb));
-	}
+	}*/
 	else if (c == 'o')
 		return (ft_manage_o(arg, flag));
 	else if (c == 'u')
