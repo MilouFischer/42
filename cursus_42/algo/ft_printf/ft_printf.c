@@ -72,7 +72,7 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
-		if (*str)
+		if (str)
 			str++;
 		lst = ft_join_content(lst, tmp, flag);
 		ft_strdel(&tmp);
@@ -109,8 +109,8 @@ int				ft_printf(const char *format, ...)
 			return (0);
 		va_end(arg);
 	}
-	ft_strdel(&str);
 	len = ft_lstprint(list);
 	ft_lstfree(list);
+	ft_strdel(&str);
 	return (len);
 }
