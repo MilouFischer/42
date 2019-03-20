@@ -45,9 +45,9 @@ char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	unsigned long	u;
 
-	if (c == 'd' || c == 'D' || c == 'i' || c == 'u')
+	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U')
 		return (ft_manage_long_diu(c, arg));
-	else if (c == 'o')
+	else if (c == 'o' || c == 'O')
 		return (ft_manage_long_o(arg, flag));
 	else if (c == 'x' || c == 'X')
 	{

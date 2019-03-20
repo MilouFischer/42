@@ -46,7 +46,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 
 	if (c == 'f')
 		str = ft_float(arg, flag);
-	else if (flag->l || flag->ll || c == 'D')
+	else if (flag->l || flag->ll || c == 'D' || c == 'O' || c == 'U')
 		str = ft_long_diouxx(c, arg, flag);
 	else
 		str = ft_diouxx(c, arg, flag);
