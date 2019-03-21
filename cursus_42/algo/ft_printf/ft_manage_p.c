@@ -32,18 +32,25 @@ static char		*ft_p_precision(char *s, t_flag *flag)
 	return (s);
 }
 
-static char		*ft_p_width(char *s, t_flag *flag)
+static char		*ft_p_width(void *p, char *s, t_flag *flag)
 {
 	int		len;
 	char	*tmp;
+	char	c;
 
 	if ((len = flag->width - ft_strlen(s)) > 0)
 	{
 		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
 			return (NULL);
+		c = ' ';
+		if (p == 0 && flag->zero)
+		{
+			c = '0';
+			flag->min = 1;
+		}
 		tmp[len--] = '\0';
 		while (len >= 0)
-			tmp[len--] = ' ';
+			tmp[len--] = c;
 		if (flag->min)
 			s = ft_join_free(s, tmp, 3);
 		else
@@ -67,7 +74,7 @@ char			*ft_manage_p(va_list *arg, t_flag *flag)
 		s = ft_p_precision(s, flag);
 	s = ft_join_free("0x", s, 2);
 	if (flag->width)
-		s = ft_p_width(s, flag);
+		s = ft_p_width(p, s, flag);
 	tmp = s;
 	s = ft_strdup(tmp);
 	ft_strdel(&tmp);
