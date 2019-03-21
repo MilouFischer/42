@@ -40,7 +40,7 @@ DEBUG = -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 all: $(NAME)
 
 %.o: %.c $(HEAD)
-	$(CC) $(DEBUG) -c $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)

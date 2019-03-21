@@ -58,6 +58,16 @@ static char		*ft_flag_error(char *s, t_flag *flag)
 	return (format);
 }
 
+static char		*ft_manage_z(char c, t_flag *flag)
+{
+	char	*s;
+
+	s = ft_strdup("Z");
+	if (flag->width)
+		s = ft_width(c, s, flag);
+	return (s);
+}
+
 static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
@@ -66,7 +76,7 @@ static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f')
 		return (ft_diouxxf(c, arg, flag));
 	else
-		return (ft_strdup("Z"));
+		return (ft_manage_z(c, flag));
 }
 
 char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
