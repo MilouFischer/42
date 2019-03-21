@@ -115,14 +115,12 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
-	if (flag->sharp > 0 && (conv == 'x' || conv == 'X') && *format != '0'
-	&& !flag->zero)
+	if (flag->sharp > 0 && (conv == 'x' || conv == 'X') && *format
+	&& *format != '0' && !flag->zero)
 	{
 		format = ft_join_free("0x", format, 2);
 		flag->plus = 0;
 	}
-	if (flag->sharp && flag->zero)
-		flag->width -= 2;
 	if (flag->plus && *format != '-')
 		flag->width--;
 	len = flag->width - ft_strlen(format);

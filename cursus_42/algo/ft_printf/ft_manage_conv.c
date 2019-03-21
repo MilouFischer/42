@@ -50,6 +50,8 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 		str = ft_long_diouxx(c, arg, flag);
 	else
 		str = ft_diouxx(c, arg, flag);
+	if ((c == 'x' || c == 'X') && flag->sharp && flag->zero)
+		flag->width -= 2;
 	return (str);
 }
 
