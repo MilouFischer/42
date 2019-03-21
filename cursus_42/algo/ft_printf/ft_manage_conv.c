@@ -58,18 +58,18 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 	char	*format;
 
 	format = ft_manage_conv(c, arg, flag);
-	if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
-	&& !flag->zero)
-	{
-		format = ft_join_free("0x", format, 2);
-		flag->sharp = 0;
-	}
 	if (flag->precision || flag->width)
 	{
 		if (flag->precision)
 			format = ft_precision(c, format, flag);
 		if (flag->width)
 			format = ft_width(c, format, flag);
+	}
+	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
+	&& !flag->zero)
+	{
+		format = ft_join_free("0x", format, 2);
+		flag->sharp = 0;
 	}
 	else if (flag->plus && *format != '-')
 		format = ft_join_free("+", format, 2);

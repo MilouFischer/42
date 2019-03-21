@@ -56,6 +56,12 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_precision(format, len, flag);
+	if (*format && flag->sharp > 0 && (conv == 'x' || conv == 'X')
+	&& !flag->zero)
+	{
+		format = ft_join_free("0x", format, 2);
+		flag->sharp = 0;
+	}
 	return (format);
 }
 
@@ -109,11 +115,14 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
-	if (flag->sharp > 0 && (conv == 'x' || conv == 'X'))
+	if (flag->sharp > 0 && (conv == 'x' || conv == 'X') && *format != '0'
+	&& !flag->zero)
 	{
-		flag->width -= 2;
+		format = ft_join_free("0x", format, 2);
 		flag->plus = 0;
 	}
+	if (flag->sharp && flag->zero)
+		flag->width -= 2;
 	if (flag->plus && *format != '-')
 		flag->width--;
 	len = flag->width - ft_strlen(format);
