@@ -22,6 +22,36 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	return (s);
 }
 
+static char		*ft_unicode_str_precision(char *s, t_flag *flag)
+{
+	char	*tmp;
+	int		i;
+	int		nb_byte;
+	size_t	len;
+	char	*format;
+
+	i = 0;
+	len = 0;
+	while (flag->precision > 0)
+	{
+		tmp = ft_itoa_base((unsigned char)s[i], 2);
+		nb_byte = 0;
+		while (tmp[nb_byte] == '1')
+			nb_byte++;
+		if (nb_byte == 0)
+			nb_byte = 1;
+		if ((flag->precision -= nb_byte) >= 0)
+		{
+			len += nb_byte;
+			i += nb_byte;
+		}
+		ft_strdel(&tmp);
+	}
+	format = ft_strndup(s, len);
+	ft_strdel(&s);
+	return (format);
+}
+
 static char		*ft_unicode_str_width(char *s, t_flag *flag)
 {
 	int		len;
@@ -46,15 +76,16 @@ static char		*ft_unicode_str_width(char *s, t_flag *flag)
 	}
 	return (s);
 }
+
 char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 {
 	wchar_t	*ws;
 	char	*s;
 
 	ws = va_arg(*arg, wchar_t*);
-	//if (!(ws = va_arg(*arg, wchar_t*)) || !*ws)
-	//	return (ft_strdup(""));
-	s = ft_putunicode(ws);		
+	s = ft_putunicode(ws);
+	if (flag->precision)
+		s = ft_unicode_str_precision(s, flag);
 	if (flag->width)
 		s = ft_unicode_str_width(s, flag);
 	return (s);
