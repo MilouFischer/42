@@ -42,7 +42,7 @@ static void		ft_precision_width(va_list *arg, t_flag *flag, char **s)
 			(*s)++;
 		(*s)--;
 	}
-	if (flag->precision == -1)
+	if (nb && flag->precision == -1)
 		flag->precision = nb;
 	else
 		flag->width = nb;
