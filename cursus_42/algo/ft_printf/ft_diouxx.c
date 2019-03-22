@@ -105,7 +105,7 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	if ((c == 'o' || c == 'u') && (flag->space || flag->plus))
+	if ((c == 'o' || c == 'u' || c == 'x' || c == 'X') && (flag->space || flag->plus))
 	{
 		flag->space = 0;
 		flag->plus = 0;
