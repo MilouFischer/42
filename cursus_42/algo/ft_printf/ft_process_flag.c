@@ -24,10 +24,17 @@ static char		*ft_percent(char c, t_flag *flag)
 
 static void		ft_precision_width(va_list *arg, t_flag *flag, char **s)
 {
-	unsigned int	nb;
+	int		nb;
 
 	if (**s == '*')
-		nb = va_arg(*arg, unsigned int);
+	{
+		nb = va_arg(*arg, int);
+		if (nb < 0 && flag->precision != -1)
+		{
+			flag->min = 1;
+			nb *= -1;
+		}
+	}
 	else
 	{
 		nb = ft_atoi(*s);

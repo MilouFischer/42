@@ -62,6 +62,9 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 	t_list	*new;
 	t_list	*tmp_lst;
 	t_flag	flag;
+	int		null;
+	int		i;
+	void	*null_str;
 
 	tmp_lst = lst;
 	while ((format = ft_strchr(str, '%')))
@@ -72,10 +75,25 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			return (NULL);
+		if (*str == 'c' && (int)ft_strlen(tmp) < flag.width)
+		{
+			null = 0;
+			i = 0;
+			while (null < 2)
+			{
+				if (tmp[i] == '\0')
+					null++;
+				i++;
+			}
+			null_str = ft_memjoin(lst->content, tmp, lst->content_size, i);
+			lst->content = (char*)null_str;
+			lst->content_size += i - 1;
+		}
+		else
+			lst = ft_join_content(lst, tmp, flag);
+		ft_strdel(&tmp);
 		if (*str)
 			str++;
-		lst = ft_join_content(lst, tmp, flag);
-		ft_strdel(&tmp);
 		if (*str)
 		{
 			new = ft_lstnew_str(NULL, 0);

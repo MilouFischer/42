@@ -33,8 +33,9 @@ static char		*ft_c_width(char *s, t_flag *flag)
 	while (len)
 		tmp[len--] = c;
 	tmp[len] = c;
+	len = flag->null ? 1 : ft_strlen(s);
 	if (flag->min)
-		s = ft_join_free(s, tmp, 3);
+		s = ft_memjoin(s, tmp, len, ft_strlen(tmp));
 	else
 		s = ft_join_free(tmp, s, 3);
 	return (s);
@@ -49,11 +50,7 @@ char			*ft_manage_c(va_list *arg, t_flag *flag)
 	s[0] = va_arg(*arg, unsigned int);
 	s[1] = '\0';
 	if (!s[0])
-	{
-		if (!flag->width)
-			flag->precision--;
 		flag->null = 1;
-	}
 	if (flag->width >= 1)
 		s = ft_c_width(s, flag);
 	return (s);
