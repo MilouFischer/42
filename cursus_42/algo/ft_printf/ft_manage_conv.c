@@ -73,7 +73,7 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 		format = ft_join_free("0x", format, 2);
 		flag->sharp = 0;
 	}
-	else if (flag->plus && *format != '-')
+	else if (flag->plus && *format != '-' && c != 'o' && c != 'O')
 		format = ft_join_free("+", format, 2);
 	else if (flag->space && *format != '-')
 		format = ft_join_free(" ", format, 2);
