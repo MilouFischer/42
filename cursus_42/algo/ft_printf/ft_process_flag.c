@@ -22,15 +22,23 @@ static char		*ft_percent(char c, t_flag *flag)
 	return (format);
 }
 
-static void		ft_precision_width(t_flag *flag, char **s)
+static void		ft_precision_width(va_list *arg, t_flag *flag, char **s)
 {
-	if (flag->precision == -1)
-		flag->precision = ft_atoi(*s);
+	unsigned int	nb;
+
+	if (**s == '*')
+		nb = va_arg(*arg, unsigned int);
 	else
-		flag->width = ft_atoi(*s);
-	while (ft_isdigit(**s))
-		(*s)++;
-	(*s)--;
+	{
+		nb = ft_atoi(*s);
+		while (ft_isdigit(**s))
+			(*s)++;
+		(*s)--;
+	}
+	if (flag->precision == -1)
+		flag->precision = nb;
+	else
+		flag->width = nb;
 }
 
 static char		*ft_flag_error(char *s, t_flag *flag)
@@ -96,8 +104,8 @@ char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		|| **s == 'f' || **s == 'c' || **s == 'C' || **s == 's' || **s == 'S'
 		|| **s == 'p' || **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
-		else if (**s >= '1' && **s <= '9')
-			ft_precision_width(flag, s);
+		else if ((**s >= '1' && **s <= '9') || **s == '*')
+			ft_precision_width(arg, flag, s);
 		else
 			return (ft_flag_error(*s, flag));
 		(*s)++;
