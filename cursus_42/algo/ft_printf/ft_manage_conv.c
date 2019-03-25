@@ -26,17 +26,56 @@ char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
 		return (ft_manage_p(arg, flag));
 }
 
+static char		*ft_round(char *s, int n)
+{
+	int		i;
+	int		ret;
+	char	*str;
+	char	*tmp;
+
+	i = 0;
+	ret = 0;
+	tmp = ft_strchr(s, '.');
+	tmp++;
+	while (tmp[i] && i < n)
+		i++;
+	if (!(str = (char*)malloc(sizeof(char) * i + 1)))
+		return (NULL);
+	if (tmp[i] - '0' >= 5)
+		ret = 1;
+	str[i--] = '\0';
+	while (i > -1)
+	{
+		if (ret == 1)
+		{
+			ret = 0;
+			tmp[i]++;
+		}
+		if (tmp[i] - '0' >= 5)
+		{
+			if (tmp[i] - '0' == 10)
+				tmp[i] = '0';
+			ret = 1;
+		}
+		str[i] = tmp[i];
+		i--;
+	}
+	tmp = ft_strsub(s, 0, tmp - s);
+	str = ft_join_free(tmp, str, 3);
+	return (ft_strdup(str));
+}
+
 static char		*ft_float(va_list *arg, t_flag *flag)
 {
-//	double	f;
+	double	f;
 	char	*str;
 
-	(void)flag;
-	(void)arg;
-//	f = va_arg(*arg, double);
-	//str = ft_printfloat(f);
-	//ft_putendl(str);
-	str = "float";
+	f = va_arg(*arg, double);
+	str = ft_printfloat(f);
+	if (!flag->width && !flag->precision)
+	{
+		str = ft_round(str, 6);
+	}
 	return (str);
 }
 
@@ -44,7 +83,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 {
 	char	*str;
 
-	if (c == 'f')
+	if (c == 'f' || c == 'F')
 		str = ft_float(arg, flag);
 	else if (flag->l || flag->ll || c == 'D' || c == 'O' || c == 'U')
 		str = ft_long_diouxx(c, arg, flag);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printfloat.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 11:57:59 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:20:55 by efischer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
 static char	**ft_init_pm(char **tab)
@@ -46,7 +34,7 @@ static void	ft_init_tab(char *tab)
 	int	i;
 
 	i = 0;
-	while (i < 24)
+	while (i < 23)
 		tab[i++] = '0';
 	tab[i] = '\0';
 }
@@ -88,7 +76,7 @@ static char	*ft_print_mentice(char *str)
 
 	i = 0;
 	ft_init_pm(pm);
-	if (!(tab = (char*)malloc(sizeof(char) * 11)))
+	if (!(tab = (char*)malloc(sizeof(char) * 12)))
 		return (NULL);
 	while (i < 11)
 		tab[i++] = '0';
@@ -97,7 +85,9 @@ static char	*ft_print_mentice(char *str)
 	while (str[i])
 	{
 		if (str[i] == '1')
+		{
 			tab = ft_add(tab, pm[i]);
+		}
 		i++;
 	}
 	return (tab);
@@ -120,17 +110,15 @@ char		*ft_printfloat(double f)
 		f *= -1;
 		nb *= -1;
 	}
-	str = ft_join_free(str, ".", 1);
+	str = ft_strjoin(str, ".");
 	f -= nb;
-	while (f && i < 24)
+	while (f && i < 23)
 	{
 		f *= 2;
 		tab[i++] = (int)f + '0';
 		f -= (int)f;
 	}
 	tmp = ft_print_mentice(tab);
-	str = ft_join_free(str, tmp, 1);
-	ft_strdel(&tmp);
-	ft_putendl(str);
+	str = ft_strjoin(str, tmp);
 	return (str);
 }

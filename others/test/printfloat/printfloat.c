@@ -35,7 +35,7 @@ static void	ft_init_tab(char *tab)
 	int	i;
 
 	i = 0;
-	while (i < 24)
+	while (i < 23)
 		tab[i++] = '0';
 	tab[i] = '\0';
 }
@@ -77,7 +77,7 @@ static char	*ft_print_mentice(char *str)
 
 	i = 0;
 	ft_init_pm(pm);
-	if (!(tab = (char*)malloc(sizeof(char) * 11)))
+	if (!(tab = (char*)malloc(sizeof(char) * 12)))
 		return (NULL);
 	while (i < 11)
 		tab[i++] = '0';
@@ -102,6 +102,7 @@ char		*ft_printfloat(float f)
 
 	i = 0;
 	ft_init_tab(tab);
+	ft_putendl(tab);
 	nb = (int)f;
 	str = ft_itoa(nb);
 	if (f < 0)
