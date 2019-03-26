@@ -39,29 +39,34 @@ static char		*ft_round(char *s, int n)
 	tmp++;
 	while (tmp[i] && i < n)
 		i++;
-	if (!(str = (char*)malloc(sizeof(char) * i + 1)))
-		return (NULL);
 	if (tmp[i] - '0' >= 5)
-		ret = 1;
-	str[i--] = '\0';
-	while (i > -1)
 	{
-		if (ret == 1)
+		ret = 1;
+		if (!(str = (char*)malloc(sizeof(char) * i + 1)))
+			return (NULL);
+		str[i--] = '\0';
+		while (i > -1)
 		{
-			ret = 0;
-			tmp[i]++;
+			if (ret == 1)
+			{
+				ret = 0;
+				tmp[i]++;
+			}
+			if (tmp[i] - '0' >= 5)
+			{
+				if (tmp[i] - '0' == 10)
+					tmp[i] = '0';
+				ret = 1;
+			}
+			str[i] = tmp[i];
+			i--;
 		}
-		if (tmp[i] - '0' >= 5)
-		{
-			if (tmp[i] - '0' == 10)
-				tmp[i] = '0';
-			ret = 1;
-		}
-		str[i] = tmp[i];
-		i--;
 	}
+	else
+		str = ft_strndup(tmp, i);
 	tmp = ft_strsub(s, 0, tmp - s);
 	str = ft_join_free(tmp, str, 3);
+	ft_strdel(&s);
 	return (ft_strdup(str));
 }
 

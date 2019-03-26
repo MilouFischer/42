@@ -95,15 +95,15 @@ static char	*ft_print_mentice(char *str)
 
 char		*ft_printfloat(double f)
 {
-	int		nb;
-	int		i;
-	char	tab[24];
-	char	*str;
-	char	*tmp;
+	long long	nb;
+	int			i;
+	char		tab[24];
+	char		*str;
+	char		*tmp;
 
 	i = 0;
 	ft_init_tab(tab);
-	nb = (int)f;
+	nb = (long long)f;
 	str = ft_itoa(nb);
 	if (f < 0)
 	{
