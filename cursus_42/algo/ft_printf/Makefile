@@ -55,6 +55,7 @@ re: fclean all
 
 up:
 	git add -A
+	git status
 	git commit -m"up"
 	git push
 
