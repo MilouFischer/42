@@ -69,7 +69,7 @@ void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long n);
 void				*ft_memalloc(size_t size);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_memdel(void **ap);
@@ -125,5 +125,8 @@ unsigned int		ft_convert_to_unicode(unsigned int nb);
 char				*ft_join_free(char *s1, char *s2, int op);
 void				ft_free_matrix(int **matrix, unsigned int x);
 void				ft_free_tab(char **tmp);
+char				*ft_itoa_base_u(unsigned long long nb, int base);
+size_t				ft_intlen(long long nb, int base);
+size_t				ft_intlen_u(unsigned long long nb, int base);
 
 #endif

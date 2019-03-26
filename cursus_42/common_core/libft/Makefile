@@ -26,7 +26,7 @@ ft_str_is_lowercase ft_str_is_numeric ft_str_is_printable ft_str_is_uppercase \
 ft_strlowcase ft_strupcase ft_strndup ft_strcasecmp ft_strncasecmp \
 ft_strcasestr ft_strcapitalize get_next_line ft_print_matrix ft_itoa_base \
 ft_atoi_base ft_convert_to_unicode ft_putunicode ft_check_unicode \
-ft_join_free ft_free_matrix ft_free_tab
+ft_join_free ft_free_matrix ft_free_tab ft_itoa_base_u ft_intlen ft_intlen_u
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o)
 CC = gcc

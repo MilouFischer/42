@@ -65,6 +65,8 @@ char			*ft_putunicode(wchar_t *ws)
 	wchar_t	c;
 
 	str = NULL;
+	if (ws && !*ws)
+		return (ft_strdup("\0"));
 	while (*ws)
 	{
 		if (*ws > 128 && ft_check_unicode((tmp = ft_itoa_base(*ws, 2)), *ws))
@@ -74,8 +76,8 @@ char			*ft_putunicode(wchar_t *ws)
 		}
 		else
 			c = (char)*ws;
-		tmp = ft_itoa_base(c, 16);
-		str = ft_join_free(str, ft_print_unicode(tmp), 1);
+		tmp = ft_itoa_base_u(c, 16);
+		str = ft_join_free(str, ft_print_unicode(tmp), 3);
 		ft_strdel(&tmp);
 		ws++;
 	}

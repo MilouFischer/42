@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_intlen_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 11:37:55 by efischer          #+#    #+#             */
-/*   Updated: 2018/11/13 16:10:52 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 11:57:05 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 11:57:07 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				*ft_itoa(long long n)
+size_t	ft_intlen_u(unsigned long long nb, int base)
 {
-	unsigned int	len;
-	char			*str;
+	size_t	i;
 
-	len = ft_intlen(n, 10);
-	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	str[len--] = '\0';
-	if (n == 0)
-		str[len] = '0';
-	if (n < 0)
+	i = 0;
+	if (nb == 0)
+		return (1);
+	while (nb)
 	{
-		str[0] = '-';
-		n *= -1;
+		nb /= base;
+		i++;
 	}
-	while (n)
-	{
-		str[len--] = n % 10 + '0';
-		n /= 10;
-	}
-	return (str);
+	return (i);
 }

@@ -4,9 +4,9 @@ int		main(void)
 {
 	char			*str;
 
-	wchar_t	ws[] = {50836};
-	str = ft_putunicode(ws);
+	str = ft_putunicode(L"ᵙᵫᶲ");
 	ft_putstr(str);
 	write(1, "\n", 1);
+	ft_strdel(&str);
 	return (0);
 }
