@@ -73,11 +73,11 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 
 static char		*ft_manage_u(va_list *arg, t_flag *flag)
 {
-	unsigned int	u;
-	unsigned char	c;
-	unsigned short	sh;
-	uintmax_t		imax;
-	char			*s;
+	unsigned long long	u;
+	unsigned char		c;
+	unsigned short		sh;
+	uintmax_t			imax;
+	char				*s;
 
 	u = va_arg(*arg, unsigned long long);
 	if (flag->hh)
@@ -101,13 +101,17 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 
 static char		*ft_manage_x(va_list *arg, t_flag *flag)
 {
-	unsigned int	u;
-	unsigned char	c;
-	unsigned short	sh;
-	uintmax_t		imax;
-	char			*s;
+	unsigned int		u;
+	unsigned long long	lu;
+	unsigned char		c;
+	unsigned short		sh;
 
-	u = va_arg(*arg, unsigned long long);
+	if (flag->j)
+	{
+		lu = va_arg(*arg, unsigned long long);
+		return (ft_itoa_base_u(lu, 16));
+	}
+	u = va_arg(*arg, unsigned int);
 	if (flag->hh)
 	{
 		c = (unsigned char)u;
@@ -118,13 +122,7 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 		sh = (unsigned short)u;
 		u = sh;
 	}
-	else if (flag->j)
-	{
-		imax = (uintmax_t)u;
-		u = imax;
-	}
-	s = ft_itoa_base_u(u, 16);
-	return (s);
+	return (ft_itoa_base_u(u, 16));
 }
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
