@@ -104,7 +104,7 @@ char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			ft_manage_flag(**s, flag);
 		else if (**s == '%')
 			return (ft_percent(**s, flag));
-		else if (**s == 'h' || **s == 'l' || **s == 'L')
+		else if (**s == 'h' || **s == 'l' || **s == 'L' || **s == 'j')
 			ft_manage_conv_flag(**s, flag);
 		else if (**s == 'd' || **s == 'D'|| **s == 'i' || **s == 'o'
 		|| **s == 'O' || **s == 'u' || **s == 'U' || **s == 'x' || **s == 'X'
