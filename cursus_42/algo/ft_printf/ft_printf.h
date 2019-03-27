@@ -30,6 +30,7 @@ typedef struct	s_flag
 	int			l;
 	int			ll;
 	int			j;
+	int			z;
 	int			null;
 }				t_flag;
 

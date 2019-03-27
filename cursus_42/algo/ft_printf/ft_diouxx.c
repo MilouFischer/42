@@ -19,7 +19,7 @@ static char		*ft_manage_d(va_list *arg, t_flag *flag)
 	short		sh;
 	char		c;
 
-	if (flag->j)
+	if (flag->j || flag->z)
 	{
 		l = va_arg(*arg, long long);
 		return (ft_itoa(l));

@@ -26,6 +26,7 @@ void	ft_init_flag(t_flag *flag)
 	flag->l = 0;
 	flag->ll = 0;
 	flag->j = 0;
+	flag->z = 0;
 	flag->null = 0;
 }
 
@@ -57,4 +58,6 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 		flag->h = 1;
 	else if (c == 'j')
 		flag->j = 1;
+	else if (c == 'z')
+		flag->z = 1;
 }
