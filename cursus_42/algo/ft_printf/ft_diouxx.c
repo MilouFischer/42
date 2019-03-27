@@ -73,13 +73,17 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 
 static char		*ft_manage_u(va_list *arg, t_flag *flag)
 {
-	unsigned long long	u;
+	unsigned int		u;
+	unsigned long long	lu;
 	unsigned char		c;
 	unsigned short		sh;
-	uintmax_t			imax;
-	char				*s;
 
-	u = va_arg(*arg, unsigned long long);
+	if (flag->j)
+	{
+		lu = va_arg(*arg, unsigned long long);
+		return (ft_itoa_base_u(lu, 10));
+	}
+	u = va_arg(*arg, unsigned int);
 	if (flag->hh)
 	{
 		c = (unsigned char)u;
@@ -90,13 +94,7 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 		sh = (unsigned short)u;
 		u = sh;
 	}
-	else if (flag->j)
-	{
-		imax = (uintmax_t)u;
-		u = imax;
-	}
-	s = ft_itoa_base_u(u, 10);
-	return (s);
+	return (ft_itoa_base_u(u, 10));
 }
 
 static char		*ft_manage_x(va_list *arg, t_flag *flag)
