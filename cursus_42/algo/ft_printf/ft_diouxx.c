@@ -46,7 +46,7 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 	unsigned short		sh;
 	char				*s;
 
-	if (flag->j)
+	if (flag->j || flag->z)
 	{
 		lu = va_arg(*arg, unsigned long long);
 		return (ft_itoa_base_u(lu, 8));
@@ -78,7 +78,7 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 	unsigned char		c;
 	unsigned short		sh;
 
-	if (flag->j)
+	if (flag->j || flag->z)
 	{
 		lu = va_arg(*arg, unsigned long long);
 		return (ft_itoa_base_u(lu, 10));
@@ -104,7 +104,7 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 	unsigned char		c;
 	unsigned short		sh;
 
-	if (flag->j)
+	if (flag->j || flag->z)
 	{
 		lu = va_arg(*arg, unsigned long long);
 		return (ft_itoa_base_u(lu, 16));
