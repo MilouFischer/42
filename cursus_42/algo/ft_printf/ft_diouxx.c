@@ -40,12 +40,18 @@ static char		*ft_manage_d(va_list *arg, t_flag *flag)
 
 static char		*ft_manage_o(va_list *arg, t_flag *flag)
 {
-	unsigned int	u;
-	unsigned char	c;
-	unsigned short	sh;
-	char			*s;
+	unsigned int		u;
+	unsigned long long	lu;
+	unsigned char		c;
+	unsigned short		sh;
+	char				*s;
 
-	u = va_arg(*arg, unsigned long long);
+	if (flag->j)
+	{
+		lu = va_arg(*arg, unsigned long long);
+		return (ft_itoa_base_u(lu, 8));
+	}
+	u = va_arg(*arg, unsigned int);
 	if (flag->hh)
 	{
 		c = (char)u;
