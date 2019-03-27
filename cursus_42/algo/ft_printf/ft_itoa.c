@@ -17,6 +17,8 @@ char				*ft_itoa(long long n)
 	unsigned int	len;
 	char			*str;
 
+	if (n < -9223372036854775807)
+		return (ft_strdup("-9223372036854775808"));
 	len = ft_intlen(n, 10);
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);

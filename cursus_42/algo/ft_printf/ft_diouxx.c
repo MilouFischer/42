@@ -14,11 +14,16 @@
 
 static char		*ft_manage_d(va_list *arg, t_flag *flag)
 {
+	long long	l;
 	int			nb;
 	short		sh;
 	char		c;
-	intmax_t	imax;
 
+	if (flag->j)
+	{
+		l = va_arg(*arg, long long);
+		return (ft_itoa(l));
+	}
 	nb = va_arg(*arg, int);
 	if (flag->hh)
 	{
@@ -30,11 +35,6 @@ static char		*ft_manage_d(va_list *arg, t_flag *flag)
 		sh = (short)nb;
 		nb = sh;
 	}
-	else if (flag->j)
-	{
-		imax = (intmax_t)nb;
-		nb = imax;
-	}
 	return (ft_itoa(nb));
 }
 
@@ -43,7 +43,6 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 	unsigned int	u;
 	unsigned char	c;
 	unsigned short	sh;
-	uintmax_t		imax;
 	char			*s;
 
 	u = va_arg(*arg, unsigned long long);
@@ -56,11 +55,6 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 	{
 		sh = (short)u;
 		u = sh;
-	}
-	else if (flag->j)
-	{
-		imax = (uintmax_t)u;
-		u = imax;
 	}
 	s = ft_itoa_base_u(u, 8);
 	if (flag->sharp && u)
