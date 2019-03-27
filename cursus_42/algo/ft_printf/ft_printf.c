@@ -74,7 +74,7 @@ static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 		ft_strdel(&tmp);
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
-			return (NULL);
+			tmp = ft_strdup("(null)");
 		if (*str == 'c' && (int)ft_strlen(tmp) < flag.width)
 		{
 			null = 0;

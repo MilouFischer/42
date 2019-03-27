@@ -82,7 +82,8 @@ char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 	wchar_t	*ws;
 	char	*s;
 
-	ws = va_arg(*arg, wchar_t*);
+	if (!(ws = va_arg(*arg, wchar_t*)))
+		return (NULL);
 	s = ft_putunicode(ws);
 	if (flag->precision)
 		s = ft_unicode_str_precision(s, flag);
