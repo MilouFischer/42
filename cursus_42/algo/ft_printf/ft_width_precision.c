@@ -23,6 +23,8 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 		ft_strdel(&format);
 		return (NULL);
 	}
+	if (!flag->width && *format)
+		c = '0';
 	str[len--] = '\0';
 	while (len > -1)
 		str[len--] = c;
