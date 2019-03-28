@@ -42,7 +42,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
-	if (*format == '0' && flag->sharp != -1)
+	if (!flag->width && *format == '0' && flag->sharp != -1)
 	{
 		ft_strdel(&format);
 		if ((conv == 'o' || conv == 'O') && flag->sharp)
@@ -95,7 +95,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		return (NULL);
 	}
 	c = ' ';
-	if (flag->zero)
+	if (flag->zero || flag->precision)
 		c = '0';
 	if (flag->space && len != 1)
 		str[i++] = ' ';
