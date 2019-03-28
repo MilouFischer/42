@@ -83,13 +83,18 @@ static char		*ft_manage_z(char c, t_flag *flag)
 	return (s);
 }
 
+#include <stdio.h>
+
 static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
 		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
+	{
+		//printf("width: %d, precision: %d, sharp: %d, zero: %d, min: %d, space: %d, plus: %d, h: %d, hh: %d, l: %d, ll: %d, j: %d, z: %d, null: %d", flag->width, flag->precision, flag->sharp, flag->zero, flag->min, flag->space, flag->plus, flag->h, flag->hh, flag->l, flag->ll, flag->j, flag->z, flag->null);
 		return (ft_diouxxf(c, arg, flag));
+	}
 	else
 		return (ft_manage_z(c, flag));
 }

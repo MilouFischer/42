@@ -18,8 +18,6 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 	char	*str;
 
 	c = ' ';
-	if (flag->precision > (int)ft_strlen(format))
-		c = '0';
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 	{
 		ft_strdel(&format);
@@ -44,7 +42,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
-	if (flag->precision == -1 && *format == '0' && flag->sharp != -1)
+	if (*format == '0' && flag->sharp != -1)
 	{
 		ft_strdel(&format);
 		if ((conv == 'o' || conv == 'O') && flag->sharp)

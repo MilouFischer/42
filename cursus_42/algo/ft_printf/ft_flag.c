@@ -40,8 +40,14 @@ void	ft_manage_flag(char c, t_flag *flag)
 		flag->plus = 1;
 	else if (c == '-')
 		flag->min = 1;
-	else if (c == '.' && !flag->precision)
-		flag->precision = -1;
+	else if (c == '.')
+	{
+		if (!flag->precision && flag->width)
+			flag->precision = flag->width;
+		else if (!flag->precision && !flag->width)
+			flag->precision = -1;
+		flag->width = 0;
+	}
 	else if (c == ' ')
 		flag->space = 1;
 }
