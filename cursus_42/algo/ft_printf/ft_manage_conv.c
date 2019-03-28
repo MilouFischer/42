@@ -93,11 +93,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 	else if (flag->l || flag->ll || c == 'D' || c == 'O' || c == 'U')
 		str = ft_long_diouxx(c, arg, flag);
 	else
-	{
-		if (flag->precision)
-			flag->zero = 0;
 		str = ft_diouxx(c, arg, flag);
-	}
 	if ((c == 'x' || c == 'X') && flag->sharp && flag->zero)
 		flag->width -= 2;
 	return (str);
@@ -110,10 +106,10 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 	format = ft_manage_conv(c, arg, flag);
 	if (flag->precision || flag->width)
 	{
-		if (flag->precision)
-			format = ft_precision(c, format, flag);
 		if (flag->width)
 			format = ft_width(c, format, flag);
+		if (flag->precision)
+			format = ft_precision(c, format, flag);
 	}
 	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
 	&& !flag->zero)

@@ -31,7 +31,7 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 		format[0] = '0';
 		str = ft_join_free("-", str, 2);
 	}
-	if (flag->min && (!flag->width || !flag->precision))
+	if (flag->min && !flag->width)
 		format = ft_join_free(format, str, 3);
 	else
 		format = ft_join_free(str, format, 3);
@@ -69,7 +69,7 @@ static char		*ft_flag_width(char *str, char *format, char c, t_flag *flag)
 		str = ft_join_free("+", str, 2);
 	else if (flag->plus && *format != '-' && c == ' ')
 		format = ft_join_free("+", format, 2);
-	if (flag->min)
+	if (flag->min && !flag->precision)
 		format = ft_join_free(format, str, 3);
 	else if (*format == '-' && c == '0')
 	{
@@ -95,8 +95,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		return (NULL);
 	}
 	c = ' ';
-	if (flag->zero && !flag->min && (flag->precision <= 0
-	|| flag->width <= flag->precision))
+	if (flag->zero)
 		c = '0';
 	if (flag->space && len != 1)
 		str[i++] = ' ';
