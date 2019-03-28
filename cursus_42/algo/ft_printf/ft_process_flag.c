@@ -89,11 +89,7 @@ static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
-	{
-		if (flag->precision)
-			flag->zero = 0;
 		return (ft_diouxxf(c, arg, flag));
-	}
 	else
 		return (ft_manage_z(c, flag));
 }
