@@ -31,7 +31,7 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 		format[0] = '0';
 		str = ft_join_free("-", str, 2);
 	}
-	if (flag->min && !flag->width)
+	if (flag->min && flag->width < flag->precision)
 		format = ft_join_free(format, str, 3);
 	else
 		format = ft_join_free(str, format, 3);
