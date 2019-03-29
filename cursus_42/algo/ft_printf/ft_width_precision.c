@@ -17,7 +17,7 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 	char	c;
 	char	*str;
 
-	c = ' ';
+	c = '0';
 	(void)flag;
 	if (!*format)
 		return (format);
