@@ -71,6 +71,8 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
+	if (flag->plus)
+		str[0] = '+';
 	if (flag->sharp && (x == 'x' || x == 'X') && c == ' ')
 		format = ft_join_free("0x", format, 2);
 	else if (flag->sharp && (x == 'x' || x == 'X') && c == '0')
