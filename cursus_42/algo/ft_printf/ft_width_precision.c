@@ -55,7 +55,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		ft_strdel(&format);
 		return (NULL);
 	}
-	c = ' ';
+	c = flag->zero ? '0' : ' ';;
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
