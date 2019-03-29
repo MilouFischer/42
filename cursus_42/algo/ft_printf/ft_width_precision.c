@@ -36,6 +36,11 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	int		len;
 
 	(void)conv;
+	if (!flag->precision)
+	{
+		ft_strdel(&format);
+		return (ft_strdup(""));
+	}
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_precision(format, len, flag);
@@ -49,7 +54,6 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	char	c;
 
 	i = 0;
-	(void)x;
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 	{
 		ft_strdel(&format);
@@ -59,6 +63,10 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
+	if (flag->sharp && (x == 'x' || x == 'X') && c == ' ')
+		format = ft_join_free("0x", format, 2);
+	else if (flag->sharp && (x == 'x' || x == 'X') && c == '0')
+		str = ft_join_free("0x", str, 2);
 	if (flag->min)
 		format = ft_join_free(format, str, 3);
 	else

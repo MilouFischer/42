@@ -15,7 +15,7 @@
 void	ft_init_flag(t_flag *flag)
 {
 	flag->width = 0;
-	flag->precision = 0;
+	flag->precision = -1;
 	flag->sharp = 0;
 	flag->zero = 0;
 	flag->min = 0;
@@ -42,7 +42,10 @@ void	ft_manage_flag(char c, t_flag *flag)
 	else if (c == '-')
 		flag->min = 1;
 	else if (c == '.')
+	{
 		flag->dot = 1;
+		flag->precision = 0;
+	}
 	else if (c == ' ')
 		flag->space = 1;
 }

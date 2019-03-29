@@ -93,7 +93,7 @@ static char		*ft_all_conv(char c, va_list *arg, t_flag *flag)
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
 	{
-		if (flag->precision)
+		if (flag->precision >= 0)
 			flag->zero = 0;
 		return (ft_diouxxf(c, arg, flag));
 	}
@@ -120,6 +120,8 @@ char			*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 			return (ft_all_conv(**s, arg, flag));
 		else if ((**s >= '1' && **s <= '9') || **s == '*')
 			ft_precision_width(arg, flag, s);
+		else if (flag->dot)
+			flag->precision = 0;
 		else
 			return (ft_flag_error(*s, flag));
 		(*s)++;
