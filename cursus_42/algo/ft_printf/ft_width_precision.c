@@ -49,7 +49,6 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	char	c;
 
 	i = 0;
-	(void)flag;
 	(void)x;
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 	{
@@ -60,7 +59,10 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
-	format = ft_join_free(str, format, 3);
+	if (flag->min)
+		format = ft_join_free(format, str, 3);
+	else
+		format = ft_join_free(str, format, 3);
 	return (format);
 }
 
