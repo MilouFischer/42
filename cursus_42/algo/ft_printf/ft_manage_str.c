@@ -56,27 +56,6 @@ char			*ft_manage_c(va_list *arg, t_flag *flag)
 	return (s);
 }
 
-/*static char		*ft_s_width(char *s, t_flag *flag)
-{
-	int		len;
-	char	*tmp;
-	char	c;
-
-	len = flag->width - ft_strlen(s);
-	if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	c = flag->zero ? '0' : ' ';
-	tmp[len--] = '\0';
-	while (len)
-		tmp[len--] = c;
-	tmp[len] = c;
-	if (flag->min)
-		s = ft_join_free(s, tmp, 3);
-	else
-		s = ft_join_free(tmp, s, 1);
-	return (s);
-}*/
-
 char			*ft_manage_s(va_list *arg, t_flag *flag)
 {
 	char	*s;
@@ -84,6 +63,8 @@ char			*ft_manage_s(va_list *arg, t_flag *flag)
 	if (!(s = va_arg(*arg, char*)))
 		return (ft_strdup("(null)"));
 	s = ft_strdup(s);
+	if (flag->precision >= 0)
+		s = ft_precision('s', s, flag);
 	if (flag->width)
 		s = ft_width('s', s, flag);
 	return (s);

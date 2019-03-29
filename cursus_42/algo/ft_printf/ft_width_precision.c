@@ -19,6 +19,8 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 
 	c = ' ';
 	(void)flag;
+	if (!*format)
+		return (format);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 	{
 		ft_strdel(&format);
@@ -34,8 +36,8 @@ static char		*ft_process_precision(char *format, int len, t_flag *flag)
 char			*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
+	char	*tmp;
 
-	(void)conv;
 	if (!flag->precision)
 	{
 		ft_strdel(&format);
@@ -44,6 +46,12 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	len = flag->precision - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_precision(format, len, flag);
+	else if (conv == 's')
+	{
+		tmp = format;
+		format = ft_strndup(format, flag->precision);
+		ft_strdel(&tmp);
+	}
 	return (format);
 }
 

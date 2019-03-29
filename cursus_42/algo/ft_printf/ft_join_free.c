@@ -17,7 +17,6 @@ char	*ft_join_free(char *s1, char *s2, int op)
 	char	*str;
 
 	str = ft_strjoin(s1, s2);
-	//ft_putendl(str);
 	if (op == 1)
 		ft_strdel(&s1);
 	else if (op == 2)
