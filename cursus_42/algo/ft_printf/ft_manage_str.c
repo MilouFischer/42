@@ -56,53 +56,35 @@ char			*ft_manage_c(va_list *arg, t_flag *flag)
 	return (s);
 }
 
-static char		*ft_s_width_precision(char *s, int nb, t_flag *flag)
+/*static char		*ft_s_width(char *s, t_flag *flag)
 {
 	int		len;
 	char	*tmp;
 	char	c;
 
-	len = ft_strlen(s);
-	if (len < nb)
-	{
-		len = nb - len;
-		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
-			return (NULL);
-		c = flag->zero ? '0' : ' ';
-		tmp[len--] = '\0';
-		while (len)
-			tmp[len--] = c;
-		tmp[len] = c;
-		if (flag->min)
-			s = ft_join_free(s, tmp, 3);
-		else
-			s = ft_join_free(tmp, s, 3);
-	}
+	len = flag->width - ft_strlen(s);
+	if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	c = flag->zero ? '0' : ' ';
+	tmp[len--] = '\0';
+	while (len)
+		tmp[len--] = c;
+	tmp[len] = c;
+	if (flag->min)
+		s = ft_join_free(s, tmp, 3);
 	else
-	{
-		tmp = s;
-		s = ft_strndup(s, nb);
-		ft_strdel(&tmp);
-	}
+		s = ft_join_free(tmp, s, 1);
 	return (s);
-}
+}*/
 
 char			*ft_manage_s(va_list *arg, t_flag *flag)
 {
 	char	*s;
 
 	if (!(s = va_arg(*arg, char*)))
-	{
-		if (flag->width && flag->zero)
-			s = ft_strdup("");
-		else
-			return (s = ft_strdup("(null)"));
-	}
-	else
-		s = ft_strdup(s);
+		return (ft_strdup("(null)"));
+	s = ft_strdup(s);
 	if (flag->width)
-		s = ft_s_width_precision(s, flag->width, flag);
-	if (flag->precision && *s)
-		s = ft_s_width_precision(s, flag->precision, flag);
+		s = ft_width('s', s, flag);
 	return (s);
 }

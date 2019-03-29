@@ -59,7 +59,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		ft_strdel(&format);
 		return (NULL);
 	}
-	c = flag->zero ? '0' : ' ';;
+	c = flag->zero ? '0' : ' ';
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
@@ -70,7 +70,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	if (flag->min)
 		format = ft_join_free(format, str, 3);
 	else
-		format = ft_join_free(str, format, 3);
+		format = ft_join_free(str, format, 1);
 	return (format);
 }
 
