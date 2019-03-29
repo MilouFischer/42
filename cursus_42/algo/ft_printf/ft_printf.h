@@ -25,6 +25,7 @@ typedef struct	s_flag
 	int			min;
 	int			space;
 	int			plus;
+	int			dot;
 	int			h;
 	int			hh;
 	int			l;
