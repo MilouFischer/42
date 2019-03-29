@@ -106,10 +106,10 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 	format = ft_manage_conv(c, arg, flag);
 	if (flag->precision >= 0 || flag->width)
 	{
-		if (flag->width)
-			format = ft_width(c, format, flag);
 		if (flag->precision >= 0)
 			format = ft_precision(c, format, flag);
+		if (flag->width)
+			format = ft_width(c, format, flag);
 	}
 	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
 	&& !flag->zero)
