@@ -38,7 +38,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	int		len;
 	char	*tmp;
 
-	if (!flag->precision)
+	if (!flag->precision && !(conv == 'o' && flag->sharp))
 	{
 		ft_strdel(&format);
 		return (ft_strdup(""));
