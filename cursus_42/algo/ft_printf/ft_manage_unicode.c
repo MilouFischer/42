@@ -47,7 +47,10 @@ static char		*ft_unicode_str_precision(char *s, t_flag *flag)
 		}
 		ft_strdel(&tmp);
 	}
-	format = ft_strndup(s, len);
+	if (len == 0)
+		format = ft_strdup("");
+	else
+		format = ft_strndup(s, len);
 	ft_strdel(&s);
 	return (format);
 }
@@ -85,7 +88,7 @@ char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 	if (!(ws = va_arg(*arg, wchar_t*)))
 		return (NULL);
 	s = ft_putunicode(ws);
-	if (flag->precision > 0)
+	if (flag->precision >= 0)
 		s = ft_unicode_str_precision(s, flag);
 	if (flag->width)
 		s = ft_unicode_str_width(s, flag);
