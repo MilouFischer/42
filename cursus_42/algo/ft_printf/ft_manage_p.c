@@ -66,7 +66,7 @@ char			*ft_manage_p(va_list *arg, t_flag *flag)
 	char	*tmp;
 
 	p = va_arg(*arg, void*);
-	if (flag->precision == -1)
+	if (flag->precision == 0)
 		s = ft_strdup("");
 	else
 		s = ft_itoa_base_u((unsigned long)p, 16);

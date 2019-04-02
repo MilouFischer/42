@@ -104,6 +104,8 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 	char	*format;
 
 	format = ft_manage_conv(c, arg, flag);
+	if (*format == '-')
+		flag->plus = 0;
 	if (flag->precision >= 0 || flag->width)
 	{
 		if (flag->precision >= 0)
