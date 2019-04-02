@@ -43,7 +43,8 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	int		len;
 	char	*tmp;
 
-	if (!flag->precision && !(conv == 'o' && flag->sharp) && !(conv == 'd' && *format != '0'))
+	if (!flag->precision && !((conv == 'o' || conv == 'O') && flag->sharp)
+	&& !(conv == 'd' && *format != '0'))
 	{
 		ft_strdel(&format);
 		return (ft_strdup(""));
@@ -77,7 +78,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		return (NULL);
 	}
 	c = ' ';
-	if (flag->zero)
+	if (flag->zero && !flag->min)
 		c = '0';
 	while (i < len)
 		str[i++] = c;
@@ -86,6 +87,8 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		str = ft_join_free("+", str, 2);
 	else if (flag->plus && c == ' ')
 		format = ft_join_free("+", format, 2);
+	if (flag->space)
+		str[0] = ' ';
 	if (flag->sharp && (x == 'x' || x == 'X') && c == ' ')
 		format = ft_join_free("0x", format, 2);
 	else if (flag->sharp && (x == 'x' || x == 'X') && c == '0')
@@ -109,5 +112,7 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 	len = flag->width - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_width(len, format, conv, flag);
+	else if (flag->plus)
+		format = ft_join_free("+", format, 2);
 	return (format);
 }

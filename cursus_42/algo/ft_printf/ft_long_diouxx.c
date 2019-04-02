@@ -17,9 +17,10 @@ static char		*ft_manage_long_o(va_list *arg, t_flag *flag)
 	unsigned long	u;
 	char			*s;
 
+	(void)flag;
 	u = va_arg(*arg, unsigned long);
 	s = ft_itoa_base_u(u, 8);
-	if (flag->sharp)
+	if (flag->sharp && *s != '0')
 		s = ft_join_free("0", s, 2);
 	return (s);
 }
