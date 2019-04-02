@@ -54,6 +54,8 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 		len++;
 	if (len > 0 && conv != 's')
 		format = ft_process_precision(format, len, flag);
+	if (flag->sharp && (conv == 'x' || conv == 'X'))
+		format = ft_join_free("0x", format, 2);
 	else if (conv == 's')
 	{
 		tmp = format;
