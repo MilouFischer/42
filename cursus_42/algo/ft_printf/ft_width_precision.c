@@ -52,7 +52,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	len = flag->precision - ft_strlen(format);
 	if (*format == '-')
 		len++;
-	if (len > 0)
+	if (len > 0 && conv != 's')
 		format = ft_process_precision(format, len, flag);
 	else if (conv == 's')
 	{
