@@ -77,6 +77,11 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		format = ft_join_free("0x", format, 2);
 	else if (flag->sharp && (x == 'x' || x == 'X') && c == '0')
 		str = ft_join_free("0x", str, 2);
+	if (*format == '-' && c == '0')
+	{
+		str[0] = '-';
+		*format = '0';
+	}
 	if (flag->min)
 		format = ft_join_free(format, str, 3);
 	else
