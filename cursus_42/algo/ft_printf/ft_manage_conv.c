@@ -77,7 +77,7 @@ static char		*ft_float(va_list *arg, t_flag *flag)
 
 	f = va_arg(*arg, double);
 	str = ft_printfloat(f);
-	if (!flag->width && !flag->precision)
+	if (!flag->width && flag->precision == -1)
 	{
 		str = ft_round(str, 6);
 	}
