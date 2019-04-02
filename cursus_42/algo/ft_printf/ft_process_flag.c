@@ -29,7 +29,7 @@ static void		ft_precision_width(va_list *arg, t_flag *flag, char **s)
 	if (**s == '*')
 	{
 		nb = va_arg(*arg, int);
-		if (nb < 0 && flag->precision != -1)
+		if (nb < 0 && !flag->dot)
 		{
 			flag->min = 1;
 			nb *= -1;
@@ -43,12 +43,10 @@ static void		ft_precision_width(va_list *arg, t_flag *flag, char **s)
 		(*s)--;
 	}
 	if (flag->dot)
-	{
 		flag->precision = nb;
-		flag->dot = 0;
-	}
 	else
 		flag->width = nb;
+	flag->dot = 0;
 }
 
 static char		*ft_flag_error(char *s, t_flag *flag)

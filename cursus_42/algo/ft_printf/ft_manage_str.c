@@ -62,7 +62,7 @@ char			*ft_manage_s(va_list *arg, t_flag *flag)
 
 	if (!(s = va_arg(*arg, char*)))
 	{
-		if (flag->width)
+		if (flag->precision >= 0)
 			s = ft_strdup("");
 		else
 			return (ft_strdup("(null)"));
