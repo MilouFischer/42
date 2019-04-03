@@ -79,7 +79,7 @@ char			*ft_putunicode(wchar_t *ws)
 		else
 			c = (wchar_t)*ws;
 		tmp = ft_itoa_base_u(c, 16);
-		str = ft_join_free(str, ft_print_unicode(tmp), 1);
+		str = ft_join_free(str, ft_print_unicode(tmp), 3);
 		ft_strdel(&tmp);
 		ws++;
 	}

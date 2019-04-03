@@ -18,20 +18,15 @@ t_list			*ft_lstnew_str(char const *content, size_t content_size)
 
 	if (!(list = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
+	list->content_size = 0;
 	if (content == NULL)
-	{
 		list->content = NULL;
-		list->content_size = 0;
-	}
 	else
 	{
-		if (!(list->content = (char*)malloc(sizeof(char) * (content_size + 1))))
-		{
+		if (!(list->content = ft_strdup(content)))
 			free(list);
-			return (NULL);
-		}
-		list->content = ft_strdup(content);
-		list->content_size = content_size;
+		else
+			list->content_size = content_size;
 	}
 	list->next = NULL;
 	return (list);
