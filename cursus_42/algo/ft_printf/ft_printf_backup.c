@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-/*static t_list	*ft_join_content(t_list *lst, char *str, t_flag flag)
+static t_list	*ft_join_content(t_list *lst, char *str, t_flag flag)
 {
 	char	*tmp;
 
@@ -53,32 +53,29 @@ static t_list	*ft_fill_content(t_list *lst, char *str, t_flag flag)
 		lst->content_size = ft_strlen(lst->content);
 	}
 	return (lst);
-}*/
+}
 
-static int	ft_get_flags(va_list *arg, char *str)
+static t_list	*ft_get_flags(t_list *lst, va_list *arg, char *str)
 {
-	char	*out;
 	char	*tmp;
 	char	*format;
+	t_list	*new;
+	t_list	*tmp_lst;
 	t_flag	flag;
-	//int		null;
-	//int		i;
-	//void	*null_str;
-	int		len;
+	int		null;
+	int		i;
+	void	*null_str;
 
-	len = 0;
-	out = NULL;
+	tmp_lst = lst;
 	while ((format = ft_strchr(str, '%')))
 	{
 		ft_init_flag(&flag);
-		tmp = ft_strsub(str, 0, format - str);
-		len += ft_strlen(tmp);
-		out = ft_join_free(out, tmp, 3);
+		lst = ft_fill_content(lst, tmp = ft_strsub(str, 0, format - str), flag);
+		ft_strdel(&tmp);
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			tmp = ft_strdup("(null)");
-		len += ft_strlen(tmp);
-		/*if (*str == 'c' && (int)ft_strlen(tmp) < flag.width)
+		if (*str == 'c' && (int)ft_strlen(tmp) < flag.width)
 		{
 			null = 0;
 			i = 0;
@@ -88,44 +85,51 @@ static int	ft_get_flags(va_list *arg, char *str)
 					null++;
 				i++;
 			}
-			null_str = ft_memjoin(*out, tmp, len, i);
-			*out = (char*)null_str;
-			len += i - 1;
+			null_str = ft_memjoin(lst->content, tmp, lst->content_size, i);
+			lst->content = (char*)null_str;
+			lst->content_size += i - 1;
 		}
-		else*/
-			out = ft_join_free(out, tmp, 3);
+		else
+			lst = ft_join_content(lst, tmp, flag);
+		ft_strdel(&tmp);
 		if (*str)
 			str++;
+		if (*str)
+		{
+			new = ft_lstnew_str(NULL, 0);
+			ft_lstadd(&new, lst);
+			lst = lst->next;
+		}
 	}
 	if (*str)
 	{
 		ft_init_flag(&flag);
-		len += ft_strlen(str);
-		out = ft_join_free(out, str, 1);
+		lst = ft_fill_content(lst, str, flag);
 	}
-	write(1, out, len);
-	ft_strdel(&out);
-	return (len);
+	return (tmp_lst);
 }
 
 int				ft_printf(const char *format, ...)
 {
 	int		len;
 	va_list	arg;
-	char	*str;
+	char	*out;
+	char	*tmp;
 
 	if (!format)
 		return (0);
-	str = ft_strdup(format);
+	out = ft_strdup(format);
 	len = ft_strlen(format);
+	tmp = out;
 	if (ft_strchr(str, '%'))
 	{
 		va_start(arg, format);
-		len = ft_get_flags(&arg, str);
+		if (!(len = ft_get_flags(&out, &arg, str)))
+			return (0);
 		va_end(arg);
 	}
-	else
-		write(1, str, len);
-	ft_strdel(&str);
+	write(1, out, len);
+	ft_strdel(&out);
+	ft_strdel(&tmp);
 	return (len);
 }
