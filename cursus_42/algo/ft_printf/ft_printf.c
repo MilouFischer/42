@@ -61,9 +61,9 @@ static int	ft_get_flags(va_list *arg, char *str)
 	char	*tmp;
 	char	*format;
 	t_flag	flag;
-	//int		null;
-	//int		i;
-	//void	*null_str;
+	int		null;
+	int		i;
+	void	*null_str;
 	int		len;
 
 	len = 0;
@@ -77,8 +77,7 @@ static int	ft_get_flags(va_list *arg, char *str)
 		str = format;
 		if (!(tmp = ft_process_flag(&str, arg, &flag)))
 			tmp = ft_strdup("(null)");
-		len += ft_strlen(tmp);
-		/*if (*str == 'c' && (int)ft_strlen(tmp) < flag.width)
+		if ((*str == 'c' || *str == 'C') && (int)ft_strlen(tmp) < flag.precision)
 		{
 			null = 0;
 			i = 0;
@@ -88,20 +87,35 @@ static int	ft_get_flags(va_list *arg, char *str)
 					null++;
 				i++;
 			}
-			null_str = ft_memjoin(*out, tmp, len, i);
-			*out = (char*)null_str;
+			null_str = ft_memjoin(out, tmp, len, i);
+			out = (char*)null_str;
 			len += i - 1;
 		}
-		else*/
-			out = ft_join_free(out, tmp, 3);
+		else if ((*str == 'c' || *str == 'C') && (!*tmp || (int)ft_strlen(tmp) < flag.width))
+		{
+			null_str = ft_memjoin(out, tmp, len, ft_strlen(tmp) + 1);
+			out = (char*)null_str;
+			len++;
+		}
+		else
+		{
+			if ((int)ft_strlen(out) < len)
+				out = ft_memjoin(out, tmp, len, ft_strlen(tmp));
+			else
+				out = ft_join_free(out, tmp, 3);
+		}
+		len += ft_strlen(tmp);
 		if (*str)
 			str++;
 	}
 	if (*str)
 	{
 		ft_init_flag(&flag);
+		if ((int)ft_strlen(out) < len)
+			out = ft_memjoin(out, str, len, ft_strlen(str));
+		else
+			out = ft_join_free(out, str, 1);
 		len += ft_strlen(str);
-		out = ft_join_free(out, str, 1);
 	}
 	write(1, out, len);
 	ft_strdel(&out);
