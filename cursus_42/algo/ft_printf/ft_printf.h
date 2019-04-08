@@ -16,6 +16,18 @@
 # include <stdarg.h>
 # include "libft.h"
 
+typedef struct	s_out
+{
+	void		*str;
+	size_t		len;
+}				t_out;
+
+typedef struct	s_tmp
+{
+	char		*str;
+	size_t		len;
+}				t_tmp;
+
 typedef struct	s_flag
 {
 	int			width;
