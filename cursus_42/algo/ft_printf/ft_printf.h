@@ -49,7 +49,7 @@ typedef struct	s_flag
 
 int				ft_printf(const char *format, ...);
 t_list			*ft_lstnew_str(char const *content, size_t content_size);
-char			*ft_process_flag(char **s, va_list *arg, t_flag *flag);
+void			ft_process_flag(char **s, va_list *arg, t_flag *flag, t_tmp *out);
 void			ft_init_flag(t_flag *flag);
 void			ft_manage_flag(char c, t_flag *flag);
 void			ft_manage_conv_flag(char c, t_flag *flag);
