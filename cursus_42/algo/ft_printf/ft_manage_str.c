@@ -54,8 +54,8 @@ char			*ft_manage_c(va_list *arg, t_flag *flag, t_tmp *tmp)
 	if (flag->width >= 1)
 		s = ft_c_width(s, flag);
 	tmp->len = ft_strlen(s);
-	if (flag->null)
-		tmp->len++;
+	//if (flag->null)
+	//	tmp->len++;
 	return (s);
 }
 

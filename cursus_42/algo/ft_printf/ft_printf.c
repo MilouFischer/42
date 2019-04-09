@@ -45,6 +45,8 @@ static void		ft_get_flags(va_list *arg, t_out *out, char *str)
 			tmp->str = ft_strdup("(null)");
 			tmp->len = 6;
 		}
+		if (flag.null)
+			tmp->len++;
 		ft_memjoin_free(out, tmp);
 		out->len += tmp->len;
 		if (*str)
