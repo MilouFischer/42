@@ -55,7 +55,7 @@ static char	*ft_flag_error(char *s, t_flag *flag)
 	char	*tmp;
 	int		len;
 
-	format = ft_strdup(s);
+	format = ft_strndup(s, 1);
 	if ((len = flag->width - ft_strlen(format)) > 0)
 	{
 		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
