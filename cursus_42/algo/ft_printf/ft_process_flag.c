@@ -109,6 +109,7 @@ static void	ft_all_conv(char c, va_list *arg, t_flag *flag, t_tmp *tmp)
 void		ft_process_flag(char **s, va_list *arg, t_flag *flag, t_tmp *tmp)
 {
 	(*s)++;
+	tmp->len = 0;
 	while (**s)
 	{
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' '
@@ -125,4 +126,5 @@ void		ft_process_flag(char **s, va_list *arg, t_flag *flag, t_tmp *tmp)
 		}
 		(*s)++;
 	}
+	tmp->str = ft_strdup("\0");
 }
