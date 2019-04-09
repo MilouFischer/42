@@ -49,13 +49,13 @@ static void	ft_precision_width(va_list *arg, t_flag *flag, char **s)
 	flag->dot = 0;
 }
 
-static char	*ft_flag_error(char c, t_flag *flag)
+static char	*ft_flag_error(char *s, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
 	int		len;
 
-	format = ft_strdup(&c);
+	format = ft_strdup(s);
 	if ((len = flag->width - ft_strlen(format)) > 0)
 	{
 		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
@@ -95,12 +95,8 @@ static char	*ft_all_conv(char c, va_list *arg, t_flag *flag)
 			flag->zero = 0;
 		return (ft_diouxxf(c, arg, flag));
 	}
-	else if (c == 'Z')
-		return (ft_manage_z(c, flag));
-	else if (c == '%')
-		return (ft_percent(c, flag));
 	else
-		return (ft_flag_error(c, flag));
+		return (ft_manage_z(c, flag));
 }
 
 char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
@@ -111,12 +107,20 @@ char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' '
 		|| **s == '.')
 			ft_manage_flag(**s, flag);
-		else if (**s == 'h' || **s == 'l' || **s == 'L' || **s == 'j' || **s == 'z')
+		else if (**s == 'h' || **s == 'l' || **s == 'L' || **s == 'j'
+		|| **s == 'z')
 			ft_manage_conv_flag(**s, flag);
 		else if ((**s >= '1' && **s <= '9') || **s == '*')
 			ft_precision_width(arg, flag, s);
-		else
+		else if (**s == 'c' || **s == 'C' || **s == 's' || **s == 'S'
+		|| **s == 'p' || **s == 'd' || **s == 'D' || **s == 'i' || **s == 'o'
+		|| **s == 'O' || **s == 'u' || **s == 'U' || **s == 'x' || **s == 'X'
+		|| **s == 'f' || **s == 'F' || **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
+		else if (**s == '%')
+			return (ft_percent(**s, flag));
+		else
+			return (ft_flag_error(*s, flag));
 		(*s)++;
 	}
 	return (ft_strdup("\0"));
