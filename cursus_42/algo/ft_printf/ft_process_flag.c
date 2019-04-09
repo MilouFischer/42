@@ -84,32 +84,28 @@ static char	*ft_manage_z(char c, t_flag *flag)
 	return (s);
 }
 
-static void	ft_all_conv(char c, va_list *arg, t_flag *flag, t_tmp *tmp)
+static char	*ft_all_conv(char c, va_list *arg, t_flag *flag)
 {
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
-		tmp->str = ft_manage_str(c, arg, flag, tmp);
+		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
 	{
 		if (flag->precision >= 0)
 			flag->zero = 0;
-		tmp->str = ft_diouxxf(c, arg, flag);
+		return (ft_diouxxf(c, arg, flag));
 	}
 	else if (c == 'Z')
-		tmp->str = ft_manage_z(c, flag);
+		return (ft_manage_z(c, flag));
 	else if (c == '%')
-		tmp->str = ft_percent(c, flag);
+		return (ft_percent(c, flag));
 	else
-		tmp->str = ft_flag_error(c, flag);
-	if (tmp->str && !tmp->len)
-		tmp->len = ft_strlen(tmp->str);
-	return ;
+		return (ft_flag_error(c, flag));
 }
 
-void		ft_process_flag(char **s, va_list *arg, t_flag *flag, t_tmp *tmp)
+char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 {
 	(*s)++;
-	tmp->len = 0;
 	while (**s)
 	{
 		if (**s == '#' || **s == '0' || **s == '-' || **s == '+' || **s == ' '
@@ -120,11 +116,8 @@ void		ft_process_flag(char **s, va_list *arg, t_flag *flag, t_tmp *tmp)
 		else if ((**s >= '1' && **s <= '9') || **s == '*')
 			ft_precision_width(arg, flag, s);
 		else
-		{
-			ft_all_conv(**s, arg, flag, tmp);
-			return ;
-		}
+			return (ft_all_conv(**s, arg, flag));
 		(*s)++;
 	}
-	tmp->str = ft_strdup("\0");
+	return (ft_strdup("\0"));
 }

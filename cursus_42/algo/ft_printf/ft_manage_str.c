@@ -41,7 +41,7 @@ static char		*ft_c_width(char *s, t_flag *flag)
 	return (s);
 }
 
-char			*ft_manage_c(va_list *arg, t_flag *flag, t_tmp *tmp)
+char			*ft_manage_c(va_list *arg, t_flag *flag)
 {
 	char	*s;
 
@@ -53,9 +53,6 @@ char			*ft_manage_c(va_list *arg, t_flag *flag, t_tmp *tmp)
 		flag->null = 1;
 	if (flag->width >= 1)
 		s = ft_c_width(s, flag);
-	tmp->len = ft_strlen(s);
-	//if (flag->null)
-	//	tmp->len++;
 	return (s);
 }
 
