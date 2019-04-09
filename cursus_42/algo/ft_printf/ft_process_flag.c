@@ -87,7 +87,7 @@ static char	*ft_manage_z(char c, t_flag *flag)
 static void	ft_all_conv(char c, va_list *arg, t_flag *flag, t_tmp *tmp)
 {
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
-		tmp->str = ft_manage_str(c, arg, flag);
+		tmp->str = ft_manage_str(c, arg, flag, tmp);
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
 	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
 	{
@@ -101,7 +101,7 @@ static void	ft_all_conv(char c, va_list *arg, t_flag *flag, t_tmp *tmp)
 		tmp->str = ft_percent(c, flag);
 	else
 		tmp->str = ft_flag_error(c, flag);
-	if (tmp->str)
+	if (tmp->str && !tmp->len)
 		tmp->len = ft_strlen(tmp->str);
 	return ;
 }

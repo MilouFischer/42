@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
+char			*ft_manage_str(char c, va_list *arg, t_flag *flag, t_tmp *tmp)
 {
 	if (c == 'C' || (flag->l && (c == 'c')))
 		return (ft_manage_unicode_char(arg, flag));
 	else if (c == 'S' || (flag->l && (c == 's')))
 		return (ft_manage_unicode_str(arg, flag));
 	else if (c == 'c')
-		return (ft_manage_c(arg, flag));
+		return (ft_manage_c(arg, flag, tmp));
 	else if (c == 's')
 		return (ft_manage_s(arg, flag));
 	else
