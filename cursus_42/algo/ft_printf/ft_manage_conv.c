@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 14:16:04 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:25:07 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 			format = ft_width(c, format, flag);
 		else if (flag->space && *format != '-')
 			format = ft_join_free(" ", format, 2);
+		else if (flag->plus && *format != '-')
+			format = ft_join_free("+", format, 2);
 	}
 	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
 	&& !flag->zero)

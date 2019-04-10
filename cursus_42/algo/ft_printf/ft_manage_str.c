@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:04:30 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 17:37:34 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:12:15 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char			*ft_manage_c(va_list *arg, t_flag *flag)
 	if (!s[0])
 	{
 		flag->null = 1;
-		flag->width--;
+		if (!flag->min)
+			flag->width--;
 	}
 	if (flag->width >= 1)
 		s = ft_width('c', s, flag);

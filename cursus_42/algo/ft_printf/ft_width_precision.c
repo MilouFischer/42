@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 17:47:42 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:36:54 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		str = ft_join_free("+", str, 2);
 	else if (flag->plus && c == ' ')
 		format = ft_join_free("+", format, 2);
-	if (flag->space)
+	if (flag->space && flag->min && *format != '-')
+		format = ft_join_free(" ", format, 2);
+	else if (flag->space)
 		str[0] = ' ';
 	if (flag->sharp && (x == 'x' || x == 'X') && c == ' ')
 		format = ft_join_free("0x", format, 2);
@@ -99,7 +101,13 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 		str[0] = '-';
 		format[0] = '0';
 	}
-	if (flag->min)
+	if (flag->min && flag->null)
+	{
+		ft_strdel(&format);
+		ft_strdel(&str);
+		format = ft_strdup("\0");
+	}
+	else if (flag->min)
 		format = ft_join_free(format, str, 3);
 	else
 		format = ft_join_free(str, format, 1);
@@ -110,6 +118,8 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 {
 	int		len;
 
+	if (flag->space && flag->min && *format != '-')
+		flag->width--;
 	len = flag->width - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_width(len, format, conv, flag);
