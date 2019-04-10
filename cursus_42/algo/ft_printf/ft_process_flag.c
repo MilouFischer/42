@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:56:32 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 11:56:35 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 16:16:57 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static void	ft_precision_width(va_list *arg, t_flag *flag, char **s)
 	flag->dot = 0;
 }
 
-static char	*ft_flag_error(char *s, t_flag *flag)
+static char	*ft_flag_error(char c, t_flag *flag)
 {
 	char	*format;
 	char	*tmp;
 	int		len;
 
-	format = ft_strndup(s, 1);
+	format = ft_strndup(&c, 1);
 	if ((len = flag->width - ft_strlen(format)) > 0)
 	{
 		if (!(tmp = (char*)malloc(sizeof(char) * (len + 1))))
@@ -120,7 +120,7 @@ char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == '%')
 			return (ft_percent(**s, flag));
 		else
-			return (ft_flag_error(*s, flag));
+			return (ft_flag_error(**s, flag));
 		(*s)++;
 	}
 	return (ft_strdup("\0"));

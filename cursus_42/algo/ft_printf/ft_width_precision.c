@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 11:55:56 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:37:33 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 		format = ft_process_width(len, format, conv, flag);
 	else if (flag->plus)
 		format = ft_join_free("+", format, 2);
+	else if (flag->space && *format != '-')
+		format = ft_join_free(" ", format, 2);
 	return (format);
 }
