@@ -6,19 +6,18 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 17:37:33 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:47:42 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*ft_process_precision(char *format, int len, t_flag *flag)
+static char		*ft_process_precision(char *format, int len)
 {
 	char	c;
 	char	*str;
 
 	c = '0';
-	(void)flag;
 	if (!*format)
 		return (format);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
@@ -53,7 +52,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	if (*format == '-')
 		len++;
 	if (len > 0 && conv != 's')
-		format = ft_process_precision(format, len, flag);
+		format = ft_process_precision(format, len);
 	if (flag->sharp && (conv == 'x' || conv == 'X'))
 		format = ft_join_free("0x", format, 2);
 	else if (conv == 's')
