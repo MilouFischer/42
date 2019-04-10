@@ -112,6 +112,8 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 			format = ft_precision(c, format, flag);
 		if (flag->width)
 			format = ft_width(c, format, flag);
+		else if (flag->space && *format != '-')
+			format = ft_join_free(" ", format, 2);
 	}
 	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
 	&& !flag->zero)
