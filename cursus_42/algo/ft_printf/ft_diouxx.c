@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:59:06 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 11:59:08 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:42:38 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,10 @@
 
 static char		*ft_manage_d(va_list *arg, t_flag *flag)
 {
-	long long	l;
 	int			nb;
 	short		sh;
 	char		c;
 
-	if (flag->j || flag->z)
-	{
-		l = va_arg(*arg, long long);
-		return (ft_itoa(l));
-	}
 	nb = va_arg(*arg, int);
 	if (flag->hh)
 	{
@@ -41,16 +35,10 @@ static char		*ft_manage_d(va_list *arg, t_flag *flag)
 static char		*ft_manage_o(va_list *arg, t_flag *flag)
 {
 	unsigned int		u;
-	unsigned long long	lu;
 	unsigned char		c;
 	unsigned short		sh;
 	char				*s;
 
-	if (flag->j || flag->z)
-	{
-		lu = va_arg(*arg, unsigned long long);
-		return (ft_itoa_base_u(lu, 8));
-	}
 	u = va_arg(*arg, unsigned int);
 	if (flag->hh)
 	{
@@ -64,25 +52,16 @@ static char		*ft_manage_o(va_list *arg, t_flag *flag)
 	}
 	s = ft_itoa_base_u(u, 8);
 	if (flag->sharp && u)
-	{
 		s = ft_join_free("0", s, 2);
-		flag->sharp = -1;
-	}
 	return (s);
 }
 
 static char		*ft_manage_u(va_list *arg, t_flag *flag)
 {
 	unsigned int		u;
-	unsigned long long	lu;
 	unsigned char		c;
 	unsigned short		sh;
 
-	if (flag->j || flag->z)
-	{
-		lu = va_arg(*arg, unsigned long long);
-		return (ft_itoa_base_u(lu, 10));
-	}
 	u = va_arg(*arg, unsigned int);
 	if (flag->hh)
 	{
@@ -100,16 +79,12 @@ static char		*ft_manage_u(va_list *arg, t_flag *flag)
 static char		*ft_manage_x(va_list *arg, t_flag *flag)
 {
 	unsigned int		u;
-	unsigned long long	lu;
 	unsigned char		c;
 	unsigned short		sh;
 
-	if (flag->j || flag->z)
-	{
-		lu = va_arg(*arg, unsigned long long);
-		return (ft_itoa_base_u(lu, 16));
-	}
 	u = va_arg(*arg, unsigned int);
+	if (!u)
+		flag->sharp = 0;
 	if (flag->hh)
 	{
 		c = (unsigned char)u;

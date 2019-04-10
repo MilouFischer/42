@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:59:12 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 11:59:14 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:41:20 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char		*ft_manage_long_o(va_list *arg, t_flag *flag)
 	return (s);
 }
 
-static char		*ft_manage_long_diu(char c, va_list *arg)
+static char		*ft_manage_long_diu(char c, va_list *arg, t_flag *flag)
 {
 	long long int	nb;
 	unsigned long	u;
@@ -38,6 +38,8 @@ static char		*ft_manage_long_diu(char c, va_list *arg)
 	else
 	{
 		u = va_arg(*arg, unsigned long);
+		if (!u)
+			flag->sharp = 0;
 		return (ft_itoa_base_u(u, 10));
 	}
 }
@@ -47,7 +49,7 @@ char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 	unsigned long	u;
 
 	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U')
-		return (ft_manage_long_diu(c, arg));
+		return (ft_manage_long_diu(c, arg, flag));
 	else if (c == 'o' || c == 'O')
 		return (ft_manage_long_o(arg, flag));
 	else if (c == 'x' || c == 'X')

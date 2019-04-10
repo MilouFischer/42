@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 18:25:07 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:37:09 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 
 	if (c == 'f' || c == 'F')
 		str = ft_float(arg, flag);
-	else if (flag->l || flag->ll || c == 'D' || c == 'O' || c == 'U')
+	else if (flag->l || flag->ll || flag->j ||  c == 'D' || c == 'O' || c == 'U')
 		str = ft_long_diouxx(c, arg, flag);
 	else
 		str = ft_diouxx(c, arg, flag);
@@ -117,11 +117,12 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 		else if (flag->plus && *format != '-')
 			format = ft_join_free("+", format, 2);
 	}
-	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0'
-	&& !flag->zero)
+	else if (flag->sharp > 0 && *format != '0' && !flag->zero)
 	{
-		format = ft_join_free("0x", format, 2);
-		flag->sharp = 0;
+		if (c == 'x' || c == 'X')
+			format = ft_join_free("0x", format, 2);
+		else if (c == 'o' || c == 'O')
+			format = ft_join_free("0", format, 2);
 	}
 	else if (c == 'o' || c == 'O')
 		return (format);
