@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 19:37:09 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 14:43:43 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 
 	if (c == 'f' || c == 'F')
 		str = ft_float(arg, flag);
-	else if (flag->l || flag->ll || flag->j ||  c == 'D' || c == 'O' || c == 'U')
+	else if (flag->l || flag->ll || flag->j || flag->z ||  c == 'D' || c == 'O' || c == 'U')
 		str = ft_long_diouxx(c, arg, flag);
 	else
 		str = ft_diouxx(c, arg, flag);
