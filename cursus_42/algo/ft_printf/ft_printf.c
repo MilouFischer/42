@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 16:47:39 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 19:48:50 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,22 @@ static void		ft_memjoin_free(t_out *t1, t_tmp *t2)
 	t1->str = ft_memjoin(tmp, t2->str, t1->len, t2->len);
 	free(tmp);
 	free(t2->str);
+	t1->len += t2->len;
 }
 
-static void		ft_get_flags(va_list *arg, t_out *out, char *str)
+static void		ft_get_flags(va_list *arg, t_out *out, t_tmp *tmp, char **str)
 {
 	char	*format;
-	t_tmp	*tmp;
 	t_flag	flag;
 
-	out->str = NULL;
-	if (!(tmp = (t_tmp*)malloc(sizeof(t_tmp))))
-		return ;
-	while ((format = ft_strchr(str, '%')))
+	while ((format = ft_strchr(*str, '%')))
 	{
 		ft_init_flag(&flag);
-		tmp->str = ft_strsub(str, 0, format - str);
+		tmp->str = ft_strsub(*str, 0, format - *str);
 		tmp->len = ft_strlen(tmp->str);
 		ft_memjoin_free(out, tmp);
-		out->len += tmp->len;
-		str = format;
-		if (!(tmp->str = ft_process_flag(&str, arg, &flag)))
+		*str = format;
+		if (!(tmp->str = ft_process_flag(str, arg, &flag)))
 		{
 			tmp->str = ft_strdup("(null)");
 			tmp->len = 6;
@@ -50,10 +46,21 @@ static void		ft_get_flags(va_list *arg, t_out *out, char *str)
 		else if (flag.null)
 			tmp->len++;
 		ft_memjoin_free(out, tmp);
-		out->len += tmp->len;
-		if (*str)
-			str++;
+		if (**str)
+			(*str)++;
 	}
+}
+
+static void		ft_get_out(va_list *arg, t_out *out, char *str)
+{
+	t_tmp	*tmp;
+	char	*format;
+	t_flag	flag;
+
+	out->str = NULL;
+	if (!(tmp = (t_tmp*)malloc(sizeof(t_tmp))))
+		return ;
+	ft_get_flags(arg, out, tmp, &str);
 	if (*str)
 	{
 		ft_init_flag(&flag);
@@ -79,7 +86,7 @@ int				ft_printf(const char *format, ...)
 	if (ft_strchr(format, '%'))
 	{
 		va_start(arg, format);
-		ft_get_flags(&arg, out, (char*)format);
+		ft_get_out(&arg, out, (char*)format);
 		va_end(arg);
 		write(1, out->str, out->len);
 		free(out->str);
