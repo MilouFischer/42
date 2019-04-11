@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 15:20:01 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:54:32 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,47 @@ char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
 		return (ft_manage_p(arg, flag));
 }
 
+static char		*ft_process_round(char *tmp, int i)
+{
+	int		ret;
+	char	*str;
+
+	ret = 1;
+	if (!(str = (char*)malloc(sizeof(char) * i + 1)))
+		return (NULL);
+	str[i--] = '\0';
+	while (i > -1)
+	{
+		if (ret == 1)
+		{
+			ret = 0;
+			tmp[i]++;
+		}
+		if (tmp[i] - '0' >= 5)
+		{
+			if (tmp[i] - '0' == 10)
+				tmp[i] = '0';
+			ret = 1;
+		}
+		str[i] = tmp[i];
+		i--;
+	}
+	return (str);
+}
+
 static char		*ft_round(char *s, int n)
 {
 	int		i;
-	int		ret;
 	char	*str;
 	char	*tmp;
 
 	i = 0;
-	ret = 0;
 	tmp = ft_strchr(s, '.');
 	tmp++;
 	while (tmp[i] && i < n)
 		i++;
 	if (tmp[i] - '0' >= 5)
-	{
-		ret = 1;
-		if (!(str = (char*)malloc(sizeof(char) * i + 1)))
-			return (NULL);
-		str[i--] = '\0';
-		while (i > -1)
-		{
-			if (ret == 1)
-			{
-				ret = 0;
-				tmp[i]++;
-			}
-			if (tmp[i] - '0' >= 5)
-			{
-				if (tmp[i] - '0' == 10)
-					tmp[i] = '0';
-				ret = 1;
-			}
-			str[i] = tmp[i];
-			i--;
-		}
-	}
+		str = ft_process_round(tmp, i);
 	else
 		str = ft_strndup(tmp, i);
 	tmp = ft_strsub(s, 0, tmp - s);

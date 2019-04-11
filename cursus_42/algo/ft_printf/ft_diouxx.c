@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:59:06 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 15:09:21 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:48:20 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)
 {
-	if ((c == 'o' || c == 'u' || c == 'x' || c == 'X') && (flag->space || flag->plus))
+	if ((c == 'o' || c == 'u' || c == 'x' || c == 'X')
+	&& (flag->space || flag->plus))
 	{
 		flag->space = 0;
 		flag->plus = 0;
