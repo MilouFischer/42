@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 17:05:15 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:18:07 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char		*ft_process_precision(char *format, int len)
 char			*ft_precision(char conv, char *format, t_flag *flag)
 {
 	int		len;
-	char	*tmp;
 
 	if (!flag->precision && !((conv == 'o' || conv == 'O') && flag->sharp)
 	&& !(conv == 'd' && *format != '0') && conv != 's')
@@ -59,11 +58,7 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 		flag->sharp = 0;
 	}
 	else if (conv == 's')
-	{
-		tmp = format;
-		format = ft_strndup(format, flag->precision);
-		ft_strdel(&tmp);
-	}
+		format = ft_strndup_free(format, flag->precision);
 	return (format);
 }
 

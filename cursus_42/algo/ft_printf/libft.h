@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 11:17:13 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:18:01 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,6 @@ int					ft_check_unicode(char *s, unsigned int c);
 unsigned int		ft_convert_to_unicode(unsigned int c);
 long long			ft_atoi_base(char *str, int base);
 void				*ft_memjoin(void *s1, void *s2, size_t len1, size_t len2);
+char				*ft_strndup_free(char *s1, size_t n);
 
 #endif

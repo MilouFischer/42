@@ -18,7 +18,8 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	}
 	else
 		s = ft_putunicode(ws);
-	s = ft_width('C', s, flag);
+	if (flag->width)
+		s = ft_width('C', s, flag);
 	free(ws);
 	return (s);
 }

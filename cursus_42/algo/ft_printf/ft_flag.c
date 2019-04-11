@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:58:40 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:26:23 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:51:43 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	ft_manage_flag(char c, t_flag *flag)
 	else if (c == '0' && !flag->min)
 		flag->zero = 1;
 	else if (c == '+')
+	{
 		flag->plus = 1;
+		flag->space = 0;
+	}
 	else if (c == '-')
 		flag->min = 1;
 	else if (c == '.')
@@ -46,7 +49,7 @@ void	ft_manage_flag(char c, t_flag *flag)
 		flag->dot = 1;
 		flag->precision = 0;
 	}
-	else if (c == ' ')
+	else if (c == ' ' && !flag->plus)
 		flag->space = 1;
 }
 
