@@ -37,8 +37,9 @@ static char		*ft_unicode_str_precision(char *s, t_flag *flag)
 	{
 		tmp = ft_itoa_base((unsigned char)s[i], 2);
 		nb_byte = 0;
-		while (tmp[nb_byte] == '1')
-			nb_byte++;
+		if ((unsigned int)s[i] > 128)
+			while (tmp[nb_byte] == '1')
+				nb_byte++;
 		if (nb_byte == 0)
 			nb_byte = 1;
 		if ((flag->precision -= nb_byte) >= 0)
