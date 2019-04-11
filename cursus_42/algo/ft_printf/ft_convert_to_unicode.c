@@ -52,6 +52,8 @@ unsigned int		ft_convert_to_unicode(unsigned int c)
 	else if (c <= 65535)
 		return (ft_two_byte(c));
 	else if (c <= 2097152)
+	{
 		return (ft_three_byte(c));
+	}
 	return (0);
 }

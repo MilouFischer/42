@@ -11,13 +11,14 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	ws[1] = '\0';
 	if (!ws[0])
 	{
-		if (!flag->width)
-			flag->precision--;
+		if (flag->width && !flag->min)
+			flag->width--;
 		flag->null = 1;
 		s = ft_strdup("\0");
 	}
 	else
 		s = ft_putunicode(ws);
+	s = ft_width('C', s, flag);
 	free(ws);
 	return (s);
 }

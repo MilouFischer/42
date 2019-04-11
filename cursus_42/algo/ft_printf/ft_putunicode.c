@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:32:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 13:53:18 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:29:40 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ size_t			ft_wchar_tlen(wchar_t *ws)
 
 char			*ft_putunicode(wchar_t *ws)
 {
-	char	*str;
-	char	*tmp;
-	wchar_t	c;
+	char			*str;
+	char			*tmp;
+	unsigned int	c;
 
 	str = NULL;
 	if (!ws)
