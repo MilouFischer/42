@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 19:42:38 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:21:48 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char			*ft_precision(char conv, char *format, t_flag *flag)
 	if (len > 0 && conv != 's')
 		format = ft_process_precision(format, len);
 	if (flag->sharp && (conv == 'x' || conv == 'X'))
+	{
 		format = ft_join_free("0x", format, 2);
+		flag->sharp = 0;
+	}
 	else if (conv == 's')
 	{
 		tmp = format;
@@ -114,7 +117,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	return (format);
 }
 
-char			*ft_width(char conv, char *format, t_flag *flag)
+char			*ft_width(char c, char *format, t_flag *flag)
 {
 	int		len;
 
@@ -122,10 +125,12 @@ char			*ft_width(char conv, char *format, t_flag *flag)
 		flag->width--;
 	len = flag->width - ft_strlen(format);
 	if (len > 0)
-		format = ft_process_width(len, format, conv, flag);
+		format = ft_process_width(len, format, c, flag);
 	else if (flag->plus)
 		format = ft_join_free("+", format, 2);
 	else if (flag->space && *format != '-')
 		format = ft_join_free(" ", format, 2);
+	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0')
+		format = ft_join_free("0x", format, 2);
 	return (format);
 }

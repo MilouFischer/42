@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 14:43:43 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:20:01 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 		str = ft_long_diouxx(c, arg, flag);
 	else
 		str = ft_diouxx(c, arg, flag);
-	if ((c == 'x' || c == 'X') && flag->sharp && flag->width)
+	if ((c == 'x' || c == 'X') && flag->sharp && flag->width && flag->precision == -1)
 		flag->width -= 2;
 	return (str);
 }
@@ -117,7 +117,7 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 		else if (flag->plus && *format != '-')
 			format = ft_join_free("+", format, 2);
 	}
-	else if (flag->sharp > 0 && *format != '0' && !flag->zero)
+	else if (flag->sharp > 0 && *format != '0')
 	{
 		if (c == 'x' || c == 'X')
 			format = ft_join_free("0x", format, 2);

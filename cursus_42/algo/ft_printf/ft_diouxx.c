@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:59:06 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 19:42:38 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:09:21 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 	unsigned int		u;
 	unsigned char		c;
 	unsigned short		sh;
+	char				*s;
 
 	u = va_arg(*arg, unsigned int);
-	if (!u)
-		flag->sharp = 0;
 	if (flag->hh)
 	{
 		c = (unsigned char)u;
@@ -95,7 +94,10 @@ static char		*ft_manage_x(va_list *arg, t_flag *flag)
 		sh = (unsigned short)u;
 		u = sh;
 	}
-	return (ft_itoa_base_u(u, 16));
+	s = ft_itoa_base_u(u, 16);
+	if (*s == '0')
+		flag->sharp = 0;
+	return (s);
 }
 
 char			*ft_diouxx(char c, va_list *arg, t_flag *flag)

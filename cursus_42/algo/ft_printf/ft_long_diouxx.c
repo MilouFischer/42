@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:59:12 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 19:41:20 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:10:10 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char		*ft_manage_long_o(va_list *arg, t_flag *flag)
 	(void)flag;
 	u = va_arg(*arg, unsigned long);
 	s = ft_itoa_base_u(u, 8);
-	if (flag->sharp && *s != '0')
+	if (flag->sharp && u)
 		s = ft_join_free("0", s, 2);
 	return (s);
 }
@@ -47,6 +47,7 @@ static char		*ft_manage_long_diu(char c, va_list *arg, t_flag *flag)
 char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 {
 	unsigned long	u;
+	char			*s;
 
 	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U')
 		return (ft_manage_long_diu(c, arg, flag));
@@ -55,7 +56,10 @@ char			*ft_long_diouxx(char c, va_list *arg, t_flag *flag)
 	else if (c == 'x' || c == 'X')
 	{
 		u = va_arg(*arg, unsigned long);
-		return (ft_itoa_base_u(u, 16));
+		s = ft_itoa_base_u(u, 16);
+		if (*s == '0')
+			flag->sharp = 0;
+		return (s);
 	}
 	else
 		return (NULL);
