@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_manage_unicode.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/11 18:58:04 by efischer          #+#    #+#             */
+/*   Updated: 2019/04/11 19:06:40 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
@@ -24,13 +36,12 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	return (s);
 }
 
-static char		*ft_unicode_str_precision(char *s, t_flag *flag)
+static int		ft_count_byte(char *s, t_flag *flag)
 {
 	char	*tmp;
 	int		i;
 	int		nb_byte;
-	size_t	len;
-	char	*format;
+	int		len;
 
 	i = 0;
 	len = 0;
@@ -50,6 +61,15 @@ static char		*ft_unicode_str_precision(char *s, t_flag *flag)
 		}
 		ft_strdel(&tmp);
 	}
+	return (len);
+}
+
+static char		*ft_unicode_str_precision(char *s, t_flag *flag)
+{
+	size_t	len;
+	char	*format;
+
+	len = ft_count_byte(s, flag);
 	if (len == 0)
 		format = ft_strdup("");
 	else
