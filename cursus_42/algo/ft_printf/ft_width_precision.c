@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 17:28:15 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:32:41 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char		*ft_process_str(char *str, char x, char *format, t_flag *flag)
 	else if (flag->min)
 		format = ft_join_free(format, str, 3);
 	else
-		format = ft_join_free(str, format, 1);
+		format = ft_join_free(str, format, 3);
 	return (format);
 }
 
@@ -116,8 +116,7 @@ static char		*ft_process_width(int len, char *format, char x, t_flag *flag)
 	while (i < len)
 		str[i++] = c;
 	str[i] = '\0';
-	format = ft_process_str(str, x, format, flag);
-	return (format);
+	return (ft_process_str(str, x, format, flag));
 }
 
 char			*ft_width(char c, char *format, t_flag *flag)
