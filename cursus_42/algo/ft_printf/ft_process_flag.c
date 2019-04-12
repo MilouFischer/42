@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:56:32 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/10 16:16:57 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:39:56 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,6 @@ static char	*ft_percent(char c, t_flag *flag)
 	if (flag->width)
 		format = ft_width(c, format, flag);
 	return (format);
-}
-
-static void	ft_precision_width(va_list *arg, t_flag *flag, char **s)
-{
-	int		nb;
-
-	if (**s == '*')
-	{
-		nb = va_arg(*arg, int);
-		if (nb < 0 && !flag->dot)
-		{
-			flag->min = 1;
-			nb *= -1;
-		}
-	}
-	else
-	{
-		nb = ft_atoi(*s);
-		while (ft_isdigit(**s))
-			(*s)++;
-		(*s)--;
-	}
-	if (flag->dot)
-		flag->precision = nb;
-	else
-		flag->width = nb;
-	flag->dot = 0;
 }
 
 static char	*ft_flag_error(char c, t_flag *flag)

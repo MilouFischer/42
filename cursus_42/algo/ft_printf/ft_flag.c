@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:58:40 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 16:14:16 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:41:20 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,33 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 		flag->j = 1;
 	else if (c == 'z')
 		flag->z = 1;
+}
+
+void	ft_precision_width(va_list *arg, t_flag *flag, char **s)
+{
+	int		nb;
+
+	if (**s == '*')
+	{
+		nb = va_arg(*arg, int);
+		if (nb < 0 && !flag->dot)
+		{
+			flag->min = 1;
+			nb *= -1;
+		}
+	}
+	else
+	{
+		nb = ft_atoi(*s);
+		while (ft_isdigit(**s))
+			(*s)++;
+		(*s)--;
+	}
+	if (flag->dot)
+		flag->precision = nb;
+	else
+		flag->width = nb;
+	flag->dot = 0;
 }
 
 char	*ft_apply_flag(char c, char *format, t_flag *flag)
