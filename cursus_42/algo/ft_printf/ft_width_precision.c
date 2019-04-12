@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:36:23 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 16:19:37 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:34:36 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,7 @@ char			*ft_width(char c, char *format, t_flag *flag)
 	len = flag->width - ft_strlen(format);
 	if (len > 0)
 		format = ft_process_width(len, format, c, flag);
-	else if (flag->plus)
-		format = ft_join_free("+", format, 2);
-	else if (flag->space && *format != '-')
-		format = ft_join_free(" ", format, 2);
-	else if (flag->sharp > 0 && (c == 'x' || c == 'X') && *format != '0')
-		format = ft_join_free("0x", format, 2);
+	else
+		format = ft_apply_flag(c, format, flag);
 	return (format);
 }
