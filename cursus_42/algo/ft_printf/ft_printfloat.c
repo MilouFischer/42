@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printfloat.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/12 15:58:01 by efischer          #+#    #+#             */
+/*   Updated: 2019/04/12 15:59:29 by efischer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static char	**ft_init_pm(char **tab)
@@ -99,7 +111,6 @@ char		*ft_printfloat(double f)
 	int			i;
 	char		tab[24];
 	char		*str;
-	char		*tmp;
 
 	i = 0;
 	ft_init_tab(tab);
@@ -118,7 +129,6 @@ char		*ft_printfloat(double f)
 		tab[i++] = (int)f + '0';
 		f -= (int)f;
 	}
-	tmp = ft_print_mentice(tab);
-	str = ft_strjoin(str, tmp);
+	str = ft_strjoin(str, ft_print_mentice(tab));
 	return (str);
 }
