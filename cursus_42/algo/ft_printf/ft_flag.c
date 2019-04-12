@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:58:40 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 19:33:34 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:14:16 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_manage_conv_flag(char c, t_flag *flag)
 
 char	*ft_apply_flag(char c, char *format, t_flag *flag)
 {
-	if (flag->sharp > 0 && *format != '0')
+	if (flag->sharp && *format != '0')
 	{
 		if (c == 'x' || c == 'X')
 			format = ft_join_free("0x", format, 2);
