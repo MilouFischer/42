@@ -6,7 +6,7 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2019/04/12 17:43:30 by efischer         ###   ########.fr        #
+#    Updated: 2019/04/12 18:35:26 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ ft_manage_str ft_diouxx ft_long_diouxx ft_manage_p ft_width_precision \
 ft_process_flag ft_intlen ft_itoa_base_u ft_join_free ft_lstnew_str \
 ft_lstprint ft_lstfree ft_printfloat ft_intlen_u ft_putunicode \
 ft_check_unicode ft_convert_to_unicode ft_manage_unicode ft_atoi_base \
-ft_memjoin ft_strndup_free ft_width_precision_float
+ft_memjoin ft_strndup_free ft_round
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o)
 CC = gcc

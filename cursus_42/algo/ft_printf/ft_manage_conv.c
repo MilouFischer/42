@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 17:43:46 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:31:21 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,16 @@ char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
 		return (ft_manage_p(arg, flag));
 }
 
-static char		*ft_float(va_list *arg, t_flag *flag)
-{
-	double	f;
-	char	*str;
-
-	f = va_arg(*arg, double);
-	str = ft_printfloat(f);
-	if (!flag->width && flag->precision == -1)
-	{
-		str = ft_round(str, 6);
-	}
-	return (str);
-}
-
 static char		*ft_manage_conv(char c, va_list *arg, t_flag *flag)
 {
 	char	*str;
+	double	f;
 
 	if (c == 'f' || c == 'F')
-		str = ft_float(arg, flag);
+	{
+		f = va_arg(*arg, double);
+		str = ft_printfloat(f);
+	}
 	else if (flag->l || flag->ll || flag->j || flag->z || c == 'D' || c == 'O'
 	|| c == 'U')
 		str = ft_long_diouxx(c, arg, flag);
@@ -67,6 +57,8 @@ char			*ft_diouxxf(char c, va_list *arg, t_flag *flag)
 		flag->plus = 0;
 		flag->space = 0;
 	}
+	if (flag->precision == -1 && (c == 'f' || c == 'F'))
+		format = ft_round(format, 6);
 	if (flag->precision >= 0 || flag->width)
 	{
 		if (flag->precision >= 0)

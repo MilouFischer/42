@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_width_precision_float.c                         :+:      :+:    :+:   */
+/*   ft_round.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 17:41:39 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 17:47:23 by efischer         ###   ########.fr       */
+/*   Created: 2019/04/12 18:35:09 by efischer          #+#    #+#             */
+/*   Updated: 2019/04/12 18:35:11 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ static char		*ft_process_round(char *tmp, int i)
 			ret = 0;
 			tmp[i]++;
 		}
-		if (tmp[i] - '0' >= 5)
+		if (tmp[i] - '0' == 10)
 		{
-			if (tmp[i] - '0' == 10)
-				tmp[i] = '0';
+			tmp[i] = '0';
 			ret = 1;
 		}
 		str[i] = tmp[i];
@@ -47,6 +46,11 @@ char			*ft_round(char *s, int n)
 	char	*tmp;
 
 	i = 0;
+	if (!n)
+	{
+		ft_strdel(&s);
+		return (ft_strdup("0"));
+	}
 	tmp = ft_strchr(s, '.');
 	tmp++;
 	while (tmp[i] && i < n)
