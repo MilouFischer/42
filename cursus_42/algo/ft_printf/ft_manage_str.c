@@ -35,12 +35,7 @@ char			*ft_manage_s(va_list *arg, t_flag *flag)
 	char	*s;
 
 	if (!(s = va_arg(*arg, char*)))
-	{
-		if (flag->precision >= 0)
-			s = ft_strdup("");
-		else
-			return (ft_strdup("(null)"));
-	}
+		s = ft_strdup("(null)");
 	else
 		s = ft_strdup(s);
 	if (flag->precision >= 0)
