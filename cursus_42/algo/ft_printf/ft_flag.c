@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:58:40 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 17:41:20 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:38:36 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	ft_precision_width(va_list *arg, t_flag *flag, char **s)
 
 char	*ft_apply_flag(char c, char *format, t_flag *flag)
 {
-	if (flag->sharp && *format != '0')
+	if (flag->sharp && *format != '0' && (c == 'x' || c == 'X' || c == 'o'
+	|| c == 'O'))
 	{
 		if (c == 'x' || c == 'X')
 			format = ft_join_free("0x", format, 2);

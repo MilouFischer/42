@@ -6,11 +6,23 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 18:35:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 18:35:11 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:24:22 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static char		*ft_add_zero(char *str, int size)
+{
+	char	*tmp;
+
+	if (!(tmp = (char*)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	ft_memset(tmp, '0', size);
+	tmp[size] = '\0';
+	str = ft_join_free(str, tmp, 3);
+	return (str);
+}
 
 static char		*ft_process_round(char *tmp, int i)
 {
@@ -59,6 +71,8 @@ char			*ft_round(char *s, int n)
 		str = ft_process_round(tmp, i);
 	else
 		str = ft_strndup(tmp, i);
+	if (n > i)
+		str = ft_add_zero(str, n - i);
 	tmp = ft_strsub(s, 0, tmp - s);
 	str = ft_join_free(tmp, str, 3);
 	ft_strdel(&s);
