@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:56:32 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/16 15:04:53 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:40:14 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == 'c' || **s == 'C' || **s == 's' || **s == 'S'
 		|| **s == 'p' || **s == 'd' || **s == 'D' || **s == 'i' || **s == 'o'
 		|| **s == 'O' || **s == 'u' || **s == 'U' || **s == 'x' || **s == 'X'
-		|| **s == 'f' || **s == 'F' || **s == 'b' ||  **s == 'Z')
+		|| **s == 'f' || **s == 'F' || **s == 'b' || **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
 		else if (**s == '%')
 			return (ft_percent(**s, flag));
