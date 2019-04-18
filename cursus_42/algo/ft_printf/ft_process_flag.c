@@ -62,7 +62,8 @@ static char	*ft_all_conv(char c, va_list *arg, t_flag *flag)
 	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
 		return (ft_manage_str(c, arg, flag));
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O'
-	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F')
+	|| c == 'u' || c == 'U' || c == 'x' || c == 'X' || c == 'f' || c == 'F'
+	|| c == 'b')
 	{
 		if (flag->precision >= 0 && c != 'f' && c != 'F')
 			flag->zero = 0;
@@ -88,7 +89,7 @@ char		*ft_process_flag(char **s, va_list *arg, t_flag *flag)
 		else if (**s == 'c' || **s == 'C' || **s == 's' || **s == 'S'
 		|| **s == 'p' || **s == 'd' || **s == 'D' || **s == 'i' || **s == 'o'
 		|| **s == 'O' || **s == 'u' || **s == 'U' || **s == 'x' || **s == 'X'
-		|| **s == 'f' || **s == 'F' || **s == 'Z')
+		|| **s == 'f' || **s == 'F' || **s == 'b' ||  **s == 'Z')
 			return (ft_all_conv(**s, arg, flag));
 		else if (**s == '%')
 			return (ft_percent(**s, flag));
