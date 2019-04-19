@@ -6,13 +6,13 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:04:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/12 12:04:17 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:54:49 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*ft_p_precision(char *s, t_flag *flag)
+/*static char		*ft_p_precision(char *s, t_flag *flag)
 {
 	int		len;
 	char	*tmp;
@@ -57,7 +57,7 @@ static char		*ft_p_width(void *p, char *s, t_flag *flag)
 			s = ft_join_free(tmp, s, 3);
 	}
 	return (s);
-}
+}*/
 
 char			*ft_manage_p(va_list *arg, t_flag *flag)
 {
@@ -71,10 +71,10 @@ char			*ft_manage_p(va_list *arg, t_flag *flag)
 	else
 		s = ft_itoa_base_u((unsigned long)p, 16);
 	if (flag->precision)
-		s = ft_p_precision(s, flag);
+		s = ft_precision('p', s, flag);
 	s = ft_join_free("0x", s, 2);
 	if (flag->width)
-		s = ft_p_width(p, s, flag);
+		s = ft_width('p', s, flag);
 	tmp = s;
 	s = ft_strdup(tmp);
 	ft_strdel(&tmp);
