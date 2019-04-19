@@ -6,12 +6,13 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2019/04/18 17:30:09 by efischer         ###   ########.fr        #
+#    Updated: 2019/04/19 15:06:10 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-HEAD = libft.h ft_printf.h
+HEAD += libft.h
+HEAD += ft_printf.h
 FILES = ft_atoi ft_isalnum ft_isascii ft_isprint ft_strchr ft_strcpy ft_strlen \
 ft_strncmp ft_strnstr ft_strstr ft_toupper ft_bzero ft_isalpha ft_isdigit \
 ft_strcat ft_strcmp ft_strdup ft_strncat ft_strncpy ft_strrchr ft_tolower \
@@ -37,7 +38,9 @@ CC = gcc
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-DEBUG = $(CFLAGS) -fsanitize=address,undefined -g3
+DFLAGS += $(CFLAGS)
+DFLAGS += -fsanitize=address,undefined
+DFLAGS += -g3
 
 all: $(NAME)
 
@@ -48,10 +51,10 @@ $(NAME): $(OBJS) $(HEAD)
 	ar -rcs $(NAME) $(OBJS)
 
 clean:
-	rm -rf $(OBJS)
+	$(RM) -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) -rf $(NAME)
 
 re: fclean all
 
