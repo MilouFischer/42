@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/18 18:30:14 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:50:48 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char			*ft_manage_str(char c, va_list *arg, t_flag *flag)
 {
+	flag->plus = 0;
 	if (c == 'C' || (flag->l && (c == 'c')))
 		return (ft_manage_unicode_char(arg, flag));
 	else if (c == 'S' || (flag->l && (c == 's')))
