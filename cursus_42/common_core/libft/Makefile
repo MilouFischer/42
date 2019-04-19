@@ -6,7 +6,7 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2018/12/03 18:39:31 by efischer         ###   ########.fr        #
+#    Updated: 2019/04/19 16:00:58 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,10 @@ ft_atoi_base ft_convert_to_unicode ft_putunicode ft_check_unicode \
 ft_join_free ft_free_matrix ft_free_tab ft_itoa_base_u ft_intlen ft_intlen_u
 SRCS = $(patsubst %,%.c,$(FILES))
 OBJS = $(SRCS:.c=.o)
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = clang
+CFLAGS += -Wall
+CFLAGS += -Wextra
+CFLAGS += -Werror
 
 all: $(NAME)
 
@@ -41,10 +43,10 @@ $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
 clean:
-	rm -rf $(OBJS)
+	$(RM) -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) -f $(NAME)
 
 re: fclean all
 
