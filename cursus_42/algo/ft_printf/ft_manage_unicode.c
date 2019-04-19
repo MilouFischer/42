@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 18:58:04 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 19:06:40 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:38:45 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ char			*ft_manage_unicode_char(va_list *arg, t_flag *flag)
 	}
 	else
 		s = ft_putunicode(ws);
+	free(ws);
+	if (!s)
+	{
+		flag->exit = 1;
+		return (NULL);
+	}
 	if (flag->width)
 		s = ft_width('C', s, flag);
-	free(ws);
 	return (s);
 }
 
@@ -112,6 +117,11 @@ char			*ft_manage_unicode_str(va_list *arg, t_flag *flag)
 		s = ft_strdup("(null)");
 	else
 		s = ft_putunicode(ws);
+	if (!s)
+	{
+		flag->exit = 1;
+		return (NULL);
+	}
 	if (flag->precision >= 0)
 		s = ft_unicode_str_precision(s, flag);
 	if (flag->width)

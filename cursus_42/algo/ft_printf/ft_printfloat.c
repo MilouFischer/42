@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:58:01 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 15:59:29 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:27:12 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ static char	*ft_print_mentice(char *str)
 	while (str[i])
 	{
 		if (str[i] == '1')
-		{
 			tab = ft_add(tab, pm[i]);
-		}
 		i++;
 	}
 	return (tab);
@@ -121,7 +119,7 @@ char		*ft_printfloat(double f)
 		f *= -1;
 		nb *= -1;
 	}
-	str = ft_strjoin(str, ".");
+	str = ft_join_free(str, ".", 1);
 	f -= nb;
 	while (f && i < 23)
 	{
@@ -129,6 +127,6 @@ char		*ft_printfloat(double f)
 		tab[i++] = (int)f + '0';
 		f -= (int)f;
 	}
-	str = ft_strjoin(str, ft_print_mentice(tab));
+	str = ft_join_free(str, ft_print_mentice(tab), 3);
 	return (str);
 }

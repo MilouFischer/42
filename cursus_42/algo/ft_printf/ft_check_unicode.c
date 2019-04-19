@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 18:47:02 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 18:47:04 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:42:54 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int			ft_check_unicode(char *s, unsigned int c)
 	int				len;
 
 	len = ft_strlen(s);
+	ft_strdel(&s);
 	if (len != 16 && len != 24 && len != 32)
 		return (1);
 	if (len == 16)

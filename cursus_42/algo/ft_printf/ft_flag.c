@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:58:40 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/16 15:38:36 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:47:15 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_init_flag(t_flag *flag)
 	flag->j = 0;
 	flag->z = 0;
 	flag->null = 0;
+	flag->exit = 0;
 }
 
 void	ft_manage_flag(char c, t_flag *flag)

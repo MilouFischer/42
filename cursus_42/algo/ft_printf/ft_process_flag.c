@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:56:32 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/18 13:40:14 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:59:04 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*ft_percent(char c, t_flag *flag)
 	char	*format;
 
 	format = ft_strdup("%");
+	flag->plus = 0;
 	if (flag->width)
 		format = ft_width(c, format, flag);
 	return (format);

@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:32:14 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 16:29:40 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:14:43 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,18 @@ char			*ft_putunicode(wchar_t *ws)
 	unsigned int	c;
 
 	str = NULL;
-	if (!ws)
-		return (NULL);
 	if (!*ws)
 		return (ft_strdup("\0"));
 	while (*ws)
 	{
-		if (*ws > 128 && ft_check_unicode((tmp = ft_itoa_base(*ws, 2)), *ws))
+		c = (wchar_t)*ws;
+		if ((c >= 0xD800 && c <= 0xDFFF) || c > 0x10FFFF)
 		{
-			c = ft_convert_to_unicode(*ws);
-			ft_strdel(&tmp);
+			ft_strdel(&str);
+			return (NULL);
 		}
-		else
-			c = (wchar_t)*ws;
+		if (*ws > 127 && ft_check_unicode(ft_itoa_base(*ws, 2), *ws))
+			c = ft_convert_to_unicode(*ws);
 		tmp = ft_itoa_base_u(c, 16);
 		str = ft_join_free(str, ft_print_unicode(tmp), 3);
 		ft_strdel(&tmp);

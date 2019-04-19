@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:28:28 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/11 19:48:50 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:59:19 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ static void		ft_memjoin_free(t_out *t1, t_tmp *t2)
 	t1->len += t2->len;
 }
 
+static void		ft_check_return(t_out *out, t_tmp *tmp, t_flag *flag)
+{
+	if (flag->exit)
+	{
+		write(1, out->str, out->len);
+		out->len = -1;
+		return ;
+	}
+	tmp->str = ft_strdup("(null)");
+	tmp->len = 6;
+}
+
 static void		ft_get_flags(va_list *arg, t_out *out, t_tmp *tmp, char **str)
 {
 	char	*format;
@@ -37,8 +49,9 @@ static void		ft_get_flags(va_list *arg, t_out *out, t_tmp *tmp, char **str)
 		*str = format;
 		if (!(tmp->str = ft_process_flag(str, arg, &flag)))
 		{
-			tmp->str = ft_strdup("(null)");
-			tmp->len = 6;
+			ft_check_return(out, tmp, &flag);
+			if (out->len == -1)
+				return ;
 		}
 		tmp->len = ft_strlen(tmp->str);
 		if (flag.null && flag.min && flag.width)
@@ -61,6 +74,9 @@ static void		ft_get_out(va_list *arg, t_out *out, char *str)
 	if (!(tmp = (t_tmp*)malloc(sizeof(t_tmp))))
 		return ;
 	ft_get_flags(arg, out, tmp, &str);
+	free(tmp);
+	if (out->len < 0)
+		return ;
 	if (*str)
 	{
 		ft_init_flag(&flag);
@@ -69,7 +85,6 @@ static void		ft_get_out(va_list *arg, t_out *out, char *str)
 		out->len += ft_strlen(str);
 		free(format);
 	}
-	free(tmp);
 }
 
 int				ft_printf(const char *format, ...)
@@ -83,20 +98,19 @@ int				ft_printf(const char *format, ...)
 	if (!(out = (t_out*)malloc(sizeof(t_out))))
 		return (-1);
 	out->len = 0;
+	len = ft_strlen(format);
 	if (ft_strchr(format, '%'))
 	{
 		va_start(arg, format);
 		ft_get_out(&arg, out, (char*)format);
 		va_end(arg);
-		write(1, out->str, out->len);
-		free(out->str);
 		len = out->len;
+		if (len != -1)
+			write(1, out->str, out->len);
+		free(out->str);
 	}
 	else
-	{
 		write(1, format, ft_strlen(format));
-		len = ft_strlen(format);
-	}
 	free(out);
 	return (len);
 }

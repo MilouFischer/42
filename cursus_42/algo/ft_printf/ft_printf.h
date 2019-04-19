@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:27:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/12 17:43:02 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:49:28 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct	s_out
 {
 	void		*str;
-	size_t		len;
+	int			len;
 }				t_out;
 
 typedef struct	s_tmp
@@ -45,6 +45,7 @@ typedef struct	s_flag
 	int			j;
 	int			z;
 	int			null;
+	int			exit;
 }				t_flag;
 
 int				ft_printf(const char *format, ...);

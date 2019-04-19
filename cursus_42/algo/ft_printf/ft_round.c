@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 18:35:09 by efischer          #+#    #+#             */
-/*   Updated: 2019/04/16 15:24:22 by efischer         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:11:50 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ char			*ft_round(char *s, int n)
 	tmp = ft_strsub(s, 0, tmp - s);
 	str = ft_join_free(tmp, str, 3);
 	ft_strdel(&s);
-	return (ft_strdup(str));
+	return (str);
 }
