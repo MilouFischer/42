@@ -1,1 +1,1 @@
-Le fichier /.ssh/id_rsa contient les clees rsa des ordinateurs autorises a se connecter.
+Les cles RSA des machines autorisees a se connecter via ssh se trouvent dans le fichier ~/.ssh/authorized_keys.

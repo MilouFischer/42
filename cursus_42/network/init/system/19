@@ -1,0 +1,5 @@
+apparmor			dbus 			irqbalance 			kmod 			procps 		ssh 	uuid
+console-setup.sh	grub-common 	isc-dhcp-server 	plymouth 		rsync 		udev
+cron				hwclock.sh 		keyboard-setup.sh 	plymouth-log	rsyslog		ufw
+
+On appelle ce type de service des daemons.

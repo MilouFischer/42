@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "a"
+BROADCAST=`ifconfig -a | grep broadcast | cut -d ' ' -f 6`
+echo $BROADCAST
+echo "b"
+ping -c 1 $BROADCAST 1>/dev/null
+arp -a | cut -d \( -f 2 | cut -d \) -f 1

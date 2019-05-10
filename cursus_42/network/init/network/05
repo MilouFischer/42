@@ -1,1 +1,3 @@
-nslookup slash16.org | grep Server | cut -f3
+#!/bin/sh
+
+nslookup slash16.org | grep -i server | cut -d '	' -f 3

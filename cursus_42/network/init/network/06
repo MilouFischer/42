@@ -1,1 +1,1 @@
-L'adresse IP du serveur DNS se trouve dans le fichier /etc/hosts.
+L'adresse IP du serveur DNS se trouve dans le fichier /etc/resolv.conf.

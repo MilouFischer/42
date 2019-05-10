@@ -1,0 +1,21 @@
+#!/bin/sh
+
+VIM=`dpkg --get-selections vim | cut -f 1`
+SSH=`dpkg --get-selections ssh | cut -f 1`
+GCC=`dpkg --get-selections gcc | cut -f 1`
+GIT=`dpkg --get-selections git | cut -f 1`
+if [ -z $VIM ]
+	then sudo apt install vim
+fi
+echo ":syntax on\n:set nu\n:set relativenumber\n:set mouse=a" >> ~/.vimrc
+echo ":set colorcolumn=81\n:set tabstop=4\n:set shiftwidth=4" >> ~/.vimrc
+echo ":set softtabstop=4" >> ~/.vimrc
+if [ -z $SSH ]
+	then sudo apt install ssh
+fi
+if [ -z $GCC ]
+	then sudo apt install gcc
+fi
+if [ -z $GIT ]
+	then sudo apt install git
+fi
