@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base_u.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 16:16:59 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 12:07:09 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 12:07:12 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char	*ft_itoa_base_u(unsigned long long nb, int base)
 {
-	unsigned int	i;
-	int				nbr;
+	size_t	len;
+	char	*str;
 
-	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+	if (base < 2 || base > 16)
+		return (NULL);
+	len = ft_intlen_u(nb, base);
+	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	if (nb == 0)
+		str[0] = '0';
+	str[len--] = '\0';
+	while (nb)
+	{
+		if (nb % base < 10)
+			str[len--] = nb % base + '0';
+		else
+			str[len--] = (nb - 10) % base + 'a';
+		nb /= base;
+	}
+	return (str);
 }

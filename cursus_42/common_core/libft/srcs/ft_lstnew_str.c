@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 16:16:59 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 12:03:44 by efischer          #+#    #+#             */
+/*   Updated: 2019/05/13 16:47:12 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+t_list	*ft_lstnew_str(char const *content, size_t content_size)
 {
-	unsigned int	i;
-	int				nbr;
+	t_list	*list;
 
-	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+	if (!(list = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	list->content_size = 0;
+	if (content == NULL)
+		list->content = NULL;
+	else
+	{
+		if (!(list->content = ft_strdup(content)))
+			free(list);
+		else
+			list->content_size = content_size;
+	}
+	list->next = NULL;
+	return (list);
 }

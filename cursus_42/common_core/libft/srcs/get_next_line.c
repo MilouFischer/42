@@ -6,11 +6,11 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 18:44:56 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 11:28:12 by efischer         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:57:24 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static t_list	*ft_init_list(const int fd)
 {

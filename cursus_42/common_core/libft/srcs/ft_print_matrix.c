@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_print_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 16:16:59 by efischer         ###   ########.fr       */
+/*   Created: 2018/12/03 18:35:57 by efischer          #+#    #+#             */
+/*   Updated: 2019/02/22 17:49:20 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+void	ft_print_matrix(int **matrix, unsigned int x, unsigned int y)
 {
 	unsigned int	i;
-	int				nbr;
+	unsigned int	j;
 
-	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+	if (!matrix)
+		return ;
+	j = 0;
+	while (j < y && matrix[j])
+	{
+		i = 0;
+		while (i < x && matrix[j][i])
+		{
+			ft_putnbr(matrix[j][i++]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+		j++;
+	}
 }

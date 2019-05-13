@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2018/12/03 11:40:22 by efischer         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:00:48 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "struct.h"
 # define BUFF_SIZE 32
 # define FILEL ((t_file *)(list->content))
 # define T_FILEL ((t_file *)(tmp->content))
 
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-typedef struct		s_file
-{
-	char			*rest;
-	char			*cur;
-	int				fd;
-}					t_file;
 int					ft_atoi(const char	*str);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
@@ -66,7 +55,7 @@ void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long n);
 void				*ft_memalloc(size_t size);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_memdel(void **ap);
@@ -112,6 +101,20 @@ int					ft_strcasecmp(const char *s1, const char *s2);
 int					ft_strncasecmp(const char *s1, const char *s2, size_t n);
 char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
+int					get_next_line(const int fd, char **line);
+long long			ft_atoi_base(char *str, int base);
+size_t				ft_intlen(long long nb, int base);
+size_t				ft_intlen_u(unsigned long long nb, int base);
+char				*ft_itoa_base(long long int nb, long long int base);
+char				*ft_itoa_base_u(unsigned long long nb, int base);
+char				*ft_join_free(char *s1, char *s2, int op);
+void				ft_lstfree(t_list *list);
+t_list				*ft_lstnew_str(char const *content, size_t content_size);
+t_list				*ft_lstnew(void const *content, size_t content_size);
+int					ft_lstprint(t_list *lst);
+void				*ft_memjoin(void *s1, void *s2, size_t len1, size_t len2);
+void				ft_print_matrix(int **matrix, unsigned int x, unsigned int y);
+char				*ft_strndup_free(char *s1, size_t n);
 int					get_next_line(const int fd, char **line);
 
 #endif

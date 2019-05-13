@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 16:16:59 by efischer         ###   ########.fr       */
+/*   Created: 2019/04/11 18:57:37 by efischer          #+#    #+#             */
+/*   Updated: 2019/04/11 18:57:40 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+void	*ft_memjoin(void *s1, void *s2, size_t len1, size_t len2)
 {
-	unsigned int	i;
-	int				nbr;
+	void				*dst;
+	unsigned char		*tmp_dst;
+	unsigned const char	*tmp_src;
+	size_t				len;
+	size_t				i;
 
-	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+	len = len1 + len2;
+	dst = ft_memalloc(len);
+	dst = ft_memcpy(dst, s1, len1);
+	tmp_dst = (unsigned char *)dst;
+	tmp_src = (unsigned const char *)s2;
+	i = len1;
+	while (i < len)
+		tmp_dst[i++] = *tmp_src++;
+	return (tmp_dst);
 }

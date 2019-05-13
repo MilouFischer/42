@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstprint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 11:29:51 by efischer          #+#    #+#             */
-/*   Updated: 2018/11/13 14:20:47 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 12:04:54 by efischer          #+#    #+#             */
+/*   Updated: 2019/05/13 16:48:31 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+int		ft_lstprint(t_list *lst)
 {
-	t_list	*new;
-	t_list	*tmp;
+	void	*str;
+	void	*tmp;
+	size_t	len;
 
-	if (!lst || !f)
-		return (NULL);
-	if (!(new = (t_list *)malloc(sizeof(lst))))
-		return (NULL);
-	new = f(lst);
-	tmp = new;
-	while (lst->next)
+	if (!lst)
+		return (0);
+	if (!(str = (void*)malloc(sizeof(char) * (lst->content_size + 1))))
+		return (0);
+	str = ft_memcpy(str, lst->content, lst->content_size);
+	len = lst->content_size;
+	lst = lst->next;
+	while (lst)
 	{
+		tmp = str;
+		str = ft_memjoin(tmp, lst->content, len, lst->content_size);
+		free(tmp);
+		len += lst->content_size;
 		lst = lst->next;
-		if (!(new->next = (t_list *)malloc(sizeof(lst))))
-			return (NULL);
-		new->next = f(lst);
-		new = new->next;
 	}
-	return (tmp);
+	write(1, str, len);
+	free(str);
+	return (len);
 }

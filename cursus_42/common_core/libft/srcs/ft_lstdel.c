@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 19:46:06 by efischer          #+#    #+#             */
-/*   Updated: 2019/05/13 12:17:34 by efischer         ###   ########.fr       */
+/*   Updated: 2018/11/14 12:55:00 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 		tmp = *alst;
 		if ((*alst)->content)
 			del((*alst)->content, (*alst)->content_size);
-		*alst = (*alst)->next;
-		free(tmp);
-		tmp = NULL;
+		free(*alst);
+		*alst = NULL;
+		*alst = tmp->next;
 	}
 	alst = NULL;
 }

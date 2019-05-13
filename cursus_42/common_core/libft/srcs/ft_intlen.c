@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:55 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 16:16:59 by efischer         ###   ########.fr       */
+/*   Created: 2019/03/12 11:56:55 by efischer          #+#    #+#             */
+/*   Updated: 2019/03/12 11:56:57 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+size_t	ft_intlen(long long nb, int base)
 {
-	unsigned int	i;
-	int				nbr;
+	size_t	i;
 
 	i = 0;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (str[i] == '-' || str[i] == '+')
+	if (nb < 0)
+	{
 		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		nbr = str[i++] - '0' + nbr * 10;
-	return (str[0] == '-' ? -nbr : nbr);
+		nb *= -1;
+	}
+	else if (nb == 0)
+		return (1);
+	while (nb)
+	{
+		nb /= base;
+		i++;
+	}
+	return (i);
 }

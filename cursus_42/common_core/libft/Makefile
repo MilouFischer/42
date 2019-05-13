@@ -6,13 +6,35 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2019/05/13 15:25:42 by efischer         ###   ########.fr        #
+#    Updated: 2019/05/13 17:01:32 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
+
+#=====================================HEAD======================================
+
 INCLUDES = includes/
+HEAD += libft.h
+HEAD += struct.h
 IFLAGS = -I
+
+#=====================================PATH======================================
+
+PATHS += srcs/
+PATHO += objs/
+PATHI += includes/
+
+#====================================COMPILE====================================
+
+CC = clang
+CFLAGS += -Wall
+CFLAGS += -Wextra
+CFLAGS += -Werror
+COMPILE += $(CC) -c
+
+#=====================================SRCS======================================
+
 SRCS += ft_atoi.c
 SRCS += ft_isalnum.c
 SRCS += ft_isascii.c
@@ -92,24 +114,33 @@ SRCS += ft_strcasecmp.c
 SRCS += ft_strncasecmp.c
 SRCS += ft_strcasestr.c
 SRCS += ft_strcapitalize.c
-PATHS += srcs/
-PATHO += objs/
+SRCS += ft_atoi_base.c
+SRCS += ft_intlen.c
+SRCS += ft_intlen_u.c
+SRCS += ft_itoa_base.c
+SRCS += ft_itoa_base_u.c
+SRCS += ft_join_free.c
+SRCS += ft_lstfree.c
+SRCS += ft_lstnew_str.c
+SRCS += ft_lstnew_void.c
+SRCS += ft_lstprint.c
+SRCS += ft_memjoin.c
+SRCS += ft_print_matrix.c
+SRCS += ft_strndup_free.c
+SRCS += get_next_line.c
+
 OBJS = $(patsubst %.c, $(PATHO)%.o, $(SRCS))
-CC = clang
-CFLAGS += -Wall
-CFLAGS += -Wextra
-CFLAGS += -Werror
 
 vpath %.c $(PATHS)
+vpath %.h $(PATHI)
 
 all: $(NAME)
 
-
-$(NAME): $(PATHO) $(OBJS)
+$(NAME): $(PATHO) $(OBJS) $(HEAD)
 	ar -rcs $(NAME) $(OBJS)
 
 $(OBJS): $(PATHO)%.o: %.c
-	$(CC) $(CFLAGS) -c $<  $(IFLAGS) $(INCLUDES) -o $@
+	$(COMPILE) $(CFLAGS) $< $(IFLAGS) $(INCLUDES) -o $@
 
 $(PATHO):
 	mkdir $@
