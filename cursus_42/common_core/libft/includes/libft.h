@@ -1,4 +1,4 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
@@ -6,16 +6,15 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2019/03/15 13:27:35 by efischer         ###   ########.fr       */
+/*   Updated: 2018/12/03 11:40:22 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_LIBFT_H
+# define FT_LIBFT_H
 
 # include <stdlib.h>
 # include <unistd.h>
-
 # define BUFF_SIZE 32
 # define FILEL ((t_file *)(list->content))
 # define T_FILEL ((t_file *)(tmp->content))
@@ -26,14 +25,12 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
 typedef struct		s_file
 {
 	char			*rest;
 	char			*cur;
 	int				fd;
 }					t_file;
-
 int					ft_atoi(const char	*str);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
@@ -69,7 +66,7 @@ void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
-char				*ft_itoa(long long n);
+char				*ft_itoa(int n);
 void				*ft_memalloc(size_t size);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_memdel(void **ap);
@@ -116,17 +113,5 @@ int					ft_strncasecmp(const char *s1, const char *s2, size_t n);
 char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcapitalize(char *str);
 int					get_next_line(const int fd, char **line);
-void				ft_print_matrix(int	**matrix, unsigned int x, unsigned int y);
-char				*ft_itoa_base(long long int nb, long long int base);
-long long			ft_atoi_base(char *str, int base);
-char				*ft_putunicode(wchar_t *u);
-int					ft_check_unicode(char *s, unsigned int c);
-unsigned int		ft_convert_to_unicode(unsigned int nb);
-char				*ft_join_free(char *s1, char *s2, int op);
-void				ft_free_matrix(int **matrix, unsigned int x);
-void				ft_free_tab(char **tmp);
-char				*ft_itoa_base_u(unsigned long long nb, int base);
-size_t				ft_intlen(long long nb, int base);
-size_t				ft_intlen_u(unsigned long long nb, int base);
 
 #endif

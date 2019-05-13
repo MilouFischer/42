@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 19:15:52 by efischer          #+#    #+#             */
-/*   Updated: 2018/11/21 19:33:24 by efischer         ###   ########.fr       */
+/*   Updated: 2018/11/14 11:19:18 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 			free(list);
 			return (NULL);
 		}
-		list->content = (void *)ft_memcpy((char *)list->content,
+		list->content = (void *)ft_strncpy((char *)list->content,
 						(const char *)content, content_size);
 		list->content_size = content_size;
 	}

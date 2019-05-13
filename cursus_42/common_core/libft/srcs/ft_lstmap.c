@@ -6,11 +6,19 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 11:29:51 by efischer          #+#    #+#             */
-/*   Updated: 2018/11/13 14:20:47 by efischer         ###   ########.fr       */
+/*   Updated: 2019/05/13 12:17:33 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	ft_del(void	*content, size_t content_size)
+{
+	(void)content_size;
+	if (content)
+		return ;
+	free(content);
+}
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
@@ -19,15 +27,18 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 
 	if (!lst || !f)
 		return (NULL);
-	if (!(new = (t_list *)malloc(sizeof(lst))))
+	if (!(new = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
 	new = f(lst);
 	tmp = new;
 	while (lst->next)
 	{
 		lst = lst->next;
-		if (!(new->next = (t_list *)malloc(sizeof(lst))))
+		if (!(new->next = (t_list *)malloc(sizeof(t_list))))
+		{
+			ft_lstdel(&tmp, ft_del);
 			return (NULL);
+		}
 		new->next = f(lst);
 		new = new->next;
 	}
