@@ -6,7 +6,7 @@
 #    By: efischer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:59:56 by efischer          #+#    #+#              #
-#    Updated: 2019/05/13 17:01:32 by efischer         ###   ########.fr        #
+#    Updated: 2019/05/13 18:03:08 by efischer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,18 @@ NAME = libft.a
 
 #=====================================HEAD======================================
 
-INCLUDES = includes/
+INCLUDES += includes/
 HEAD += libft.h
 HEAD += struct.h
+HEAD += ft_printf.h
 IFLAGS = -I
 
 #=====================================PATH======================================
 
-PATHS += srcs/
+#PATHS += srcs/libft
+#PATHS += srcs/ft_printf/
 PATHO += objs/
-PATHI += includes/
+PATHI += $(INCLUDES)
 
 #====================================COMPILE====================================
 
@@ -34,6 +36,8 @@ CFLAGS += -Werror
 COMPILE += $(CC) -c
 
 #=====================================SRCS======================================
+
+#////////////LIBFT////////////
 
 SRCS += ft_atoi.c
 SRCS += ft_isalnum.c
@@ -129,9 +133,36 @@ SRCS += ft_print_matrix.c
 SRCS += ft_strndup_free.c
 SRCS += get_next_line.c
 
+#////////////FT_PRINTF////////////
+
+SRCS += ft_printf.c
+SRCS += ft_manage_conv.c
+SRCS += ft_util.c
+SRCS += ft_flag.c
+SRCS += ft_printfloat.c
+SRCS += ft_manage_str.c
+SRCS += ft_diouxx.c
+SRCS += ft_long_diouxx.c
+SRCS += ft_manage_p.c
+SRCS += ft_width_precision.c
+SRCS += ft_process_flag.c
+SRCS += ft_printfloat.c
+SRCS += ft_putunicode.c
+SRCS += ft_check_unicode.c
+SRCS += ft_convert_to_unicode.c
+SRCS += ft_manage_unicode.c
+SRCS += ft_round.c
+SRCS += ft_printfloat.c
+SRCS += ft_check_unicode.c
+SRCS += ft_putunicode.c
+SRCS += ft_convert_to_unicode.c
+
+#=====================================OBJS======================================
+
 OBJS = $(patsubst %.c, $(PATHO)%.o, $(SRCS))
 
-vpath %.c $(PATHS)
+vpath %.c srcs/libft/
+vpath %.c srcs/ft_printf/
 vpath %.h $(PATHI)
 
 all: $(NAME)

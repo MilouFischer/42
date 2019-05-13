@@ -6,7 +6,7 @@
 /*   By: efischer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:34:36 by efischer          #+#    #+#             */
-/*   Updated: 2019/05/13 17:00:48 by efischer         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:01:46 by efischer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "struct.h"
+# include "ft_printf.h"
 # define BUFF_SIZE 32
 # define FILEL ((t_file *)(list->content))
 # define T_FILEL ((t_file *)(tmp->content))
